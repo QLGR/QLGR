@@ -14,6 +14,8 @@ namespace QuanLiGara
 {
     public partial class Form1 : Office2007RibbonForm
     {
+        public static String username;
+        public static String loai;
         public Form1()
         {
             InitializeComponent();
@@ -27,9 +29,15 @@ namespace QuanLiGara
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'quanLiGaraXeDataSet.BAOCAODOANHSO' table. You can move, or remove it, as needed.
-            
+            enable();
+        }
 
-
+        void enable()
+        {
+            if (loai == "admin")
+            {
+                buttonItem9.Enabled = true;
+            }
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -106,13 +114,48 @@ namespace QuanLiGara
         private void buttonItem7_Click(object sender, EventArgs e)
         {
             Form_Config frm = new Form_Config();
-            frm.Show();
+            frm.ShowDialog();
         }
 
-        private void buttonItem7_Click_1(object sender, EventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Form_Config frm = new Form_Config();
-            frm.Show();
+            Application.Exit();
+        }
+
+        private void buttonItem11_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc chắn muốn thoát không ?", "Thoát", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void buttonItem8_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không ?", "Đăng xuất", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Hide();
+                Form_Login n = new Form_Login();
+                n.Show();
+            }
+        }
+
+        private void buttonItem10_Click(object sender, EventArgs e)
+        {
+            Form_Changepass n = new Form_Changepass();
+            n.ShowDialog();
+        }
+
+        private void buttonItem9_Click(object sender, EventArgs e)
+        {
+            Form_Account form = new Form_Account();
+            form.Show();
+        }
+
+        private void buttonItem13_Click(object sender, EventArgs e)
+        {
+            Form_About n = new Form_About();
+            n.ShowDialog();
         }
     }
 }
