@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.sql;
 namespace QuanLiGara
 {
     public partial class Form_PhieuSuaChua : Office2007Form
@@ -33,90 +34,57 @@ namespace QuanLiGara
             }
 
         }
+        Connection db = new Connection();
+        PhieuSuaChuasql pscsql = new PhieuSuaChuasql();
+        phieusuachua PSC = new phieusuachua();
+
+
 
         SqlConnection sql = new SqlConnection();
         public Form_PhieuSuaChua()
         {
             InitializeComponent();
         }
-        public void ConnectDatabase(SqlConnection sql)
-        {
-            string[] lines = File.ReadAllLines("Server.txt");
 
-            string s = lines[0];
-            if (sql.State != ConnectionState.Open)
-            {
-                sql.ConnectionString = "Data Source=" + s + ";Initial Catalog=QLGR;Integrated Security=True";
-                sql.Open();
-            }
-
-        }
-        public void CloseDatabase(SqlConnection sql)
-        {
-            sql.Close();
-        }
         public void loadbang(SqlConnection sql)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,VATTU.DonGia,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,VATTU.DonGia,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong");
+
             dtGV_danhsachSuaChua.DataSource = dt;
-            CloseDatabase(sql);
+
 
         }
         public void loadbienso(SqlConnection sql)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM HOSOSUACHUA";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("SELECT * FROM HOSOSUACHUA");
             foreach (DataRow dr in dt.Rows)
             {
                 cbBox_bienso.Items.Add(dr["BienSo"].ToString());
             }
-            CloseDatabase(sql);
 
 
         }
         public void loadvattu(SqlConnection sql)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM VATTU";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("Select * from VATTU");
             foreach (DataRow dr in dt.Rows)
             {
                 cbBoc_vattu.Items.Add(dr["TenVatTu"].ToString());
             }
-            CloseDatabase(sql);
-
 
         }
         public void loadtiencong(SqlConnection sql)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM TIENCONG";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
+
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("Select * from TIENCONG");
             foreach (DataRow dr in dt.Rows)
             {
                 cbBox_tiencong.Items.Add(dr["TenCongViec"].ToString());
             }
-            CloseDatabase(sql);
-
 
         }
         private void Form_PhieuSuaChua_Load(object sender, EventArgs e)
@@ -128,14 +96,8 @@ namespace QuanLiGara
         }
         public string mahssc(SqlConnection sql, String bienso)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM HOSOSUACHUA";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            CloseDatabase(sql);
+            dt = db.getDS("select * from HOSOSUACHUA");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["BienSo"].ToString() == bienso)
@@ -148,34 +110,21 @@ namespace QuanLiGara
         }
         public string mavt(SqlConnection sql, String ten)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM VATTU";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            CloseDatabase(sql);
+            dt = db.getDS("Select * from VATTU");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenVatTu"].ToString() == ten)
                     return dr["MaVatTu"].ToString();
 
             }
-
-
             return "";
         }
         public string matc(SqlConnection sql, String ten)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM TIENCONG";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            CloseDatabase(sql);
+            dt = db.getDS("Select * from TIENCONG");
+
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenCongViec"].ToString() == ten)
@@ -188,14 +137,8 @@ namespace QuanLiGara
         }
         public double tienno(SqlConnection sql, string mahssc)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM DANHSACHXE";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
+            dt = db.getDS("Select * from DANHSACHXE");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["MaHSSC"].ToString() == mahssc)
@@ -207,13 +150,8 @@ namespace QuanLiGara
         }
         public string loadngaytiepnhan(SqlConnection sql, string xe)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM HOSOSUACHUA";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("Select * from HOSOSUACHUA");
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -224,65 +162,54 @@ namespace QuanLiGara
 
             return "";
         }
+
+
+        public PhieuSuaChuasql GetData()
+        {
+            PhieuSuaChuasql sql1 = new PhieuSuaChuasql();
+            sql1.MaPSC = tbxMaPhieu.Text;
+            sql1.NoiDung = Text_noidung.Text;
+            sql1.MaVatTu = mavt(sql, cbBoc_vattu.Text);
+            sql1.SoLuong = Text_soluong.Text;
+            sql1.MaTienCong = matc(sql, cbBox_tiencong.Text);
+            sql1.ThanhTien = Text_thanhtien.Text;
+            sql1.MaHSSC = mahssc(sql, cbBox_bienso.Text);
+            sql1.NgaySuaChua = DateTime.Parse(Date_ngaysuachua.Text);
+            return sql1;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            string mhssc = mahssc(sql, cbBox_bienso.Text);
-            MessageBox.Show(loadngaytiepnhan(sql, cbBox_bienso.Text));
-            ConnectDatabase(sql);
+            foreach (Control tb in this.groupPanel1.Controls)
+            {
+                if ((tb is ComboBox || tb is TextBox) && tb.Text == "")
+                {
+                    MessageBox.Show("Dữ liệu nhập không đầy đủ yêu cầu nhập lại!");
+                    return;
+                }
+            }
             try
             {
-
-                SqlCommand command = sql.CreateCommand();
-                if (Date_ngaysuachua.Value < DateTime.Parse(loadngaytiepnhan(sql, cbBox_bienso.Text)))
+                if (PSC.Sua(GetData()))
                 {
-                    MessageBox.Show("Ngày sữa chữa không thể trước ngày tiếp nhận xe");
+                    MessageBox.Show("Cập Nhật phiếu sửa chữa thành công!");
+
                 }
                 else
-                {
-                    command.CommandText = "Insert INTO PHIEUSUACHUA (MaPhieuSC,NoiDung,MaVatTu,SoLuong,MaTienCong,ThanhTien,MaHSSC,NgaySuaChua) VALUES (@MaPhieuSC,@NoiDung,@MaVatTu,@SoLuong,@MaTienCong,@ThanhTien,@MaHSSC,@NgaySuaChua)";
-                    command.Parameters.Add("@MaPhieuSC", SqlDbType.NChar).Value = Text_soluong.Text + mavt(sql, cbBoc_vattu.Text);
-                    command.Parameters.Add("@NoiDung", SqlDbType.NChar).Value = Text_noidung.Text;
-                    command.Parameters.Add("@MaVatTu", SqlDbType.NChar).Value = mavt(sql, cbBoc_vattu.Text);
-                    command.Parameters.Add("@SoLuong", SqlDbType.Int).Value = Text_soluong.Text;
-                    command.Parameters.Add("@MaTienCong", SqlDbType.VarChar).Value = matc(sql, cbBox_tiencong.Text);
-                    command.Parameters.Add("@ThanhTien", SqlDbType.Money).Value = Text_thanhtien.Text;
-                    command.Parameters.Add("@MaHSSC", SqlDbType.VarChar).Value = mhssc;
-                    DateTime date = DateTime.Parse(Date_ngaysuachua.Text);
-                    command.Parameters.Add("@NgaySuaChua", SqlDbType.Date).Value = date;
-
-                    SqlCommand command1 = sql.CreateCommand();
-                    command1.CommandText = "Update DANHSACHXE SET TienNo=@TienNo WHERE MaHSSC=@MaHSSC";
-                    double sum = 0;
-                    sum = Double.Parse(Text_thanhtien.Text) + tienno(sql, mhssc);
-                    command1.Parameters.Add("@TienNo", SqlDbType.Money).Value = sum;
-                    command1.Parameters.Add("@MaHSSC", SqlDbType.VarChar).Value = mhssc;
-                    command1.ExecuteNonQuery();
-                    command.ExecuteNonQuery();
-                    CloseDatabase(sql);
-
-                }
-
+                    if (PSC.Them(GetData()))
+                    {
+                        MessageBox.Show("Lập phiếu sửa chữa thành công!");
+                    }
+                loadbang(sql);
+                dtGV_danhsachSuaChua.Refresh();
+                SetEnable(false);
             }
-            catch (Exception c)
-            {
-                MessageBox.Show(c.ToString());
-            }
+            catch { MessageBox.Show("Coi Lại Dữ Liệu Đã Nhập!"); }
 
-            loadbang(sql);
-            dtGV_danhsachSuaChua.Update();
-            dtGV_danhsachSuaChua.Refresh();
-            CloseDatabase(sql);
         }
-
         private void vattu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM VATTU";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("select * from VATTU");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenVatTu"].ToString() == cbBoc_vattu.SelectedItem.ToString())
@@ -291,7 +218,7 @@ namespace QuanLiGara
                     Text_dongia.Text = don.ToString("#,###,###.##");
                 }
             }
-            CloseDatabase(sql);
+
 
             if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
             {
@@ -302,13 +229,8 @@ namespace QuanLiGara
 
         private void tiencong_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM TIENCONG";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("select * from TIENCONG");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenCongViec"].ToString() == cbBox_tiencong.SelectedItem.ToString())
@@ -317,53 +239,50 @@ namespace QuanLiGara
                     Text_tiencong.Text = tien.ToString("#,###,###.##");
                 }
             }
-            CloseDatabase(sql);
 
             if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
             {
                 double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
                 Text_thanhtien.Text = sum.ToString("#,###,###.##");
             }
-        }
-
-        private void txttiencong_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dongia_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void soluong_TextChanged(object sender, EventArgs e)
         {
-            if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
+            int i;
+            if ((Text_dongia.Text != "") && Text_soluong.Text != "" && (Text_tiencong.Text != ""))
             {
-                double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
-                Text_thanhtien.Text = sum.ToString("#,###,###.##");
+                if (int.TryParse(Text_soluong.Text, out i) && int.Parse(Text_soluong.Text) > -1)
+                {
+                    double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
+                    Text_thanhtien.Text = sum.ToString("#,###,###.##");
+                }
+                else
+                    MessageBox.Show("Số Lượng phải là số nguyên lớn hơn 0");
             }
+            else
+                if (Text_soluong.Text != "")
+                    MessageBox.Show("Số Lượng phải là số nguyên lớn hơn 0");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             string hssc = mahssc(sql, cbBox_bienso.Text);
-            ConnectDatabase(sql);
             try
             {
 
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "DELETE FROM PHIEUSUACHUA WHERE MaPhieuSC=@BienSo";
-                command.Parameters.Add("@BienSo", SqlDbType.NChar).Value = dtGV_danhsachSuaChua[0, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                command.ExecuteNonQuery();
-                SqlCommand command1 = sql.CreateCommand();
-                command1.CommandText = "Update DANHSACHXE SET TienNo=@TienNo WHERE MaHSSC=@MaHSSC";
-                double sum;
-                sum = tienno(sql, dtGV_danhsachSuaChua[6, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString()) - Double.Parse(Text_thanhtien.Text);
-                command1.Parameters.Add("@TienNo", SqlDbType.Money).Value = sum;
-                command1.Parameters.Add("@MaHSSC", SqlDbType.VarChar).Value = dtGV_danhsachSuaChua[6, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                command1.ExecuteNonQuery();
-                MessageBox.Show("Đã xóa thành công");
+                if (PSC.Xoa(tbxMaPhieu.Text))
+                {
+                    MessageBox.Show("Đã xóa thành công");
+
+                    double sum;
+                    sum = tienno(sql, cbBox_bienso.Text) - Double.Parse(Text_thanhtien.Text);
+                    db.getDS("Update DANHSACHXE SET TienNo='" + sum + "' WHERE MaHSSC='" + cbBox_bienso.Text + "'");
+                }
+                else
+                {
+                    MessageBox.Show("Không thể xóa. Vui lòng kiểm tra lại.");
+                }
 
 
 
@@ -372,116 +291,34 @@ namespace QuanLiGara
             {
                 MessageBox.Show(c.ToString());
             }
-            CloseDatabase(sql);
             loadbang(sql);
             dtGV_danhsachSuaChua.Update();
             dtGV_danhsachSuaChua.Refresh();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            try
-            {
 
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "UPDATE PHIEUSUACHUA SET NoiDung=@NoiDung WHERE MaPhieuSC=@MaPhieuSC";
-                command.Parameters.Add("@NoiDung", SqlDbType.VarChar).Value = Text_noidung.Text;
-                command.Parameters.Add("@MaPhieuSC", SqlDbType.NChar).Value = dtGV_danhsachSuaChua[0, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                command.ExecuteNonQuery();
-                CloseDatabase(sql);
-                MessageBox.Show("Đã cập nhật phiếu sửa chữa cho xe - Bien so " + cbBox_bienso.Text);
-                loadbang(sql);
-                dtGV_danhsachSuaChua.Update();
-                dtGV_danhsachSuaChua.Refresh();
-            }
-            catch (Exception c)
-            {
-                MessageBox.Show(c.ToString());
-            }
+
+
+        private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+            int RowIndex = e.RowIndex;
+            tbxMaPhieu.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["MaPhieuSC"].Value.ToString();
+            Text_dongia.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["DonGia"].Value.ToString();
+            cbBoc_vattu.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["TenVatTu"].Value.ToString();
+            cbBox_tiencong.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["TenCongViec"].Value.ToString();
+            Text_soluong.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["SoLuong"].Value.ToString();
+            Text_thanhtien.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["ThanhTien"].Value.ToString();
+            Text_tiencong.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["TienCong"].Value.ToString();
+            cbBox_bienso.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["MaHSSC"].Value.ToString();
+            Text_noidung.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["NoiDung"].Value.ToString();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,VATTU.DonGia,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong WHERE MaHSSC=@MaHSSC ";
-            command.Parameters.Add("@MaHSSC", SqlDbType.NChar).Value = mahssc(sql, cbBox_bienso.Text);
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dtGV_danhsachSuaChua.DataSource = dt;
-            CloseDatabase(sql);
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,VATTU.DonGia,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            if (dtGV_danhsachSuaChua.CurrentRow.Index < dtGV_danhsachSuaChua.RowCount - 1)
-            {
-                Text_noidung.Text = dtGV_danhsachSuaChua[1, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                Text_dongia.Text = dtGV_danhsachSuaChua[9, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                cbBoc_vattu.Text = dtGV_danhsachSuaChua[8, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                cbBox_tiencong.Text = dtGV_danhsachSuaChua[10, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                Text_soluong.Text = dtGV_danhsachSuaChua[3, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                Text_thanhtien.Text = dtGV_danhsachSuaChua[5, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                Text_tiencong.Text = dtGV_danhsachSuaChua[11, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-            }
-            CloseDatabase(sql);
-        }
-
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,VATTU.DonGia,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            if (dtGV_danhsachSuaChua.CurrentRow.Index < dtGV_danhsachSuaChua.RowCount - 1)
-            {
-                Text_noidung.Text = dtGV_danhsachSuaChua[1, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                Text_dongia.Text = dtGV_danhsachSuaChua[9, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                cbBoc_vattu.Text = dtGV_danhsachSuaChua[8, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                cbBox_tiencong.Text = dtGV_danhsachSuaChua[10, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                Text_soluong.Text = dtGV_danhsachSuaChua[3, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                Text_thanhtien.Text = dtGV_danhsachSuaChua[5, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-                Text_tiencong.Text = dtGV_danhsachSuaChua[11, dtGV_danhsachSuaChua.CurrentRow.Index].Value.ToString();
-            }
-            CloseDatabase(sql);
-        }
-
-        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,VATTU.DonGia,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong WHERE MaHSSC=@MaHSSC ";
-            command.Parameters.Add("@MaHSSC", SqlDbType.NChar).Value = mahssc(sql, cbBox_bienso.Text);
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dtGV_danhsachSuaChua.DataSource = dt;
-            CloseDatabase(sql);
-        }
 
         private void vattu_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM VATTU";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("Select * from VATTU");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenVatTu"].ToString() == cbBoc_vattu.SelectedItem.ToString())
@@ -490,7 +327,7 @@ namespace QuanLiGara
                     Text_dongia.Text = don.ToString("#,###,###.##");
                 }
             }
-            CloseDatabase(sql);
+
 
             if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
             {
@@ -501,13 +338,9 @@ namespace QuanLiGara
 
         private void tiencong_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM TIENCONG";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
+
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("SELECT * FROM TIENCONG");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenCongViec"].ToString() == cbBox_tiencong.SelectedItem.ToString())
@@ -516,7 +349,6 @@ namespace QuanLiGara
                     Text_tiencong.Text = tien.ToString("#,###,###.##");
                 }
             }
-            CloseDatabase(sql);
 
             if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
             {
@@ -525,17 +357,42 @@ namespace QuanLiGara
             }
         }
 
-        private void soluong_TextChanged_1(object sender, EventArgs e)
-        {
-            if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
-            {
-                double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
-                Text_thanhtien.Text = sum.ToString("#,###,###.##");
-            }
-        }
 
         private void groupPanel1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            SetEnable(true);
+            Text_dongia.Text = "0";
+            Text_soluong.Text = "0";
+            Text_thanhtien.Text = "0";
+            Text_tiencong.Text = "0";
+            Text_noidung.Text = "";
+            cbBoc_vattu.SelectedIndex = 0;
+            cbBox_tiencong.SelectedItem = 0;
+            tbxMaPhieu.Text = PSC.SearchDaTaGrid();
+
+        }
+
+
+        public void SetEnable(bool a)
+        {
+            Text_noidung.ReadOnly = !a;
+            Text_soluong.ReadOnly = !a;
+            btnXoa.Enabled = !a;
+            btnSua.Enabled = !a;
+            btnLuu.Enabled = a;
+            btnThem.Enabled = !a;
+            dtGV_danhsachSuaChua.Enabled = !a;
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            GetData();
+            SetEnable(true);
 
         }
     }
