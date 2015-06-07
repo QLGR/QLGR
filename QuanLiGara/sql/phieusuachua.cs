@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using DevComponents.DotNetBar;
+using System.Runtime.InteropServices;
+using System.IO;
+namespace QuanLiGara.sql
+{
+
+    public class phieusuachua
+    {
+        Connection db = new Connection();
+        public bool Them(PhieuSuaChuasql psc)
+        {
+            
+            string[] param = {"@MaPhieuSC", "@NoiDung", "@MaVatTu", "@SoLuong", "@MaTienCong", "@ThanhTien", "@MaHSSC", "@NgaySuaChua"};
+            object[] value = { psc.MaPSC, psc.NoiDung, psc.MaVatTu, psc.SoLuong, psc.MaTienCong, psc.ThanhTien, psc.MaHSSC, psc.NgaySuaChua};
+            string query = "Insert INTO PHIEUSUACHUA (MaPhieuSC,NoiDung,MaVatTu,SoLuong,MaTienCong,ThanhTien,MaHSSC,NgaySuaChua) " +
+                                                "VALUES (@MaPhieuSC,@NoiDung,@MaVatTu,@SoLuong,@MaTienCong,@ThanhTien,@MaHSSC,@NgaySuaChua)";
+            return db.ExecuteNonQueryPara(query, param, value);
+        }
+
+        public bool Sua(PhieuSuaChuasql psc)
+        {
+            string[] param = { "@MaPhieuSC", "@NoiDung", "@MaVatTu", "@SoLuong", "@MaTienCong", "@ThanhTien", "@MaHSSC", "@NgaySuaChua" };
+            object[] value = { psc.MaPSC, psc.NoiDung, psc.MaVatTu, psc.SoLuong, psc.MaTienCong, psc.ThanhTien, psc.MaHSSC, psc.NgaySuaChua };
+            string query = "Update PHIEUSUACHUA set NoiDung = @NoiDung,MaVatTu = @MaVatTu,SoLuong = @SoLuong,"+
+                                    "MaTienCong = @MaTienCong,ThanhTien = @ThanhTien,MaHSSC = @MaHSSC,NgaySuaChua = @NgaySuaChua"+
+                                    " where MaPhieuSC = @MaPhieuSC";
+            return db.ExecuteNonQueryPara(query, param, value);
+        }
+
+        public bool Xoa(string MaPSC)
+        {
+            string[] param = { "@MaPhieuSC" };
+            object[] value = { MaPSC };
+            string query = "Delete from PHIEUSUACHUA where MaPhieuSC=@MaPhieuSC";
+            return db.ExecuteNonQueryPara(query, param, value);
+        }
+
+
+        public string SearchDaTaGrid()
+        {
+            int Count = 0;
+            string MaPSC = "";
+            DataTable dt = new DataTable();//tao bang tam de luu
+            dt = db.getDS("Select MaPhieuSC From PHIEUSUACHUA");
+            for (int i = 1; true; i++)
+            {
+                for (int j = 0; j < dt.Rows.Count; j++)
+                {
+                    string s = "PSC" + i;
+                    string spsc = dt.Rows[j]["MaPhieuSC"].ToString();
+                    if (!spsc.Equals(s))
+                    {
+                        Count++;//dem so lan khac
+                    }
+                    else
+                    {
+                        Count = 0;
+                        break;
+                    }
+                }
+                if (Count == dt.Rows.Count)// new so lan khac bang so hang cua bang, nghia la khong co dong nao trung thi tu dong add
+                {
+                    MaPSC = "PSC" + i;
+                    break;
+                }
+            }
+            return MaPSC;
+        }
+    }
+
+}
+public class PhieuSuaChuasql
+{
+    public string MaPSC = "";
+    public string NoiDung = "";
+    public string MaVatTu = "";
+    public string SoLuong = "";
+    public string MaTienCong = "";
+    public string ThanhTien = "";
+    public string MaHSSC = "";
+    public DateTime NgaySuaChua = new DateTime(2015,6,6);
+}
