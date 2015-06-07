@@ -54,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnThem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
+            this.btnHuy = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachSuaChua)).BeginInit();
             this.groupPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -82,9 +83,9 @@
             // btnLuu
             // 
             this.btnLuu.AutoSize = true;
-            this.btnLuu.Location = new System.Drawing.Point(577, 560);
+            this.btnLuu.Location = new System.Drawing.Point(586, 560);
             this.btnLuu.Name = "btnLuu";
-            this.btnLuu.Size = new System.Drawing.Size(46, 46);
+            this.btnLuu.Size = new System.Drawing.Size(74, 29);
             this.btnLuu.TabIndex = 18;
             this.btnLuu.Text = "Lưu";
             this.btnLuu.UseVisualStyleBackColor = true;
@@ -93,9 +94,9 @@
             // btnXoa
             // 
             this.btnXoa.AutoSize = true;
-            this.btnXoa.Location = new System.Drawing.Point(467, 560);
+            this.btnXoa.Location = new System.Drawing.Point(464, 560);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(46, 46);
+            this.btnXoa.Size = new System.Drawing.Size(74, 29);
             this.btnXoa.TabIndex = 20;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
@@ -341,9 +342,9 @@
             // btnThem
             // 
             this.btnThem.AutoSize = true;
-            this.btnThem.Location = new System.Drawing.Point(269, 560);
+            this.btnThem.Location = new System.Drawing.Point(204, 560);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(46, 46);
+            this.btnThem.Size = new System.Drawing.Size(74, 29);
             this.btnThem.TabIndex = 22;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
@@ -352,13 +353,24 @@
             // btnSua
             // 
             this.btnSua.AutoSize = true;
-            this.btnSua.Location = new System.Drawing.Point(369, 560);
+            this.btnSua.Location = new System.Drawing.Point(335, 560);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(46, 46);
+            this.btnSua.Size = new System.Drawing.Size(74, 29);
             this.btnSua.TabIndex = 23;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
+            // 
+            // btnHuy
+            // 
+            this.btnHuy.AutoSize = true;
+            this.btnHuy.Location = new System.Drawing.Point(709, 560);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(74, 29);
+            this.btnHuy.TabIndex = 22;
+            this.btnHuy.Text = "Hủy";
+            this.btnHuy.UseVisualStyleBackColor = true;
+            this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
             // 
             // Form_PhieuSuaChua
             // 
@@ -367,6 +379,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(912, 614);
             this.Controls.Add(this.btnSua);
+            this.Controls.Add(this.btnHuy);
             this.Controls.Add(this.btnThem);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.btnXoa);
@@ -414,5 +427,6 @@
         private System.Windows.Forms.Label lbMaPhieu;
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.Button btnSua;
+        private System.Windows.Forms.Button btnHuy;
     }
 }

@@ -385,6 +385,7 @@ namespace QuanLiGara
             btnXoa.Enabled = !a;
             btnSua.Enabled = !a;
             btnLuu.Enabled = a;
+            btnHuy.Enabled = a;
             btnThem.Enabled = !a;
             dtGV_danhsachSuaChua.Enabled = !a;
         }
@@ -394,6 +395,11 @@ namespace QuanLiGara
             GetData();
             SetEnable(true);
 
+        }
+
+        private void btnHuy_Click(object sender, EventArgs e)
+        {
+            SetEnable(false);
         }
     }
 }
