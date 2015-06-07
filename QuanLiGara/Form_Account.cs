@@ -50,7 +50,7 @@ namespace QuanLiGara
             use = null;
             txtUser.Text = "";
             txtPass.Text = "";
-            cboQuyen.SelectedItem = 1;
+            cboQuyen.Text = "nv";
             enable(true);
         }
 
@@ -123,14 +123,14 @@ namespace QuanLiGara
                 if (use != null)
                 {
                     if ( txtPass.Text == "")
-                        db.getDS("Update Account set Username='" + txtUser.Text + "', Loai = '" + cboQuyen.Text + "' where Username='" + use + "'");
+                        db.getDS("Update Account set Username='" + txtUser.Text + "', Loai = '" + cboQuyen.SelectedItem.ToString() + "' where Username='" + use + "'");
                     else
-                        db.getDS("Update Account set Username='" + txtUser.Text + "', Password ='" + txtPass.Text + "', Loai = '" + cboQuyen.Text + "' where Username='" + use + "'");
+                        db.getDS("Update Account set Username='" + txtUser.Text + "', Password ='" + txtPass.Text + "', Loai = '" + cboQuyen.SelectedItem.ToString() + "' where Username='" + use + "'");
                     MessageBox.Show("Cập nhật thành công");
                 }
                 else
                 {
-                    db.getDS("Insert Account values ('" + txtUser.Text + "','" + txtPass.Text + "','" + cboQuyen.Text + "')");
+                    db.getDS("Insert Account values ('" + txtUser.Text + "','" + txtPass.Text + "','" + cboQuyen.SelectedItem.ToString() + "')");
                     MessageBox.Show("Thêm thành công !");
                 }
             }
