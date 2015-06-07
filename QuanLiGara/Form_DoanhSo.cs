@@ -19,63 +19,16 @@ namespace QuanLiGara
         {
             InitializeComponent();
         }
-        public class INI
-        {
-            [DllImport("kernel32")]
-            private static extern long WritePrivateProfileString(string section, string key, string val, string filepath);
-            [DllImport("kernel32")]
-            private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filepath);
-            public static string READ(string szFile, string szSection, string szKey)
-            {
-                StringBuilder tmp = new StringBuilder(255);
-                long i = GetPrivateProfileString(szSection, szKey, "", tmp, 255, szFile);
-                return tmp.ToString();
-            }
-            public static void WRITE(string szFile, string szSection, string szKey, string szData)
-            {
-                WritePrivateProfileString(szSection, szKey, szData, szFile);
-            }
 
-        }
-        SqlConnection sql = new SqlConnection();
-          public void ConnectDatabase(SqlConnection sql)
-        {
+        Connection db = new Connection();
 
-            string[] lines = File.ReadAllLines("Server.txt");
-
-            string s = lines[0];
-            if (sql.State != ConnectionState.Open)
-            {
-                sql.ConnectionString = "Data Source=" + s + ";Initial Catalog=QLGR;Integrated Security=True";
-                sql.Open();
-            }
-        }
-        public void CloseDatabase(SqlConnection sql)
-        {
-            sql.Close();
-        }
-        public void loadthang(SqlConnection sql)
+        public void loadthang()
         {
             try
             {
                 double sum = 0;
-                ConnectDatabase(sql);
-                SqlCommand cmd = sql.CreateCommand(); ;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new SqlParameter("@Thang", SqlDbType.Int));
-                cmd.CommandText = "BaoCaoDoanhThu";
-                cmd.Parameters["@Thang"].Value = Int32.Parse(Text_thang.Text);
-                cmd.ExecuteNonQuery();
+                DataTable dt = db.getDS("execute BaoCaoDoanhThu '" + comboBoxEx1.SelectedItem.ToString() + "'");
 
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-                cmd.ExecuteNonQuery();
-                DataTable dt = new DataTable();
-
-
-                adapter.Fill(dt);
-
-                dtGV_danhthu.DataSource = dt;
                 foreach (DataRow dr in dt.Rows)
                 {
                     if (dr["DoanhSo"].ToString() != "")
@@ -86,39 +39,28 @@ namespace QuanLiGara
                 Microsoft.Reporting.WinForms.ReportParameter[] parameter = new Microsoft.Reporting.WinForms.ReportParameter[1];
 
                 parameter[0] = new Microsoft.Reporting.WinForms.ReportParameter("Thang");
-                parameter[0].Values.Add(Text_thang.Text);
+                parameter[0].Values.Add(comboBoxEx1.SelectedItem.ToString());
                 reportViewer1.LocalReport.SetParameters(parameter);
                 reportViewer1.LocalReport.DataSources.Add(rp);
                 reportViewer1.RefreshReport();
-                CloseDatabase(sql);
                 Text_tongdoanhthu.Text = sum.ToString("#,###,###.##");
             }
-            //catch(Exception e)
-            //{
-            //    MessageBox.Show(e.ToString());
-            //}
             catch (SqlException c)
             {
                 MessageBox.Show("Tháng này không có dữ liệu");
             }
         }
+
         private void Form_DoanhSo_Load(object sender, EventArgs e)
         {
-
+            comboBoxEx1.Text = DateTime.Now.Month + "";
             this.reportViewer1.RefreshReport();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (Text_thang.Text != "")
-                loadthang(sql);
-            else
-                MessageBox.Show("Vui lòng nhập tháng cần xem");
-        }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void comboBoxEx1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            loadthang();
         }
     }
 }

@@ -19,70 +19,19 @@ namespace QuanLiGara
         {
             InitializeComponent();
         }
-        public class INI
-        {
-            [DllImport("kernel32")]
-            private static extern long WritePrivateProfileString(string section, string key, string val, string filepath);
-            [DllImport("kernel32")]
-            private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filepath);
-            public static string READ(string szFile, string szSection, string szKey)
-            {
-                StringBuilder tmp = new StringBuilder(255);
-                long i = GetPrivateProfileString(szSection, szKey, "", tmp, 255, szFile);
-                return tmp.ToString();
-            }
-            public static void WRITE(string szFile, string szSection, string szKey, string szData)
-            {
-                WritePrivateProfileString(szSection, szKey, szData, szFile);
-            }
 
-        }
-        SqlConnection sql = new SqlConnection();
-        public void ConnectDatabase(SqlConnection sql)
-        {
-            string[] lines = File.ReadAllLines("Server.txt");
+        Connection db = new Connection();
 
-            string s = lines[0];
-            if (sql.State != ConnectionState.Open)
-            {
-                sql.ConnectionString = "Data Source=" + s + ";Initial Catalog=QLGR;Integrated Security=True";
-                sql.Open();
-            }
-
-        }
-        public void CloseDatabase(SqlConnection sql)
-        {
-            sql.Close();
-        }
-        public void loadthang(SqlConnection sql)
+        public void loadthang()
         {
             try
             {
-                ConnectDatabase(sql);
-                SqlCommand cmd = sql.CreateCommand(); ;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add(new SqlParameter("@Thang", SqlDbType.Int));
-                cmd.CommandText = "BaoCaoTon";
-                cmd.Parameters["@Thang"].Value = Int32.Parse(Text_thang.Text);
-                cmd.ExecuteNonQuery();
-
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
-                cmd.ExecuteNonQuery();
-                DataTable dt = new DataTable();
-
-
-                adapter.Fill(dt);
-
-                dtGV_danhsach.DataSource = dt;
-
+                DataTable dt = db.getDS("execute BaoCaoTon '" + comboBoxEx1.SelectedItem.ToString() + "'");
                 reportViewer1.LocalReport.DataSources.Clear();
                 Microsoft.Reporting.WinForms.ReportDataSource rp = new Microsoft.Reporting.WinForms.ReportDataSource("DataSet1", dt);
 
                 reportViewer1.LocalReport.DataSources.Add(rp);
                 reportViewer1.RefreshReport();
-                CloseDatabase(sql);
-
             }
             catch (Exception e)
             {
@@ -90,19 +39,16 @@ namespace QuanLiGara
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (Text_thang.Text != "")
-
-                loadthang(sql);
-            else
-                MessageBox.Show("Vui lòng nhập tháng cần xem");
-        }
 
         private void Form_BaoCaoTon_Load(object sender, EventArgs e)
         {
-
+            comboBoxEx1.Text = DateTime.Now.Month + "";
             this.reportViewer1.RefreshReport();
+        }
+
+        private void comboBoxEx1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadthang();
         }
     }
 }
