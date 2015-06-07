@@ -108,7 +108,6 @@
             this.groupPanel1.Controls.Add(this.label4);
             this.groupPanel1.Controls.Add(this.label3);
             this.groupPanel1.Controls.Add(this.label2);
-            this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel1.Location = new System.Drawing.Point(22, 52);
             this.groupPanel1.Name = "groupPanel1";
             this.groupPanel1.Size = new System.Drawing.Size(798, 156);

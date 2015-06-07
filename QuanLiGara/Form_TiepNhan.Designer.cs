@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dtGV_danhsachTN = new System.Windows.Forms.DataGridView();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.Date_ngaytiepnhan = new System.Windows.Forms.DateTimePicker();
             this.cbBox_hieuxe = new System.Windows.Forms.ComboBox();
@@ -48,8 +47,9 @@
             this.Button_xoaXeSua = new System.Windows.Forms.Button();
             this.Button_nhaplaiXeSua = new System.Windows.Forms.Button();
             this.Button_themXeSua = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachTN)).BeginInit();
+            this.dtGV_danhsachTN = new System.Windows.Forms.DataGridView();
             this.groupPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachTN)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -62,16 +62,6 @@
             this.label1.Size = new System.Drawing.Size(331, 37);
             this.label1.TabIndex = 0;
             this.label1.Text = "TIẾP NHẬN XE SỬA";
-            // 
-            // dtGV_danhsachTN
-            // 
-            this.dtGV_danhsachTN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGV_danhsachTN.Location = new System.Drawing.Point(12, 278);
-            this.dtGV_danhsachTN.Name = "dtGV_danhsachTN";
-            this.dtGV_danhsachTN.Size = new System.Drawing.Size(735, 251);
-            this.dtGV_danhsachTN.TabIndex = 15;
-            this.dtGV_danhsachTN.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dtGV_danhsachTN.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // groupPanel1
             // 
@@ -90,7 +80,6 @@
             this.groupPanel1.Controls.Add(this.label4);
             this.groupPanel1.Controls.Add(this.label3);
             this.groupPanel1.Controls.Add(this.label2);
-            this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel1.Location = new System.Drawing.Point(12, 55);
             this.groupPanel1.Name = "groupPanel1";
             this.groupPanel1.Size = new System.Drawing.Size(734, 212);
@@ -280,6 +269,16 @@
             this.Button_themXeSua.UseVisualStyleBackColor = true;
             this.Button_themXeSua.Click += new System.EventHandler(this.button1_Click);
             // 
+            // dtGV_danhsachTN
+            // 
+            this.dtGV_danhsachTN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtGV_danhsachTN.Location = new System.Drawing.Point(12, 278);
+            this.dtGV_danhsachTN.Name = "dtGV_danhsachTN";
+            this.dtGV_danhsachTN.Size = new System.Drawing.Size(735, 251);
+            this.dtGV_danhsachTN.TabIndex = 15;
+            this.dtGV_danhsachTN.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dtGV_danhsachTN.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
             // Form_TiepNhan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,9 +297,9 @@
             this.Name = "Form_TiepNhan";
             this.Text = "Tiếp Nhận Xe";
             this.Load += new System.EventHandler(this.Form_TiepNhan_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachTN)).EndInit();
             this.groupPanel1.ResumeLayout(false);
             this.groupPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachTN)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,7 +310,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Button_themXeSua;
         private System.Windows.Forms.Button Button_nhaplaiXeSua;
-        private System.Windows.Forms.DataGridView dtGV_danhsachTN;
         private System.Windows.Forms.Button Button_xoaXeSua;
         private System.Windows.Forms.Button Button_capnhatXeSua;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
@@ -328,5 +326,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView dtGV_danhsachTN;
     }
 }
