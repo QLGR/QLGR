@@ -30,8 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.dtGV_danhsachSuaChua = new System.Windows.Forms.DataGridView();
-            this.btnLuu = new System.Windows.Forms.Button();
-            this.btnXoa = new System.Windows.Forms.Button();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.Text_tiencong = new System.Windows.Forms.TextBox();
             this.Date_ngaysuachua = new System.Windows.Forms.DateTimePicker();
@@ -52,9 +50,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lbMaPhieu = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnThem = new System.Windows.Forms.Button();
-            this.btnSua = new System.Windows.Forms.Button();
-            this.btnHuy = new System.Windows.Forms.Button();
+            this.btnThem = new DevComponents.DotNetBar.ButtonX();
+            this.btnSua = new DevComponents.DotNetBar.ButtonX();
+            this.btnXoa = new DevComponents.DotNetBar.ButtonX();
+            this.btnLuu = new DevComponents.DotNetBar.ButtonX();
+            this.btnHuy = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachSuaChua)).BeginInit();
             this.groupPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -79,28 +79,6 @@
             this.dtGV_danhsachSuaChua.Size = new System.Drawing.Size(870, 260);
             this.dtGV_danhsachSuaChua.TabIndex = 17;
             this.dtGV_danhsachSuaChua.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowEnter);
-            // 
-            // btnLuu
-            // 
-            this.btnLuu.AutoSize = true;
-            this.btnLuu.Location = new System.Drawing.Point(586, 560);
-            this.btnLuu.Name = "btnLuu";
-            this.btnLuu.Size = new System.Drawing.Size(74, 29);
-            this.btnLuu.TabIndex = 18;
-            this.btnLuu.Text = "Lưu";
-            this.btnLuu.UseVisualStyleBackColor = true;
-            this.btnLuu.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnXoa
-            // 
-            this.btnXoa.AutoSize = true;
-            this.btnXoa.Location = new System.Drawing.Point(464, 560);
-            this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(74, 29);
-            this.btnXoa.TabIndex = 20;
-            this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = true;
-            this.btnXoa.Click += new System.EventHandler(this.button3_Click);
             // 
             // groupPanel1
             // 
@@ -341,35 +319,67 @@
             // 
             // btnThem
             // 
-            this.btnThem.AutoSize = true;
-            this.btnThem.Location = new System.Drawing.Point(204, 560);
+            this.btnThem.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnThem.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnThem.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Location = new System.Drawing.Point(105, 560);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(74, 29);
-            this.btnThem.TabIndex = 22;
+            this.btnThem.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnThem.TabIndex = 24;
             this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // btnSua
             // 
-            this.btnSua.AutoSize = true;
-            this.btnSua.Location = new System.Drawing.Point(335, 560);
+            this.btnSua.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSua.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSua.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSua.Location = new System.Drawing.Point(260, 560);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(74, 29);
-            this.btnSua.TabIndex = 23;
+            this.btnSua.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSua.TabIndex = 24;
             this.btnSua.Text = "Sửa";
-            this.btnSua.UseVisualStyleBackColor = true;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnXoa.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnXoa.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.Location = new System.Drawing.Point(417, 560);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(74, 29);
+            this.btnXoa.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnXoa.TabIndex = 24;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btnLuu
+            // 
+            this.btnLuu.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnLuu.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnLuu.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLuu.Location = new System.Drawing.Point(564, 560);
+            this.btnLuu.Name = "btnLuu";
+            this.btnLuu.Size = new System.Drawing.Size(74, 29);
+            this.btnLuu.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnLuu.TabIndex = 24;
+            this.btnLuu.Text = "Lưu";
+            this.btnLuu.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnHuy
             // 
-            this.btnHuy.AutoSize = true;
-            this.btnHuy.Location = new System.Drawing.Point(709, 560);
+            this.btnHuy.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnHuy.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnHuy.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuy.Location = new System.Drawing.Point(718, 560);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(74, 29);
-            this.btnHuy.TabIndex = 22;
+            this.btnHuy.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnHuy.TabIndex = 24;
             this.btnHuy.Text = "Hủy";
-            this.btnHuy.UseVisualStyleBackColor = true;
             this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
             // 
             // Form_PhieuSuaChua
@@ -378,12 +388,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(912, 614);
-            this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnHuy);
+            this.Controls.Add(this.btnLuu);
+            this.Controls.Add(this.btnXoa);
+            this.Controls.Add(this.btnSua);
             this.Controls.Add(this.btnThem);
             this.Controls.Add(this.groupPanel1);
-            this.Controls.Add(this.btnXoa);
-            this.Controls.Add(this.btnLuu);
             this.Controls.Add(this.dtGV_danhsachSuaChua);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
@@ -403,8 +413,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dtGV_danhsachSuaChua;
-        private System.Windows.Forms.Button btnLuu;
-        private System.Windows.Forms.Button btnXoa;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private System.Windows.Forms.TextBox Text_tiencong;
         private System.Windows.Forms.DateTimePicker Date_ngaysuachua;
@@ -425,8 +433,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbxMaPhieu;
         private System.Windows.Forms.Label lbMaPhieu;
-        private System.Windows.Forms.Button btnThem;
-        private System.Windows.Forms.Button btnSua;
-        private System.Windows.Forms.Button btnHuy;
+        private DevComponents.DotNetBar.ButtonX btnThem;
+        private DevComponents.DotNetBar.ButtonX btnSua;
+        private DevComponents.DotNetBar.ButtonX btnXoa;
+        private DevComponents.DotNetBar.ButtonX btnLuu;
+        private DevComponents.DotNetBar.ButtonX btnHuy;
     }
 }
