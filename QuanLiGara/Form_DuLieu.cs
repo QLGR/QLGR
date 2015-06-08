@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.sql;
 namespace QuanLiGara
 {
     public partial class Form_DuLieu : Office2007Form
@@ -18,92 +19,45 @@ namespace QuanLiGara
         public Form_DuLieu()
         {
             InitializeComponent();
+            SetEnable(true);
         }
-        public class INI
-        {
-            [DllImport("kernel32")]
-            private static extern long WritePrivateProfileString(string section, string key, string val, string filepath);
-            [DllImport("kernel32")]
-            private static extern long GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filepath);
-            public static string READ(string szFile, string szSection, string szKey)
-            {
-                StringBuilder tmp = new StringBuilder(255);
-                long i = GetPrivateProfileString(szSection, szKey, "", tmp, 255, szFile);
-                return tmp.ToString();
-            }
-            public static void WRITE(string szFile, string szSection, string szKey, string szData)
-            {
-                WritePrivateProfileString(szSection, szKey, szData, szFile);
-            }
-
-        }
+       
+        
         SqlConnection sql = new SqlConnection();
-        public void ConnectDatabase(SqlConnection sql)
-        {
-            string[] lines = File.ReadAllLines("Server.txt");
+       
 
-            string s = lines[0];
-            if (sql.State != ConnectionState.Open)
-            {
-                sql.ConnectionString = "Data Source=" + s + ";Initial Catalog=QLGR;Integrated Security=True";
-                sql.Open();
-            }
+        int Choose = 0;
+        Connection db = new Connection();
+        DuLieusql dlsql = new DuLieusql();
+        dulieu DL = new dulieu();
 
-        }
-        public void CloseDatabase(SqlConnection sql)
-        {
-            sql.Close();
-        }
+
         public void loadvattu(SqlConnection sql)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "Select * FROm VATTU";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("Select * From VATTU");
             dtGV_vattu.DataSource = dt;
-            CloseDatabase(sql);
         }
         public void loadtiencong(SqlConnection sql)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "Select * FROm TIENCONG";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("Select * From TIENCONG");
             dtGV_tiencong.DataSource = dt;
-            CloseDatabase(sql);
         }
         public void loadhieuxe(SqlConnection sql)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "Select * FROm HIEUXE";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dt = db.getDS("Select * From HIEUXE");
             dtGV_hieuxe.DataSource = dt;
-            CloseDatabase(sql);
         }
         public void loadmaxxe(SqlConnection sql)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "Select * FROm THAMSO";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            foreach(DataRow dr in dt.Rows)
+            dt = db.getDS("Select * From THAMSO");
+            foreach (DataRow dr in dt.Rows)
             {
                 Text_soxemax.Text = dr["SuaChuaToiDa"].ToString();
             }
-            CloseDatabase(sql);
         }
         private void Form_DuLieu_Load(object sender, EventArgs e)
         {
@@ -113,311 +67,349 @@ namespace QuanLiGara
             loadmaxxe(sql);
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public DuLieusql Getdata()
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM VATTU";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            if (dtGV_vattu.CurrentRow.Index < dtGV_vattu.RowCount - 1)
-            {
-                Text_maVT.Text = dtGV_vattu[0, dtGV_vattu.CurrentRow.Index].Value.ToString();
-                Text_tenVT.Text = dtGV_vattu[1, dtGV_vattu.CurrentRow.Index].Value.ToString();
-                Text_dongia.Text = dtGV_vattu[2, dtGV_vattu.CurrentRow.Index].Value.ToString();
-            }
-            CloseDatabase(sql);
+            DuLieusql dl = new DuLieusql();
+            dl.MaVT = Text_maVT.Text;
+            dl.TenVT = Text_tenVT.Text;
+            dl.DonGia = Text_dongia.Text;
+
+            dl.MaTC = Text_matiencong.Text;
+            dl.TenCV = Text_tentiencong.Text;
+            dl.TienCong = Text_tiencong.Text;
+
+            dl.MaHX = Text_mahieuxe.Text;
+            dl.TenHX = Text_tenhieuxe.Text;
+
+            return dl;
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dtGV_vattu_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM TIENCONG";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            if (dtGV_tiencong.CurrentRow.Index < dtGV_tiencong.RowCount - 1)
-            {
-                Text_matiencong.Text = dtGV_tiencong[0, dtGV_tiencong.CurrentRow.Index].Value.ToString();
-                Text_tentiencong.Text = dtGV_tiencong[1, dtGV_tiencong.CurrentRow.Index].Value.ToString();
-                Text_tiencong.Text = dtGV_tiencong[2, dtGV_tiencong.CurrentRow.Index].Value.ToString();
-            }
-            CloseDatabase(sql);
+
+            int RowIndex = e.RowIndex;
+            Text_maVT.Text = dtGV_vattu.Rows[RowIndex].Cells["MaVatTu"].Value.ToString();
+            Text_tenVT.Text = dtGV_vattu.Rows[RowIndex].Cells["TenVatTu"].Value.ToString();
+            Text_dongia.Text = dtGV_vattu.Rows[RowIndex].Cells["DonGia"].Value.ToString();
+
         }
 
-        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dtGV_tiencong_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            ConnectDatabase(sql);
-            SqlCommand command = sql.CreateCommand();
-            command.CommandText = "SELECT * FROM HIEUXE";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            if (dtGV_hieuxe.CurrentRow.Index < dtGV_hieuxe.RowCount - 1)
-            {
-                Text_mahieuxe.Text = dtGV_hieuxe[0, dtGV_hieuxe.CurrentRow.Index].Value.ToString();
-                Text_tenhieuxe.Text = dtGV_hieuxe[1, dtGV_hieuxe.CurrentRow.Index].Value.ToString();
-            }
 
-            CloseDatabase(sql);
+            int RowIndex = e.RowIndex;
+            Text_matiencong.Text = dtGV_tiencong.Rows[RowIndex].Cells["MaTienCong"].Value.ToString();
+            Text_tentiencong.Text = dtGV_tiencong.Rows[RowIndex].Cells["TenCongViec"].Value.ToString();
+            Text_tiencong.Text = dtGV_tiencong.Rows[RowIndex].Cells["TienCong"].Value.ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void dtGV_hieuxe_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            ConnectDatabase(sql);
+            int RowIndex = e.RowIndex;
+
+            Text_mahieuxe.Text = dtGV_hieuxe.Rows[RowIndex].Cells["MaHX"].Value.ToString();
+            Text_tenhieuxe.Text = dtGV_hieuxe.Rows[RowIndex].Cells["TenHieuXe"].Value.ToString();
+        }
+
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            switch (Choose)
+            {
+                //thêm vật tư vào csdl
+                case 1:
+                    if (Text_maVT.Text == "" || Text_tenVT.Text == "" || Text_dongia.Text == "")
+                    {
+                        MessageBox.Show("Dữ liệu chưa được nhập đầy đủ. Yêu cầu nhập lại.");
+                    }
+                    try
+                    {
+                        if (DL.SuaVT(Getdata()))
+                        {
+                            MessageBox.Show("Cập nhật vật tư thành công");
+                        }
+                        else
+                            if (DL.ThemVT(Getdata()))
+                            {
+                                MessageBox.Show("Đã thêm vật tư vào danh sách");
+                            }
+                        SetEnable(true);
+                    }
+                    catch (Exception c)
+                    {
+                        MessageBox.Show("Không thể chỉnh sửa hoặc thêm mới.\nVui lòng kiểm tra lại dữ liệu đã nhập");
+                    }
+
+                    loadvattu(sql);
+                    dtGV_vattu.Update();
+                    dtGV_vattu.Refresh();
+
+                    break;
+
+                case 2://thêm tên công việc vào csdl
+                    if (Text_matiencong.Text == "" || Text_tiencong.Text == "" || Text_tiencong.Text == "")
+                    {
+                        MessageBox.Show("Dữ liệu chưa được nhập đầy đủ. Yêu cầu nhập lại.");
+                    }
+                    try
+                    {
+                        if (DL.SuaTC(Getdata()))
+                        {
+                            MessageBox.Show("Cập nhật công việc thành công");
+                        }
+                        else
+                            if (DL.ThemTC(Getdata()))
+                            {
+                                MessageBox.Show("Đã thêm công việc vào danh sách");
+                            }
+                        SetEnable(true);
+                    }
+                    catch (Exception c)
+                    {
+                        MessageBox.Show("Không thể chỉnh sửa hoặc thêm mới.\nVui lòng kiểm tra lại dữ liệu đã nhập");
+                    }
+                    loadtiencong(sql);
+                    dtGV_tiencong.Update();
+                    dtGV_tiencong.Refresh();
+                    break;
+                case 3:
+                    if (Text_mahieuxe.Text == "" || Text_tenhieuxe.Text == "")
+                    {
+                        MessageBox.Show("Dữ liệu chưa được nhập đầy đủ. Yêu cầu nhập lại.");
+                    }
+                    try
+                    {
+                        if (DL.SuaHX(Getdata()))
+                        {
+                            MessageBox.Show("Cập nhật Hiệu xe thành công");
+                        }
+                        else
+                            if (DL.ThemHX(Getdata()))
+                            {
+                                MessageBox.Show("Đã thêm xe mới vào danh sách");
+                            }
+                        SetEnable(true);
+                    }
+                    catch (Exception c)
+                    {
+                        MessageBox.Show("Không thể chỉnh sửa hoặc thêm mới.\nVui lòng kiểm tra lại dữ liệu đã nhập");
+                    }
+                    loadhieuxe(sql);
+                    dtGV_hieuxe.Update();
+                    dtGV_hieuxe.Refresh();
+                    break;
+            }
+
+
+
+        }
+
+
+
+        private void btnXoaVT_Click(object sender, EventArgs e)
+        {
             try
             {
-
-                SqlCommand command = sql.CreateCommand();
-
-                command.CommandText = "Insert INTO VATTU (MaVatTu,TenVatTu,DonGia,SoLuong) VALUES (@MaVatTu,@TenVatTu,@DonGia,@SoLuong)";
-                command.Parameters.Add("@MaVatTu", SqlDbType.NChar).Value = Text_maVT.Text;
-                command.Parameters.Add("@TenVatTu", SqlDbType.NChar).Value = Text_tenVT.Text;
-                command.Parameters.Add("@DonGia", SqlDbType.Money).Value = double.Parse(Text_dongia.Text);
-                command.Parameters.Add("@SoLuong", SqlDbType.Int).Value = 100;
-               
-
-                command.ExecuteNonQuery();
-                CloseDatabase(sql);
-
+                if (DL.CheckExistReference(Text_maVT.Text))
+                    MessageBox.Show("Phiếu sửa chữa chưa được thanh toán. Không Thể Xóa " + Text_maVT.Text + " - " + Text_tenVT.Text);
+                else
+                {
+                    if (DL.XoaVT(Text_maVT.Text))
+                        MessageBox.Show("Xóa vật tư thành công.");
+                }
 
 
             }
             catch (Exception c)
             {
-                MessageBox.Show(c.ToString());
+                MessageBox.Show("Không thể xóa vật tư.");
             }
-
             loadvattu(sql);
             dtGV_vattu.Update();
             dtGV_vattu.Refresh();
-            CloseDatabase(sql);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+
+
+
+        private void btnXoaTC(object sender, EventArgs e)
         {
-            ConnectDatabase(sql);
             try
             {
-
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "UPDATE VATTU SET TenVatTu=@TenVatTu,DonGia=@DonGia WHERE MaVatTu=@MaVatTu";
-                command.Parameters.Add("@MaVatTu", SqlDbType.VarChar).Value = Text_maVT.Text;
-                command.Parameters.Add("@TenVatTu", SqlDbType.NChar).Value =Text_tenVT.Text ;
-                command.Parameters.Add("@DonGia", SqlDbType.Money).Value = Text_dongia.Text;
-                command.ExecuteNonQuery();
-                CloseDatabase(sql);               
-                loadvattu(sql);
-                dtGV_vattu.Update();
-                dtGV_vattu.Refresh();
-            }
-            catch (Exception c)
-            {
-                MessageBox.Show(c.ToString());
-            }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            try
-            {
-
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "DELETE FROM VATTU WHERE MaVatTu=@MaVatTu";
-                command.Parameters.Add("@MaVatTu", SqlDbType.NChar).Value = Text_maVT.Text;
-                command.ExecuteNonQuery();
-
-                
-
+                if (DL.CheckExistReferenceTC(Text_matiencong.Text))
+                    MessageBox.Show("Phiếu sửa chữa chưa được thanh toán. Không Thể Xóa công việc " + Text_matiencong.Text + " - " + Text_tentiencong.Text);
+                else
+                {
+                    if (DL.XoaTC(Text_matiencong.Text))
+                        MessageBox.Show("Xóa công việc thành công.");
+                }
 
 
             }
             catch (Exception c)
             {
-                MessageBox.Show(c.ToString());
+                MessageBox.Show("Không thể xóa công việc.");
             }
-            CloseDatabase(sql);
-            loadvattu(sql);
-            dtGV_vattu.Update();
-            dtGV_vattu.Refresh();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            try
-            {
-
-                SqlCommand command = sql.CreateCommand();
-
-                command.CommandText = "Insert INTO TIENCONG (MaTienCong,TenCongViec,TienCong) VALUES (@MaTienCong,@TenCongViec,@TienCong)";
-                command.Parameters.Add("@MaTienCong", SqlDbType.NChar).Value = Text_matiencong.Text;
-                command.Parameters.Add("@TenCongViec", SqlDbType.NChar).Value = Text_tentiencong.Text;
-                command.Parameters.Add("@TienCong", SqlDbType.Money).Value = double.Parse(Text_tiencong.Text);
-              
-
-                command.ExecuteNonQuery();
-                CloseDatabase(sql);
-
-
-
-            }
-            catch (Exception c)
-            {
-                MessageBox.Show(c.ToString());
-            }
-
-            loadtiencong(sql);
-            dtGV_tiencong.Update();
-            dtGV_tiencong.Refresh();
-            CloseDatabase(sql);
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            try
-            {
-
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "UPDATE TIENCONG SET TenCongViec=@TenCongViec,TienCong=@TienCong WHERE MaTienCong=@MaTienCong";
-                command.Parameters.Add("@MaTienCong", SqlDbType.NChar).Value = Text_matiencong.Text;
-                command.Parameters.Add("@TenCongViec", SqlDbType.NChar).Value = Text_tentiencong.Text;
-                command.Parameters.Add("@TienCong", SqlDbType.Money).Value = double.Parse(Text_tiencong.Text);
-                command.ExecuteNonQuery();
-                CloseDatabase(sql);
-                loadtiencong(sql);
-                dtGV_tiencong.Update();
-                dtGV_tiencong.Refresh();
-            }
-            catch (Exception c)
-            {
-                MessageBox.Show(c.ToString());
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            try
-            {
-
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "DELETE FROM TIENCONG WHERE MaTienCong=@MaTienCong";
-                command.Parameters.Add("@MaTienCong", SqlDbType.NChar).Value = Text_matiencong.Text;
-                command.ExecuteNonQuery();
-
-
-
-
-
-            }
-            catch (Exception c)
-            {
-                MessageBox.Show(c.ToString());
-            }
-            CloseDatabase(sql);
             loadtiencong(sql);
             dtGV_tiencong.Update();
             dtGV_tiencong.Refresh();
         }
 
-        private void button9_Click(object sender, EventArgs e)
+
+
+
+
+        private void btnXoaHX(object sender, EventArgs e)
         {
-            ConnectDatabase(sql);
             try
             {
-
-                SqlCommand command = sql.CreateCommand();
-
-                command.CommandText = "Insert INTO HIEUXE (MaHX,TenHieuXe) VALUES (@MaHX,@TenHieuXe)";
-                command.Parameters.Add("@MaHX", SqlDbType.NChar).Value = Text_mahieuxe.Text;
-                command.Parameters.Add("@TenHieuXe", SqlDbType.NChar).Value = Text_tenhieuxe.Text;            
-                command.ExecuteNonQuery();
-                CloseDatabase(sql);
-            }
-            catch (Exception c)
-            {
-                MessageBox.Show(c.ToString());
-            }
-
-            loadhieuxe(sql);
-            dtGV_hieuxe.Update();
-            dtGV_hieuxe.Refresh();
-            CloseDatabase(sql);
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            try
-            {
-
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "UPDATE HIEUXE SET MaHX=@MaHX,TenHieuXe=@TenHieuXe WHERE MaHX=@MaHX";
-                command.Parameters.Add("@MaHX", SqlDbType.NChar).Value = Text_mahieuxe.Text;
-                command.Parameters.Add("@TenHieuXe", SqlDbType.NChar).Value = Text_tenhieuxe.Text;            
-                command.ExecuteNonQuery();
-                CloseDatabase(sql);
-                loadhieuxe(sql);
-                dtGV_hieuxe.Update();
-                dtGV_hieuxe.Refresh();
-            }
-            catch (Exception c)
-            {
-                MessageBox.Show(c.ToString());
-            }
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            ConnectDatabase(sql);
-            try
-            {
-
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "DELETE FROM HIEUXE WHERE MaHX=@MaHX";
-                command.Parameters.Add("@MaHX", SqlDbType.NChar).Value = Text_mahieuxe.Text;
-                command.ExecuteNonQuery();
-
-
-
+                if (DL.CheckExistReferenceHieuXe(Text_mahieuxe.Text))
+                    MessageBox.Show("Hồ sơ sửa chữa vẫn còn đang được lưu trữ. Không Thể Xóa Xe " + Text_mahieuxe.Text + " - " + Text_tenhieuxe.Text);
+                else
+                {
+                    if (DL.XoaHX(Text_mahieuxe.Text))
+                        MessageBox.Show("Xóa xe thành công.");
+                }
 
 
             }
             catch (Exception c)
             {
-                MessageBox.Show(c.ToString());
+                MessageBox.Show("Không thể xóa xe.");
             }
-            CloseDatabase(sql);
             loadhieuxe(sql);
             dtGV_hieuxe.Update();
             dtGV_hieuxe.Refresh();
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void btnThemThamSo(object sender, EventArgs e)
         {
-            ConnectDatabase(sql);
             try
             {
 
-                SqlCommand command = sql.CreateCommand();
-                command.CommandText = "UPDATE THAMSO SET SuaChuaToiDa=@SuaChuaToiDa";
-                command.Parameters.Add("@SuaChuaToiDa", SqlDbType.NChar).Value = Text_soxemax.Text;
-              
-                command.ExecuteNonQuery();
-                CloseDatabase(sql);
+                DataTable dt = new DataTable();
+                dt = db.getDS("UPDATE THAMSO SET SuaChuaToiDa='" + Text_soxemax.Text + "'");
+                MessageBox.Show("Chỉnh sửa tham số thành công!");
                 loadmaxxe(sql);
             }
             catch (Exception c)
             {
-                MessageBox.Show(c.ToString());
+                MessageBox.Show("Không thể cập nhật tham số. Vui lòng kiểm tra lại dữ liệu");
+            }
+        }
+
+        void SetEnable(bool a)
+        {
+            Button_themhx.Enabled = Button_themtc.Enabled = Button_themvt.Enabled = a;
+            Button_suahx.Enabled = Button_suatc.Enabled = Button_suavt.Enabled = a;
+            Button_xoatc.Enabled = Button_xoahx.Enabled = Button_xoavt.Enabled = a;
+            btnLuu.Enabled = btnHuy.Enabled = !a;
+            switch (Choose)
+            {
+                case 1:
+                    Text_tenVT.ReadOnly = a;
+                    Text_dongia.ReadOnly = a;
+                    break;
+                case 2:
+                    Text_tentiencong.ReadOnly = a;
+                    Text_tiencong.ReadOnly = a;
+
+                    break;
+                case 3:
+                    Text_mahieuxe.ReadOnly = a;
+                    Text_tenhieuxe.ReadOnly = a;
+                    break;
+            }
+
+
+        }
+
+        private void btnThemVL(object sender, EventArgs e)
+        {
+            Choose = 1;
+            Text_maVT.Text = DL.SearchDaTaGrid();
+            SetEnable(false);
+            Text_tenVT.Text = "";
+            Text_dongia.Text = "0";
+        }
+        private void btnSuaVT(object sender, EventArgs e)
+        {
+            Choose = 1;
+            SetEnable(false);
+        }
+
+        private void btnThemTC(object sender, EventArgs e)
+        {
+            Choose = 2;
+            Text_matiencong.Text = DL.SearchDaTaGridTC();
+            SetEnable(false);
+            Text_tentiencong.Text = "";
+            Text_tiencong.Text = "0";
+        }
+
+        private void btnSuaTC(object sender, EventArgs e)
+        {
+            Choose = 2;
+            SetEnable(false);
+        }
+
+        private void btnThemHX(object sender, EventArgs e)
+        {
+            Choose = 3;
+            SetEnable(false);
+            Text_mahieuxe.Text = "";
+            Text_tenhieuxe.Text = "";
+        }
+
+        private void btnSuaHX(object sender, EventArgs e)
+        {
+            Choose = 3;
+            SetEnable(false);
+        }
+
+        private void btnHuyAll_Click(object sender, EventArgs e)
+        {
+            Choose = 0;
+            SetEnable(true);
+            switch (Choose)
+            {
+                case 1:
+                    loadvattu(sql);
+                    dtGV_vattu.Update();
+                    dtGV_vattu.Refresh();
+                    break;
+                case 2:
+                    loadtiencong(sql);
+                    dtGV_tiencong.Update();
+                    dtGV_tiencong.Refresh();
+                    break;
+                case 3:
+                    loadhieuxe(sql);
+                    dtGV_hieuxe.Update();
+                    dtGV_hieuxe.Refresh();
+                    break;
+            }
+        }
+
+        private void SoLuong_TextChange(object sender, EventArgs e)
+        {
+            double i;
+            switch (Choose)
+            {
+                case 1:
+                    if ((!Double.TryParse(Text_dongia.Text, out i) || double.Parse(Text_dongia.Text) < -1) && Text_dongia.Text != "")
+                    {
+                        MessageBox.Show("đon giá phải là số lớn hơn 0");
+                    }
+                    break;
+                case 2:
+                    if ((!Double.TryParse(Text_tiencong.Text, out i) || double.Parse(Text_tiencong.Text) < -1) && Text_tiencong.Text != "")
+                    {
+                        MessageBox.Show("Tiền công phải là số lớn hơn 0");
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }

@@ -52,13 +52,15 @@
             this.Text_tenhieuxe = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.Button_xoatc = new System.Windows.Forms.Button();
-            this.Button_suatc = new System.Windows.Forms.Button();
-            this.Button_themtc = new System.Windows.Forms.Button();
+            this.btnHuy = new DevComponents.DotNetBar.ButtonX();
+            this.btnLuu = new DevComponents.DotNetBar.ButtonX();
+            this.Button_suamax = new System.Windows.Forms.Button();
             this.Button_xoahx = new System.Windows.Forms.Button();
             this.Button_suahx = new System.Windows.Forms.Button();
             this.Button_themhx = new System.Windows.Forms.Button();
-            this.Button_suamax = new System.Windows.Forms.Button();
+            this.Button_xoatc = new System.Windows.Forms.Button();
+            this.Button_suatc = new System.Windows.Forms.Button();
+            this.Button_themtc = new System.Windows.Forms.Button();
             this.Button_xoavt = new System.Windows.Forms.Button();
             this.Button_suavt = new System.Windows.Forms.Button();
             this.Button_themvt = new System.Windows.Forms.Button();
@@ -69,23 +71,23 @@
             // 
             // dtGV_vattu
             // 
+            this.dtGV_vattu.AllowUserToAddRows = false;
             this.dtGV_vattu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_vattu.Location = new System.Drawing.Point(3, 122);
             this.dtGV_vattu.Name = "dtGV_vattu";
             this.dtGV_vattu.Size = new System.Drawing.Size(459, 336);
             this.dtGV_vattu.TabIndex = 0;
-            this.dtGV_vattu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dtGV_vattu.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dtGV_vattu.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGV_vattu_RowEnter);
             // 
             // dtGV_tiencong
             // 
+            this.dtGV_tiencong.AllowUserToAddRows = false;
             this.dtGV_tiencong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_tiencong.Location = new System.Drawing.Point(468, 122);
             this.dtGV_tiencong.Name = "dtGV_tiencong";
             this.dtGV_tiencong.Size = new System.Drawing.Size(459, 336);
             this.dtGV_tiencong.TabIndex = 1;
-            this.dtGV_tiencong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            this.dtGV_tiencong.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dtGV_tiencong.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGV_tiencong_RowEnter);
             // 
             // label1
             // 
@@ -130,13 +132,13 @@
             // 
             // dtGV_hieuxe
             // 
+            this.dtGV_hieuxe.AllowUserToAddRows = false;
             this.dtGV_hieuxe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_hieuxe.Location = new System.Drawing.Point(933, 122);
             this.dtGV_hieuxe.Name = "dtGV_hieuxe";
             this.dtGV_hieuxe.Size = new System.Drawing.Size(243, 336);
             this.dtGV_hieuxe.TabIndex = 6;
-            this.dtGV_hieuxe.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
-            this.dtGV_hieuxe.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            this.dtGV_hieuxe.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGV_hieuxe_RowEnter);
             // 
             // Text_soxemax
             // 
@@ -144,6 +146,7 @@
             this.Text_soxemax.Name = "Text_soxemax";
             this.Text_soxemax.Size = new System.Drawing.Size(91, 20);
             this.Text_soxemax.TabIndex = 7;
+            this.Text_soxemax.TextChanged += new System.EventHandler(this.SoLuong_TextChange);
             // 
             // label5
             // 
@@ -178,6 +181,7 @@
             // 
             this.Text_maVT.Location = new System.Drawing.Point(78, 476);
             this.Text_maVT.Name = "Text_maVT";
+            this.Text_maVT.ReadOnly = true;
             this.Text_maVT.Size = new System.Drawing.Size(98, 20);
             this.Text_maVT.TabIndex = 11;
             // 
@@ -185,6 +189,7 @@
             // 
             this.Text_tenVT.Location = new System.Drawing.Point(249, 476);
             this.Text_tenVT.Name = "Text_tenVT";
+            this.Text_tenVT.ReadOnly = true;
             this.Text_tenVT.Size = new System.Drawing.Size(204, 20);
             this.Text_tenVT.TabIndex = 12;
             // 
@@ -192,8 +197,10 @@
             // 
             this.Text_dongia.Location = new System.Drawing.Point(78, 521);
             this.Text_dongia.Name = "Text_dongia";
+            this.Text_dongia.ReadOnly = true;
             this.Text_dongia.Size = new System.Drawing.Size(183, 20);
             this.Text_dongia.TabIndex = 13;
+            this.Text_dongia.TextChanged += new System.EventHandler(this.SoLuong_TextChange);
             // 
             // label8
             // 
@@ -228,6 +235,7 @@
             // 
             this.Text_matiencong.Location = new System.Drawing.Point(556, 476);
             this.Text_matiencong.Name = "Text_matiencong";
+            this.Text_matiencong.ReadOnly = true;
             this.Text_matiencong.Size = new System.Drawing.Size(79, 20);
             this.Text_matiencong.TabIndex = 17;
             // 
@@ -235,6 +243,7 @@
             // 
             this.Text_tentiencong.Location = new System.Drawing.Point(725, 476);
             this.Text_tentiencong.Name = "Text_tentiencong";
+            this.Text_tentiencong.ReadOnly = true;
             this.Text_tentiencong.Size = new System.Drawing.Size(184, 20);
             this.Text_tentiencong.TabIndex = 18;
             // 
@@ -242,13 +251,16 @@
             // 
             this.Text_tiencong.Location = new System.Drawing.Point(556, 524);
             this.Text_tiencong.Name = "Text_tiencong";
+            this.Text_tiencong.ReadOnly = true;
             this.Text_tiencong.Size = new System.Drawing.Size(139, 20);
             this.Text_tiencong.TabIndex = 19;
+            this.Text_tiencong.TextChanged += new System.EventHandler(this.SoLuong_TextChange);
             // 
             // Text_mahieuxe
             // 
             this.Text_mahieuxe.Location = new System.Drawing.Point(999, 479);
             this.Text_mahieuxe.Name = "Text_mahieuxe";
+            this.Text_mahieuxe.ReadOnly = true;
             this.Text_mahieuxe.Size = new System.Drawing.Size(177, 20);
             this.Text_mahieuxe.TabIndex = 20;
             // 
@@ -256,6 +268,7 @@
             // 
             this.Text_tenhieuxe.Location = new System.Drawing.Point(999, 521);
             this.Text_tenhieuxe.Name = "Text_tenhieuxe";
+            this.Text_tenhieuxe.ReadOnly = true;
             this.Text_tenhieuxe.Size = new System.Drawing.Size(177, 20);
             this.Text_tenhieuxe.TabIndex = 21;
             // 
@@ -278,71 +291,32 @@
             this.label12.TabIndex = 23;
             this.label12.Text = "Tên Hiệu Xe";
             // 
-            // Button_xoatc
+            // btnHuy
             // 
-            this.Button_xoatc.AutoSize = true;
-            this.Button_xoatc.Image = global::QuanLiGara.Properties.Resources.xoa;
-            this.Button_xoatc.Location = new System.Drawing.Point(690, 565);
-            this.Button_xoatc.Name = "Button_xoatc";
-            this.Button_xoatc.Size = new System.Drawing.Size(46, 46);
-            this.Button_xoatc.TabIndex = 29;
-            this.Button_xoatc.UseVisualStyleBackColor = true;
-            this.Button_xoatc.Click += new System.EventHandler(this.button4_Click);
+            this.btnHuy.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnHuy.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnHuy.Image = global::QuanLiGara.Properties.Resources.undo;
+            this.btnHuy.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnHuy.Location = new System.Drawing.Point(1295, 476);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(46, 46);
+            this.btnHuy.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnHuy.TabIndex = 35;
+            this.btnHuy.Click += new System.EventHandler(this.btnHuyAll_Click);
             // 
-            // Button_suatc
+            // btnLuu
             // 
-            this.Button_suatc.AutoSize = true;
-            this.Button_suatc.Image = global::QuanLiGara.Properties.Resources.sua;
-            this.Button_suatc.Location = new System.Drawing.Point(616, 565);
-            this.Button_suatc.Name = "Button_suatc";
-            this.Button_suatc.Size = new System.Drawing.Size(46, 46);
-            this.Button_suatc.TabIndex = 28;
-            this.Button_suatc.UseVisualStyleBackColor = true;
-            this.Button_suatc.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // Button_themtc
-            // 
-            this.Button_themtc.AutoSize = true;
-            this.Button_themtc.Image = global::QuanLiGara.Properties.Resources.them;
-            this.Button_themtc.Location = new System.Drawing.Point(544, 565);
-            this.Button_themtc.Name = "Button_themtc";
-            this.Button_themtc.Size = new System.Drawing.Size(46, 46);
-            this.Button_themtc.TabIndex = 27;
-            this.Button_themtc.UseVisualStyleBackColor = true;
-            this.Button_themtc.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // Button_xoahx
-            // 
-            this.Button_xoahx.AutoSize = true;
-            this.Button_xoahx.Image = global::QuanLiGara.Properties.Resources.xoa;
-            this.Button_xoahx.Location = new System.Drawing.Point(1089, 565);
-            this.Button_xoahx.Name = "Button_xoahx";
-            this.Button_xoahx.Size = new System.Drawing.Size(46, 46);
-            this.Button_xoahx.TabIndex = 32;
-            this.Button_xoahx.UseVisualStyleBackColor = true;
-            this.Button_xoahx.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // Button_suahx
-            // 
-            this.Button_suahx.AutoSize = true;
-            this.Button_suahx.Image = global::QuanLiGara.Properties.Resources.sua;
-            this.Button_suahx.Location = new System.Drawing.Point(1015, 565);
-            this.Button_suahx.Name = "Button_suahx";
-            this.Button_suahx.Size = new System.Drawing.Size(46, 46);
-            this.Button_suahx.TabIndex = 31;
-            this.Button_suahx.UseVisualStyleBackColor = true;
-            this.Button_suahx.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // Button_themhx
-            // 
-            this.Button_themhx.AutoSize = true;
-            this.Button_themhx.Image = global::QuanLiGara.Properties.Resources.them;
-            this.Button_themhx.Location = new System.Drawing.Point(943, 565);
-            this.Button_themhx.Name = "Button_themhx";
-            this.Button_themhx.Size = new System.Drawing.Size(46, 46);
-            this.Button_themhx.TabIndex = 30;
-            this.Button_themhx.UseVisualStyleBackColor = true;
-            this.Button_themhx.Click += new System.EventHandler(this.button9_Click);
+            this.btnLuu.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnLuu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLuu.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnLuu.Image = global::QuanLiGara.Properties.Resources.Save;
+            this.btnLuu.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnLuu.Location = new System.Drawing.Point(1208, 476);
+            this.btnLuu.Name = "btnLuu";
+            this.btnLuu.Size = new System.Drawing.Size(46, 46);
+            this.btnLuu.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnLuu.TabIndex = 35;
+            this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
             // Button_suamax
             // 
@@ -353,7 +327,73 @@
             this.Button_suamax.Size = new System.Drawing.Size(41, 41);
             this.Button_suamax.TabIndex = 34;
             this.Button_suamax.UseVisualStyleBackColor = true;
-            this.Button_suamax.Click += new System.EventHandler(this.button11_Click);
+            this.Button_suamax.Click += new System.EventHandler(this.btnThemThamSo);
+            // 
+            // Button_xoahx
+            // 
+            this.Button_xoahx.AutoSize = true;
+            this.Button_xoahx.Image = global::QuanLiGara.Properties.Resources.xoa;
+            this.Button_xoahx.Location = new System.Drawing.Point(1089, 565);
+            this.Button_xoahx.Name = "Button_xoahx";
+            this.Button_xoahx.Size = new System.Drawing.Size(46, 46);
+            this.Button_xoahx.TabIndex = 32;
+            this.Button_xoahx.UseVisualStyleBackColor = true;
+            this.Button_xoahx.Click += new System.EventHandler(this.btnXoaHX);
+            // 
+            // Button_suahx
+            // 
+            this.Button_suahx.AutoSize = true;
+            this.Button_suahx.Image = global::QuanLiGara.Properties.Resources.sua;
+            this.Button_suahx.Location = new System.Drawing.Point(1015, 565);
+            this.Button_suahx.Name = "Button_suahx";
+            this.Button_suahx.Size = new System.Drawing.Size(46, 46);
+            this.Button_suahx.TabIndex = 31;
+            this.Button_suahx.UseVisualStyleBackColor = true;
+            this.Button_suahx.Click += new System.EventHandler(this.btnSuaHX);
+            // 
+            // Button_themhx
+            // 
+            this.Button_themhx.AutoSize = true;
+            this.Button_themhx.Image = global::QuanLiGara.Properties.Resources.them;
+            this.Button_themhx.Location = new System.Drawing.Point(943, 565);
+            this.Button_themhx.Name = "Button_themhx";
+            this.Button_themhx.Size = new System.Drawing.Size(46, 46);
+            this.Button_themhx.TabIndex = 30;
+            this.Button_themhx.UseVisualStyleBackColor = true;
+            this.Button_themhx.Click += new System.EventHandler(this.btnThemHX);
+            // 
+            // Button_xoatc
+            // 
+            this.Button_xoatc.AutoSize = true;
+            this.Button_xoatc.Image = global::QuanLiGara.Properties.Resources.xoa;
+            this.Button_xoatc.Location = new System.Drawing.Point(690, 565);
+            this.Button_xoatc.Name = "Button_xoatc";
+            this.Button_xoatc.Size = new System.Drawing.Size(46, 46);
+            this.Button_xoatc.TabIndex = 29;
+            this.Button_xoatc.UseVisualStyleBackColor = true;
+            this.Button_xoatc.Click += new System.EventHandler(this.btnXoaTC);
+            // 
+            // Button_suatc
+            // 
+            this.Button_suatc.AutoSize = true;
+            this.Button_suatc.Image = global::QuanLiGara.Properties.Resources.sua;
+            this.Button_suatc.Location = new System.Drawing.Point(616, 565);
+            this.Button_suatc.Name = "Button_suatc";
+            this.Button_suatc.Size = new System.Drawing.Size(46, 46);
+            this.Button_suatc.TabIndex = 28;
+            this.Button_suatc.UseVisualStyleBackColor = true;
+            this.Button_suatc.Click += new System.EventHandler(this.btnSuaTC);
+            // 
+            // Button_themtc
+            // 
+            this.Button_themtc.AutoSize = true;
+            this.Button_themtc.Image = global::QuanLiGara.Properties.Resources.them;
+            this.Button_themtc.Location = new System.Drawing.Point(544, 565);
+            this.Button_themtc.Name = "Button_themtc";
+            this.Button_themtc.Size = new System.Drawing.Size(46, 46);
+            this.Button_themtc.TabIndex = 27;
+            this.Button_themtc.UseVisualStyleBackColor = true;
+            this.Button_themtc.Click += new System.EventHandler(this.btnThemTC);
             // 
             // Button_xoavt
             // 
@@ -364,7 +404,7 @@
             this.Button_xoavt.Size = new System.Drawing.Size(46, 46);
             this.Button_xoavt.TabIndex = 26;
             this.Button_xoavt.UseVisualStyleBackColor = true;
-            this.Button_xoavt.Click += new System.EventHandler(this.button3_Click);
+            this.Button_xoavt.Click += new System.EventHandler(this.btnXoaVT_Click);
             // 
             // Button_suavt
             // 
@@ -375,7 +415,7 @@
             this.Button_suavt.Size = new System.Drawing.Size(46, 46);
             this.Button_suavt.TabIndex = 25;
             this.Button_suavt.UseVisualStyleBackColor = true;
-            this.Button_suavt.Click += new System.EventHandler(this.button2_Click);
+            this.Button_suavt.Click += new System.EventHandler(this.btnSuaVT);
             // 
             // Button_themvt
             // 
@@ -386,13 +426,15 @@
             this.Button_themvt.Size = new System.Drawing.Size(46, 46);
             this.Button_themvt.TabIndex = 24;
             this.Button_themvt.UseVisualStyleBackColor = true;
-            this.Button_themvt.Click += new System.EventHandler(this.button1_Click);
+            this.Button_themvt.Click += new System.EventHandler(this.btnThemVL);
             // 
             // Form_DuLieu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1362, 741);
+            this.Controls.Add(this.btnHuy);
+            this.Controls.Add(this.btnLuu);
             this.Controls.Add(this.Button_suamax);
             this.Controls.Add(this.Button_xoahx);
             this.Controls.Add(this.Button_suahx);
@@ -476,5 +518,7 @@
         private System.Windows.Forms.Button Button_suahx;
         private System.Windows.Forms.Button Button_themhx;
         private System.Windows.Forms.Button Button_suamax;
+        private DevComponents.DotNetBar.ButtonX btnHuy;
+        private DevComponents.DotNetBar.ButtonX btnLuu;
     }
 }
