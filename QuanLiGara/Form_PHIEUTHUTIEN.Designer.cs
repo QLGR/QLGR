@@ -30,14 +30,16 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.dtGV_phieuthu = new System.Windows.Forms.DataGridView();
-            this.Button_lapphieu = new System.Windows.Forms.Button();
-            this.Button_xoa = new System.Windows.Forms.Button();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.Date_ngaythutien = new System.Windows.Forms.DateTimePicker();
             this.cbB_bienso = new System.Windows.Forms.ComboBox();
+            this.txt_Tongtien = new System.Windows.Forms.TextBox();
+            this.txt_conno = new System.Windows.Forms.TextBox();
             this.Text_sotienthu = new System.Windows.Forms.TextBox();
             this.Text_email = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.Text_dienthoai = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.Text_chuxe = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -45,6 +47,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnHuy = new DevComponents.DotNetBar.ButtonX();
+            this.btnLuu = new DevComponents.DotNetBar.ButtonX();
+            this.btnXoa = new DevComponents.DotNetBar.ButtonX();
+            this.btnSua = new DevComponents.DotNetBar.ButtonX();
+            this.btnThem = new DevComponents.DotNetBar.ButtonX();
+            this.txtMaPT = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_phieuthu)).BeginInit();
             this.groupPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -62,35 +70,13 @@
             // 
             // dtGV_phieuthu
             // 
+            this.dtGV_phieuthu.AllowUserToAddRows = false;
             this.dtGV_phieuthu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_phieuthu.Location = new System.Drawing.Point(22, 214);
             this.dtGV_phieuthu.Name = "dtGV_phieuthu";
             this.dtGV_phieuthu.Size = new System.Drawing.Size(799, 259);
             this.dtGV_phieuthu.TabIndex = 13;
-            this.dtGV_phieuthu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dtGV_phieuthu.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // Button_lapphieu
-            // 
-            this.Button_lapphieu.AutoSize = true;
-            this.Button_lapphieu.Image = global::QuanLiGara.Properties.Resources.lap_phieu_thu_tien;
-            this.Button_lapphieu.Location = new System.Drawing.Point(346, 479);
-            this.Button_lapphieu.Name = "Button_lapphieu";
-            this.Button_lapphieu.Size = new System.Drawing.Size(46, 46);
-            this.Button_lapphieu.TabIndex = 16;
-            this.Button_lapphieu.UseVisualStyleBackColor = true;
-            this.Button_lapphieu.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Button_xoa
-            // 
-            this.Button_xoa.AutoSize = true;
-            this.Button_xoa.Image = global::QuanLiGara.Properties.Resources.xoa;
-            this.Button_xoa.Location = new System.Drawing.Point(432, 479);
-            this.Button_xoa.Name = "Button_xoa";
-            this.Button_xoa.Size = new System.Drawing.Size(46, 46);
-            this.Button_xoa.TabIndex = 18;
-            this.Button_xoa.UseVisualStyleBackColor = true;
-            this.Button_xoa.Click += new System.EventHandler(this.button3_Click);
+            this.dtGV_phieuthu.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.EnterCellData);
             // 
             // groupPanel1
             // 
@@ -98,9 +84,13 @@
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.groupPanel1.Controls.Add(this.Date_ngaythutien);
             this.groupPanel1.Controls.Add(this.cbB_bienso);
+            this.groupPanel1.Controls.Add(this.txt_Tongtien);
+            this.groupPanel1.Controls.Add(this.txt_conno);
             this.groupPanel1.Controls.Add(this.Text_sotienthu);
             this.groupPanel1.Controls.Add(this.Text_email);
+            this.groupPanel1.Controls.Add(this.label9);
             this.groupPanel1.Controls.Add(this.Text_dienthoai);
+            this.groupPanel1.Controls.Add(this.label8);
             this.groupPanel1.Controls.Add(this.Text_chuxe);
             this.groupPanel1.Controls.Add(this.label7);
             this.groupPanel1.Controls.Add(this.label6);
@@ -151,38 +141,83 @@
             // 
             // cbB_bienso
             // 
+            this.cbB_bienso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbB_bienso.FormattingEnabled = true;
             this.cbB_bienso.Location = new System.Drawing.Point(497, 11);
             this.cbB_bienso.Name = "cbB_bienso";
             this.cbB_bienso.Size = new System.Drawing.Size(199, 21);
             this.cbB_bienso.TabIndex = 26;
-            this.cbB_bienso.SelectedIndexChanged += new System.EventHandler(this.bienso_SelectedIndexChanged_1);
+            this.cbB_bienso.SelectedIndexChanged += new System.EventHandler(this.bienso_SelectedIndexChanged);
+            // 
+            // txt_Tongtien
+            // 
+            this.txt_Tongtien.Location = new System.Drawing.Point(497, 43);
+            this.txt_Tongtien.Name = "txt_Tongtien";
+            this.txt_Tongtien.ReadOnly = true;
+            this.txt_Tongtien.Size = new System.Drawing.Size(199, 20);
+            this.txt_Tongtien.TabIndex = 25;
+            this.txt_Tongtien.Text = "0";
+            // 
+            // txt_conno
+            // 
+            this.txt_conno.Location = new System.Drawing.Point(497, 77);
+            this.txt_conno.Name = "txt_conno";
+            this.txt_conno.ReadOnly = true;
+            this.txt_conno.Size = new System.Drawing.Size(199, 20);
+            this.txt_conno.TabIndex = 25;
+            this.txt_conno.Text = "0";
             // 
             // Text_sotienthu
             // 
             this.Text_sotienthu.Location = new System.Drawing.Point(497, 107);
             this.Text_sotienthu.Name = "Text_sotienthu";
+            this.Text_sotienthu.ReadOnly = true;
             this.Text_sotienthu.Size = new System.Drawing.Size(199, 20);
             this.Text_sotienthu.TabIndex = 25;
+            this.Text_sotienthu.Text = "0";
+            this.Text_sotienthu.TextChanged += new System.EventHandler(this.SoTienThu_TextChanged);
             // 
             // Text_email
             // 
-            this.Text_email.Location = new System.Drawing.Point(497, 56);
+            this.Text_email.Location = new System.Drawing.Point(196, 39);
             this.Text_email.Name = "Text_email";
-            this.Text_email.Size = new System.Drawing.Size(199, 20);
+            this.Text_email.ReadOnly = true;
+            this.Text_email.Size = new System.Drawing.Size(190, 20);
             this.Text_email.TabIndex = 24;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.Red;
+            this.label9.Location = new System.Drawing.Point(421, 46);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(59, 13);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Tổng Tiền:";
             // 
             // Text_dienthoai
             // 
-            this.Text_dienthoai.Location = new System.Drawing.Point(196, 56);
+            this.Text_dienthoai.Location = new System.Drawing.Point(196, 72);
             this.Text_dienthoai.Name = "Text_dienthoai";
+            this.Text_dienthoai.ReadOnly = true;
             this.Text_dienthoai.Size = new System.Drawing.Size(190, 20);
             this.Text_dienthoai.TabIndex = 23;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Red;
+            this.label8.Location = new System.Drawing.Point(421, 80);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Còn Nợ: ";
             // 
             // Text_chuxe
             // 
             this.Text_chuxe.Location = new System.Drawing.Point(196, 8);
             this.Text_chuxe.Name = "Text_chuxe";
+            this.Text_chuxe.ReadOnly = true;
             this.Text_chuxe.Size = new System.Drawing.Size(190, 20);
             this.Text_chuxe.TabIndex = 22;
             // 
@@ -210,7 +245,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(421, 59);
+            this.label5.Location = new System.Drawing.Point(96, 46);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 13);
             this.label5.TabIndex = 19;
@@ -220,7 +255,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(96, 59);
+            this.label4.Location = new System.Drawing.Point(96, 72);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 18;
@@ -246,14 +281,93 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "Họ Tên Chủ Xe";
             // 
+            // btnHuy
+            // 
+            this.btnHuy.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnHuy.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnHuy.Enabled = false;
+            this.btnHuy.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuy.Location = new System.Drawing.Point(695, 488);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(74, 29);
+            this.btnHuy.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnHuy.TabIndex = 25;
+            this.btnHuy.Text = "Hủy";
+            this.btnHuy.Click += new System.EventHandler(this.Huy_Click);
+            // 
+            // btnLuu
+            // 
+            this.btnLuu.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnLuu.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnLuu.Enabled = false;
+            this.btnLuu.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLuu.Location = new System.Drawing.Point(541, 488);
+            this.btnLuu.Name = "btnLuu";
+            this.btnLuu.Size = new System.Drawing.Size(74, 29);
+            this.btnLuu.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnLuu.TabIndex = 26;
+            this.btnLuu.Text = "Lưu";
+            this.btnLuu.Click += new System.EventHandler(this.Luu_Click);
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnXoa.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnXoa.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.Location = new System.Drawing.Point(394, 488);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(74, 29);
+            this.btnXoa.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnXoa.TabIndex = 27;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.Click += new System.EventHandler(this.Delete_Click);
+            // 
+            // btnSua
+            // 
+            this.btnSua.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSua.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSua.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSua.Location = new System.Drawing.Point(237, 488);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Size = new System.Drawing.Size(74, 29);
+            this.btnSua.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSua.TabIndex = 28;
+            this.btnSua.Text = "Sửa";
+            this.btnSua.Click += new System.EventHandler(this.Sua_Click);
+            // 
+            // btnThem
+            // 
+            this.btnThem.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnThem.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnThem.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Location = new System.Drawing.Point(82, 488);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(74, 29);
+            this.btnThem.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnThem.TabIndex = 29;
+            this.btnThem.Text = "Thêm";
+            this.btnThem.Click += new System.EventHandler(this.Them_Click);
+            // 
+            // txtMaPT
+            // 
+            this.txtMaPT.Location = new System.Drawing.Point(737, 9);
+            this.txtMaPT.Name = "txtMaPT";
+            this.txtMaPT.ReadOnly = true;
+            this.txtMaPT.Size = new System.Drawing.Size(84, 20);
+            this.txtMaPT.TabIndex = 25;
+            // 
             // Form_PHIEUTHUTIEN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(833, 529);
+            this.Controls.Add(this.btnHuy);
+            this.Controls.Add(this.btnLuu);
+            this.Controls.Add(this.txtMaPT);
+            this.Controls.Add(this.btnXoa);
+            this.Controls.Add(this.btnSua);
+            this.Controls.Add(this.btnThem);
             this.Controls.Add(this.groupPanel1);
-            this.Controls.Add(this.Button_xoa);
-            this.Controls.Add(this.Button_lapphieu);
             this.Controls.Add(this.dtGV_phieuthu);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
@@ -273,8 +387,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dtGV_phieuthu;
-        private System.Windows.Forms.Button Button_lapphieu;
-        private System.Windows.Forms.Button Button_xoa;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private System.Windows.Forms.DateTimePicker Date_ngaythutien;
         private System.Windows.Forms.ComboBox cbB_bienso;
@@ -288,5 +400,15 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txt_Tongtien;
+        private System.Windows.Forms.TextBox txt_conno;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private DevComponents.DotNetBar.ButtonX btnHuy;
+        private DevComponents.DotNetBar.ButtonX btnLuu;
+        private DevComponents.DotNetBar.ButtonX btnXoa;
+        private DevComponents.DotNetBar.ButtonX btnSua;
+        private DevComponents.DotNetBar.ButtonX btnThem;
+        private System.Windows.Forms.TextBox txtMaPT;
     }
 }

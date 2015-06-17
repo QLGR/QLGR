@@ -319,6 +319,14 @@ namespace QuanLiGara
                     Text_mahieuxe.ReadOnly = a;
                     Text_tenhieuxe.ReadOnly = a;
                     break;
+                default:
+                     Text_tenVT.ReadOnly = a;
+                    Text_dongia.ReadOnly = a;
+                    Text_mahieuxe.ReadOnly = a;
+                    Text_tenhieuxe.ReadOnly = a;
+                    Text_tentiencong.ReadOnly = a;
+                    Text_tiencong.ReadOnly = a;
+                    break;
             }
 
 

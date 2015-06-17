@@ -27,6 +27,18 @@ namespace QuanLiGara.sql
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
+        public string Sum(String bienso)
+        {
+            DataTable dt = new DataTable();
+            dt = db.getDS("Select SUM(ThanhTien)[TongCong] from PHIEUSUACHUA where MaHSSC = '"+bienso+"'");
+            if (dt.Rows.Count > 0)
+            {
+                return dt.Rows[0][0].ToString();
+            }
+                
+            return "0";
+        }
+
         public bool Sua(PhieuSuaChuasql psc)
         {
             string[] param = { "@MaPhieuSC", "@NoiDung", "@MaVatTu", "@SoLuong", "@MaTienCong", "@ThanhTien", "@MaHSSC", "@NgaySuaChua" };
@@ -45,6 +57,8 @@ namespace QuanLiGara.sql
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
+
+        
 
         public string SearchDaTaGrid()
         {
