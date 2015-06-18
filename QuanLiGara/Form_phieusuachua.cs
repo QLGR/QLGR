@@ -87,7 +87,7 @@ namespace QuanLiGara
             dt = db.getDS("select * from HOSOSUACHUA");
             foreach (DataRow dr in dt.Rows)
             {
-                if (dr["BienSo"].ToString() == bienso)
+                if (dr["BienSo"].ToString() == cbBox_bienso.Text)
                     return dr["MaHSSC"].ToString();
 
             }
@@ -181,19 +181,17 @@ namespace QuanLiGara
                 {
                     no = (tienno(sql,cbBox_bienso.Text) -  double.Parse(no) + double.Parse(Text_thanhtien.Text)).ToString();
                     MessageBox.Show("Cập Nhật phiếu sửa chữa thành công!");
-                    db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(cbBox_bienso.Text) + "' where BienSo = '" + cbBox_bienso.Text + "'");
-                    db.getDS("update DANHSACHXE set TienNo = '"+no+"' where MaHSSC = '"+cbBox_bienso.Text+"'");
+                    db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(sql,cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                    db.getDS("update DANHSACHXE set TienNo = '"+no+"' where MaHSSC = '"+mahssc(sql,cbBox_bienso.Text)+"'");
                 }
                 else
                     if (PSC.Them(GetData()))
                     {
 
-                        db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(cbBox_bienso.Text) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                        db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(sql, cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
                         MessageBox.Show("Lập phiếu sửa chữa thành công!");
                         no = (tienno(sql, cbBox_bienso.Text) + double.Parse(Text_thanhtien.Text)).ToString();
-                        db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + cbBox_bienso.Text + "'");
-                
-                    
+                        db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + mahssc(sql,cbBox_bienso.Text) + "'");
                     }
                 loadbang(sql);
                 dtGV_danhsachSuaChua.Refresh();
@@ -267,7 +265,7 @@ namespace QuanLiGara
             }
             catch (Exception c)
             {
-                MessageBox.Show(c.ToString());
+                MessageBox.Show("Không thể xóa phiếu sửa chữa!");
             }
             loadbang(sql);
             dtGV_danhsachSuaChua.Update();

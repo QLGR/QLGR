@@ -1,0 +1,150 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using DevComponents.DotNetBar;
+using System.Runtime.InteropServices;
+using System.IO;
+namespace QuanLiGara.sql
+{
+
+    public class tiepnhansql
+    {
+        Connection db = new Connection();
+        public bool ThemTN(tiepnhan mtt)
+        {
+
+            string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan" };
+            object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan };
+            string query = "Insert INTO HOSOSUACHUA (MaHSSC,TenChuXe,BienSo,MaHX,DiaChi,DienThoai,NgayTiepNhan) VALUES (@MaHSSC,@TenChuXe,@BienSo,@MaHX,@DiaChi,@DienThoai,@NgayTiepNhan)";
+            return db.ExecuteNonQueryPara(query, param, value);
+
+        }
+
+        public string Sum(String bienso)
+        {
+            DataTable dt = new DataTable();
+            dt = db.getDS("Select SUM(ThanhTien)[TongCong] from tiepnhan where MaHSSC = '" + bienso + "'");
+            if (dt.Rows.Count > 0)
+            {
+                return dt.Rows[0][0].ToString();
+            }
+
+            return "0";
+        }
+
+        public bool SuaTN(tiepnhan mtt)
+        {
+            string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan" };
+            object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan };
+            string query = "UPDATE HOSOSUACHUA SET TenChuXe=@TenChuXe,BienSo=@BienSo,MaHX=@MaHX," +
+                            "DiaChi=@DiaChi,DienThoai=@DienThoai,NgayTiepNhan=@NgayTiepNhan WHERE MaHSSC=@MaHSSC";
+            return db.ExecuteNonQueryPara(query, param, value);
+        }
+
+        public bool XoaTN(string MaHSSC)
+        {
+            string[] param = { "@MaHSSC" };
+            object[] value = { MaHSSC };
+            string query = "DELETE FROM HOSOSUACHUA WHERE MaHSSC=@MaHSSC";
+            return db.ExecuteNonQueryPara(query, param, value);
+        }
+
+        public bool ThemDSX(tiepnhan mtt)
+        {
+
+            string[] param = { "@MaXe", "@MaHSSC", "@TienNo" };
+            object[] value = { SearchDaTaGridMX(), mtt.MaHSSC, "0" };
+            string query = "Insert INTO DANHSACHXE (MaXe,MaHSSC,TienNo) VALUES (@MaXe,@MaHSSC,@TienNo)";
+            return db.ExecuteNonQueryPara(query, param, value);
+        }
+
+        
+        public bool XoaDSX(string MaHSSC)
+        {
+            string[] param = { "@MaHSSC" };
+            object[] value = { MaHSSC };
+            string query = "DELETE FROM DANHSACHXE WHERE MaHSSC=@MaHSSC";
+            return db.ExecuteNonQueryPara(query, param, value);
+        }
+
+        public string SearchDaTaGrid()
+        {
+            int Count = 0;
+            string MaTN = "";
+            DataTable dt = new DataTable();//tao bang tam de luu
+            dt = db.getDS("Select MaHSSC From HOSOSUACHUA");
+            for (int i = 1; true; i++)
+            {
+                for (int j = 0; j < dt.Rows.Count; j++)
+                {
+                    string s = "HSSC" + i;
+                    string spsc = dt.Rows[j]["MaHSSC"].ToString();
+                    if (!spsc.Equals(s))
+                    {
+                        Count++;//dem so lan khac
+                    }
+                    else
+                    {
+                        Count = 0;
+                        break;
+                    }
+                }
+                if (Count == dt.Rows.Count)// new so lan khac bang so hang cua bang, nghia la khong co dong nao trung thi tu dong add
+                {
+                    MaTN = "HSSC" + i;
+                    break;
+                }
+            }
+            return MaTN;
+        }
+
+        public string SearchDaTaGridMX()
+        {
+            int Count = 0;
+            string MaTN = "";
+            DataTable dt = new DataTable();//tao bang tam de luu
+            dt = db.getDS("Select MaXe From DanhSachXe");
+            for (int i = 1; true; i++)
+            {
+                for (int j = 0; j < dt.Rows.Count; j++)
+                {
+                    string s = "MX" + i;
+                    string spsc = dt.Rows[j]["MaXe"].ToString();
+                    if (!spsc.Equals(s))
+                    {
+                        Count++;//dem so lan khac
+                    }
+                    else
+                    {
+                        Count = 0;
+                        break;
+                    }
+                }
+                if (Count == dt.Rows.Count)// new so lan khac bang so hang cua bang, nghia la khong co dong nao trung thi tu dong add
+                {
+                    MaTN = "MX" + i;
+                    break;
+                }
+            }
+            return MaTN;
+        }
+    }
+}
+
+public class tiepnhan
+{
+    public string MaHSSC = "";
+    public string TenChuXe = "";
+    public string BienSo = "";
+    public string MaHieuXe = "";
+    public string DiaChi = "";
+    public string DienThoai = "";
+    public DateTime NgayTiepNhan = new DateTime(2015, 6, 6);
+}

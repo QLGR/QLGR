@@ -153,6 +153,7 @@
     <Compile Include="sql\dulieu.cs" />
     <Compile Include="sql\phieusuachua.cs" />
     <Compile Include="sql\phieuthu.cs" />
+    <Compile Include="sql\tiepnhan.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

@@ -43,11 +43,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.Button_capnhatXeSua = new System.Windows.Forms.Button();
-            this.Button_xoaXeSua = new System.Windows.Forms.Button();
-            this.Button_nhaplaiXeSua = new System.Windows.Forms.Button();
-            this.Button_themXeSua = new System.Windows.Forms.Button();
             this.dtGV_danhsachTN = new System.Windows.Forms.DataGridView();
+            this.btnHuy = new DevComponents.DotNetBar.ButtonX();
+            this.btnLuu = new DevComponents.DotNetBar.ButtonX();
+            this.btnXoa = new DevComponents.DotNetBar.ButtonX();
+            this.btnSua = new DevComponents.DotNetBar.ButtonX();
+            this.btnThem = new DevComponents.DotNetBar.ButtonX();
+            this.maHSSC = new System.Windows.Forms.TextBox();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachTN)).BeginInit();
             this.SuspendLayout();
@@ -123,12 +125,13 @@
             // 
             // cbBox_hieuxe
             // 
+            this.cbBox_hieuxe.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBox_hieuxe.FormattingEnabled = true;
             this.cbBox_hieuxe.Location = new System.Drawing.Point(564, 31);
             this.cbBox_hieuxe.Name = "cbBox_hieuxe";
             this.cbBox_hieuxe.Size = new System.Drawing.Size(131, 21);
             this.cbBox_hieuxe.TabIndex = 44;
-            this.cbBox_hieuxe.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
+            this.cbBox_hieuxe.SelectedIndexChanged += new System.EventHandler(this.HieuXe_SelectedIndexChanged);
             // 
             // Text_dienthoai
             // 
@@ -136,6 +139,7 @@
             this.Text_dienthoai.Name = "Text_dienthoai";
             this.Text_dienthoai.Size = new System.Drawing.Size(132, 20);
             this.Text_dienthoai.TabIndex = 43;
+            this.Text_dienthoai.TextChanged += new System.EventHandler(this.Text_dienthoai_TextChanged);
             // 
             // Text_diachi
             // 
@@ -225,59 +229,90 @@
             this.label2.TabIndex = 33;
             this.label2.Text = "Tên chủ xe";
             // 
-            // Button_capnhatXeSua
-            // 
-            this.Button_capnhatXeSua.AutoSize = true;
-            this.Button_capnhatXeSua.Image = global::QuanLiGara.Properties.Resources.cap_nhat;
-            this.Button_capnhatXeSua.Location = new System.Drawing.Point(495, 535);
-            this.Button_capnhatXeSua.Name = "Button_capnhatXeSua";
-            this.Button_capnhatXeSua.Size = new System.Drawing.Size(46, 46);
-            this.Button_capnhatXeSua.TabIndex = 17;
-            this.Button_capnhatXeSua.UseVisualStyleBackColor = true;
-            this.Button_capnhatXeSua.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // Button_xoaXeSua
-            // 
-            this.Button_xoaXeSua.AutoSize = true;
-            this.Button_xoaXeSua.Image = global::QuanLiGara.Properties.Resources.xoa;
-            this.Button_xoaXeSua.Location = new System.Drawing.Point(389, 535);
-            this.Button_xoaXeSua.Name = "Button_xoaXeSua";
-            this.Button_xoaXeSua.Size = new System.Drawing.Size(46, 46);
-            this.Button_xoaXeSua.TabIndex = 16;
-            this.Button_xoaXeSua.UseVisualStyleBackColor = true;
-            this.Button_xoaXeSua.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // Button_nhaplaiXeSua
-            // 
-            this.Button_nhaplaiXeSua.AutoSize = true;
-            this.Button_nhaplaiXeSua.Image = global::QuanLiGara.Properties.Resources.sua;
-            this.Button_nhaplaiXeSua.Location = new System.Drawing.Point(283, 535);
-            this.Button_nhaplaiXeSua.Name = "Button_nhaplaiXeSua";
-            this.Button_nhaplaiXeSua.Size = new System.Drawing.Size(46, 46);
-            this.Button_nhaplaiXeSua.TabIndex = 14;
-            this.Button_nhaplaiXeSua.UseVisualStyleBackColor = true;
-            this.Button_nhaplaiXeSua.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // Button_themXeSua
-            // 
-            this.Button_themXeSua.AutoSize = true;
-            this.Button_themXeSua.Image = global::QuanLiGara.Properties.Resources.them;
-            this.Button_themXeSua.Location = new System.Drawing.Point(177, 535);
-            this.Button_themXeSua.Name = "Button_themXeSua";
-            this.Button_themXeSua.Size = new System.Drawing.Size(46, 46);
-            this.Button_themXeSua.TabIndex = 13;
-            this.Button_themXeSua.UseVisualStyleBackColor = true;
-            this.Button_themXeSua.Click += new System.EventHandler(this.button1_Click);
-            // 
             // dtGV_danhsachTN
             // 
+            this.dtGV_danhsachTN.AllowUserToAddRows = false;
             this.dtGV_danhsachTN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_danhsachTN.Location = new System.Drawing.Point(12, 278);
             this.dtGV_danhsachTN.Name = "dtGV_danhsachTN";
             this.dtGV_danhsachTN.Size = new System.Drawing.Size(735, 251);
             this.dtGV_danhsachTN.TabIndex = 15;
-            this.dtGV_danhsachTN.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dtGV_danhsachTN.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dtGV_danhsachTN.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGV_danhsachTN_RowEnter);
+            // 
+            // btnHuy
+            // 
+            this.btnHuy.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnHuy.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnHuy.Enabled = false;
+            this.btnHuy.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuy.Location = new System.Drawing.Point(649, 555);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(74, 29);
+            this.btnHuy.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnHuy.TabIndex = 46;
+            this.btnHuy.Text = "Hủy";
+            this.btnHuy.Click += new System.EventHandler(this.Huy_Click);
+            // 
+            // btnLuu
+            // 
+            this.btnLuu.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnLuu.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnLuu.Enabled = false;
+            this.btnLuu.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLuu.Location = new System.Drawing.Point(495, 555);
+            this.btnLuu.Name = "btnLuu";
+            this.btnLuu.Size = new System.Drawing.Size(74, 29);
+            this.btnLuu.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnLuu.TabIndex = 47;
+            this.btnLuu.Text = "Lưu";
+            this.btnLuu.Click += new System.EventHandler(this.Luu_Click);
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnXoa.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnXoa.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.Location = new System.Drawing.Point(348, 555);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(74, 29);
+            this.btnXoa.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnXoa.TabIndex = 48;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btnSua
+            // 
+            this.btnSua.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSua.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSua.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSua.Location = new System.Drawing.Point(191, 555);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Size = new System.Drawing.Size(74, 29);
+            this.btnSua.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSua.TabIndex = 49;
+            this.btnSua.Text = "Sửa";
+            this.btnSua.Click += new System.EventHandler(this.Sua_Click);
+            // 
+            // btnThem
+            // 
+            this.btnThem.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnThem.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnThem.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Location = new System.Drawing.Point(36, 555);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(74, 29);
+            this.btnThem.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnThem.TabIndex = 50;
+            this.btnThem.Text = "Thêm";
+            this.btnThem.Click += new System.EventHandler(this.Them_Click);
+            // 
+            // maHSSC
+            // 
+            this.maHSSC.Location = new System.Drawing.Point(649, 12);
+            this.maHSSC.Name = "maHSSC";
+            this.maHSSC.ReadOnly = true;
+            this.maHSSC.Size = new System.Drawing.Size(98, 20);
+            this.maHSSC.TabIndex = 46;
             // 
             // Form_TiepNhan
             // 
@@ -285,13 +320,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(759, 606);
+            this.Controls.Add(this.maHSSC);
+            this.Controls.Add(this.btnHuy);
             this.Controls.Add(this.groupPanel1);
-            this.Controls.Add(this.Button_capnhatXeSua);
-            this.Controls.Add(this.Button_xoaXeSua);
+            this.Controls.Add(this.btnLuu);
             this.Controls.Add(this.dtGV_danhsachTN);
-            this.Controls.Add(this.Button_nhaplaiXeSua);
-            this.Controls.Add(this.Button_themXeSua);
+            this.Controls.Add(this.btnXoa);
+            this.Controls.Add(this.btnSua);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnThem);
             this.DoubleBuffered = true;
             this.EnableGlass = false;
             this.Name = "Form_TiepNhan";
@@ -308,10 +345,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Button_themXeSua;
-        private System.Windows.Forms.Button Button_nhaplaiXeSua;
-        private System.Windows.Forms.Button Button_xoaXeSua;
-        private System.Windows.Forms.Button Button_capnhatXeSua;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private System.Windows.Forms.DateTimePicker Date_ngaytiepnhan;
         private System.Windows.Forms.ComboBox cbBox_hieuxe;
@@ -327,5 +360,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dtGV_danhsachTN;
+        private DevComponents.DotNetBar.ButtonX btnHuy;
+        private DevComponents.DotNetBar.ButtonX btnLuu;
+        private DevComponents.DotNetBar.ButtonX btnXoa;
+        private DevComponents.DotNetBar.ButtonX btnSua;
+        private DevComponents.DotNetBar.ButtonX btnThem;
+        private System.Windows.Forms.TextBox maHSSC;
     }
 }

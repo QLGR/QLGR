@@ -202,6 +202,7 @@
             this.Text_dienthoai.ReadOnly = true;
             this.Text_dienthoai.Size = new System.Drawing.Size(190, 20);
             this.Text_dienthoai.TabIndex = 23;
+            this.Text_dienthoai.TextChanged += new System.EventHandler(this.Text_dienthoai_TextChanged);
             // 
             // label8
             // 

@@ -27,13 +27,24 @@ namespace QuanLiGara
         public string hssc;
         double no = 0;
 
+        public string mahssc(SqlConnection sql, String bienso)
+        {
+            DataTable dt = new DataTable();
+            dt = db.getDS("select * from HOSOSUACHUA");
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (dr["BienSo"].ToString() == cbB_bienso.Text)
+                    return dr["MaHSSC"].ToString();
 
+            }
+            return "";
+        }
 
         public phieuthu getData()
         {
             phieuthu pt = new phieuthu();
             pt.Email = Text_email.Text;
-            pt.MaHSSC = cbB_bienso.Text;
+            pt.MaHSSC = mahssc(sql,cbB_bienso.Text);
             pt.SoTienThu = Text_sotienthu.Text;
             pt.NgayThuTien = DateTime.Parse(Date_ngaythutien.Text);
             pt.MaThuTien = txtMaPT.Text;
@@ -103,7 +114,7 @@ namespace QuanLiGara
                         
                     }
                 no = (double.Parse(txt_conno.Text) - double.Parse(Text_sotienthu.Text));
-                db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + cbB_bienso.Text + "'");
+                db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + hssc+ "'");
 
             }
             catch (Exception c)
@@ -127,13 +138,13 @@ namespace QuanLiGara
                 {
                     MessageBox.Show("Xóa thành công phiếu thu!");
                     no = (double.Parse(txt_conno.Text) + double.Parse(Text_sotienthu.Text));
-                    db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + cbB_bienso.Text + "'");
+                    db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + hssc+ "'");
                 }
 
             }
             catch (Exception c)
             {
-                MessageBox.Show(c.ToString());
+                MessageBox.Show("Không thể xóa do vẫn còn đang sửa hoặc chưa thanh toán!");
             }
             
             loadbang(sql);
@@ -164,7 +175,7 @@ namespace QuanLiGara
 
             foreach (DataRow dr1 in dt1.Rows)
             {
-                if (cbB_bienso.Text == dr1["MaHSSC"].ToString())
+                if (hssc == dr1["MaHSSC"].ToString())
                 {
                     txt_conno.Text = dr1["TienNo"].ToString();
                 }
@@ -209,6 +220,7 @@ namespace QuanLiGara
             cbB_bienso.Text = dtGV_phieuthu.Rows[RowIndex].Cells["BienSo"].Value.ToString();
             no = double.Parse(Text_sotienthu.Text = dtGV_phieuthu.Rows[RowIndex].Cells["SoTienThu"].Value.ToString());
             txtMaPT.Text = dtGV_phieuthu.Rows[RowIndex].Cells["MaThuTien"].Value.ToString();
+            hssc = dtGV_phieuthu.Rows[RowIndex].Cells["MaHSSC"].Value.ToString();
         }
         private void setEnable(bool a)
         {
@@ -256,5 +268,30 @@ namespace QuanLiGara
             dtGV_phieuthu.Update();
             dtGV_phieuthu.Refresh();
         }
+
+        private void Text_dienthoai_TextChanged(object sender, EventArgs e)
+        {
+            int i;
+            try
+            {
+
+
+                if (int.TryParse(Text_dienthoai.Text, out i))
+                {
+                    if (int.Parse(Text_dienthoai.Text) < 0)
+                        MessageBox.Show("Số điện thoại phải là dãy số nguyên dương");
+                }
+                else
+                    if (Text_dienthoai.Text != "")
+                    {
+                        MessageBox.Show("Số điện thoại phải là số nguyên");
+                    }
+            }
+            catch
+            {
+                MessageBox.Show("Số điện thoại phải là dãy số nguyên.");
+            }
+        }
+        
     }
 }

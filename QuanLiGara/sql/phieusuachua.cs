@@ -27,10 +27,10 @@ namespace QuanLiGara.sql
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
-        public string Sum(String bienso)
+        public string Sum(String hssc)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select SUM(ThanhTien)[TongCong] from PHIEUSUACHUA where MaHSSC = '"+bienso+"'");
+            dt = db.getDS("Select SUM(ThanhTien)[TongCong] from PHIEUSUACHUA where MaHSSC = '"+hssc+"'");
             if (dt.Rows.Count > 0)
             {
                 return dt.Rows[0][0].ToString();
