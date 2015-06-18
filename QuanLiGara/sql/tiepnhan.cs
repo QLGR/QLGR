@@ -20,9 +20,9 @@ namespace QuanLiGara.sql
         public bool ThemTN(tiepnhan mtt)
         {
 
-            string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan" };
-            object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan };
-            string query = "Insert INTO HOSOSUACHUA (MaHSSC,TenChuXe,BienSo,MaHX,DiaChi,DienThoai,NgayTiepNhan) VALUES (@MaHSSC,@TenChuXe,@BienSo,@MaHX,@DiaChi,@DienThoai,@NgayTiepNhan)";
+            string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan","@Email" };
+            object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan,mtt.Email };
+            string query = "Insert INTO HOSOSUACHUA (MaHSSC,TenChuXe,BienSo,MaHX,DiaChi,DienThoai,NgayTiepNhan,Email) VALUES (@MaHSSC,@TenChuXe,@BienSo,@MaHX,@DiaChi,@DienThoai,@NgayTiepNhan,@Email)";
             return db.ExecuteNonQueryPara(query, param, value);
 
         }
@@ -41,10 +41,10 @@ namespace QuanLiGara.sql
 
         public bool SuaTN(tiepnhan mtt)
         {
-            string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan" };
-            object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan };
+            string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan","@Email" };
+            object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan,mtt.Email };
             string query = "UPDATE HOSOSUACHUA SET TenChuXe=@TenChuXe,BienSo=@BienSo,MaHX=@MaHX," +
-                            "DiaChi=@DiaChi,DienThoai=@DienThoai,NgayTiepNhan=@NgayTiepNhan WHERE MaHSSC=@MaHSSC";
+                            "DiaChi=@DiaChi,DienThoai=@DienThoai,NgayTiepNhan=@NgayTiepNhan, Email = @Email WHERE MaHSSC=@MaHSSC";
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
@@ -142,6 +142,7 @@ public class tiepnhan
 {
     public string MaHSSC = "";
     public string TenChuXe = "";
+    public string Email = "";
     public string BienSo = "";
     public string MaHieuXe = "";
     public string DiaChi = "";

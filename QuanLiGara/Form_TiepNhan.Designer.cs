@@ -50,6 +50,8 @@
             this.btnSua = new DevComponents.DotNetBar.ButtonX();
             this.btnThem = new DevComponents.DotNetBar.ButtonX();
             this.maHSSC = new System.Windows.Forms.TextBox();
+            this.Text_email = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachTN)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +71,8 @@
             // 
             this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.groupPanel1.Controls.Add(this.Text_email);
+            this.groupPanel1.Controls.Add(this.label8);
             this.groupPanel1.Controls.Add(this.Date_ngaytiepnhan);
             this.groupPanel1.Controls.Add(this.cbBox_hieuxe);
             this.groupPanel1.Controls.Add(this.Text_dienthoai);
@@ -137,14 +141,16 @@
             // 
             this.Text_dienthoai.Location = new System.Drawing.Point(100, 140);
             this.Text_dienthoai.Name = "Text_dienthoai";
+            this.Text_dienthoai.ReadOnly = true;
             this.Text_dienthoai.Size = new System.Drawing.Size(132, 20);
             this.Text_dienthoai.TabIndex = 43;
             this.Text_dienthoai.TextChanged += new System.EventHandler(this.Text_dienthoai_TextChanged);
             // 
             // Text_diachi
             // 
-            this.Text_diachi.Location = new System.Drawing.Point(100, 85);
+            this.Text_diachi.Location = new System.Drawing.Point(100, 68);
             this.Text_diachi.Name = "Text_diachi";
+            this.Text_diachi.ReadOnly = true;
             this.Text_diachi.Size = new System.Drawing.Size(595, 20);
             this.Text_diachi.TabIndex = 42;
             // 
@@ -159,6 +165,7 @@
             // 
             this.Text_bienso.Location = new System.Drawing.Point(411, 31);
             this.Text_bienso.Name = "Text_bienso";
+            this.Text_bienso.ReadOnly = true;
             this.Text_bienso.Size = new System.Drawing.Size(98, 20);
             this.Text_bienso.TabIndex = 40;
             // 
@@ -166,6 +173,7 @@
             // 
             this.Text_chuxe.Location = new System.Drawing.Point(100, 31);
             this.Text_chuxe.Name = "Text_chuxe";
+            this.Text_chuxe.ReadOnly = true;
             this.Text_chuxe.Size = new System.Drawing.Size(257, 20);
             this.Text_chuxe.TabIndex = 39;
             // 
@@ -193,7 +201,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(33, 88);
+            this.label5.Location = new System.Drawing.Point(33, 71);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 36;
@@ -314,6 +322,24 @@
             this.maHSSC.Size = new System.Drawing.Size(98, 20);
             this.maHSSC.TabIndex = 46;
             // 
+            // Text_email
+            // 
+            this.Text_email.Location = new System.Drawing.Point(100, 105);
+            this.Text_email.Name = "Text_email";
+            this.Text_email.ReadOnly = true;
+            this.Text_email.Size = new System.Drawing.Size(595, 20);
+            this.Text_email.TabIndex = 47;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Red;
+            this.label8.Location = new System.Drawing.Point(33, 108);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(32, 13);
+            this.label8.TabIndex = 46;
+            this.label8.Text = "Email";
+            // 
             // Form_TiepNhan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -366,5 +392,7 @@
         private DevComponents.DotNetBar.ButtonX btnSua;
         private DevComponents.DotNetBar.ButtonX btnThem;
         private System.Windows.Forms.TextBox maHSSC;
+        private System.Windows.Forms.TextBox Text_email;
+        private System.Windows.Forms.Label label8;
     }
 }

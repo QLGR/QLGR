@@ -209,7 +209,10 @@ namespace QuanLiGara
                 if (dr["TenVatTu"].ToString() == cbBoc_vattu.SelectedItem.ToString())
                 {
                     double don = double.Parse(dr["DonGia"].ToString());
-                    Text_dongia.Text = don.ToString("#,###,###.##");
+                    if(don != 0)
+                        Text_dongia.Text = don.ToString("#,###,###.##");
+                    else
+                        Text_dongia.Text = don.ToString();
                 }
             }
 
@@ -217,7 +220,10 @@ namespace QuanLiGara
             if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
             {
                 double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
-                Text_thanhtien.Text = sum.ToString("#,###,###.##");
+                if(sum != 0)
+                    Text_thanhtien.Text = sum.ToString("#,###,###.##");
+                else
+                    Text_thanhtien.Text = sum.ToString();
             }
         }
 
@@ -231,7 +237,11 @@ namespace QuanLiGara
                 if (int.TryParse(Text_soluong.Text, out i) && int.Parse(Text_soluong.Text) > -1)
                 {
                     double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
-                    Text_thanhtien.Text = sum.ToString("#,###,###.##");
+                    if(sum != 0)
+                        Text_thanhtien.Text = sum.ToString("#,###,###.##");
+                    else
+                        Text_thanhtien.Text = sum.ToString();
+                    
                 }
                 else
                     MessageBox.Show("Số Lượng phải là số nguyên lớn hơn 0");
@@ -300,7 +310,18 @@ namespace QuanLiGara
                 if (dr["TenVatTu"].ToString() == cbBoc_vattu.SelectedItem.ToString())
                 {
                     double don = double.Parse(dr["DonGia"].ToString());
-                    Text_dongia.Text = don.ToString("#,###,###.##");
+                    if (don != 0)
+                    {
+
+                        Text_soluong.ReadOnly = false;
+                        Text_dongia.Text = don.ToString("#,###,###.##");
+                    }
+                    else
+                    {
+                        Text_soluong.Text = "0";
+                        Text_soluong.ReadOnly = true;
+                        Text_dongia.Text = don.ToString();
+                    }
                 }
             }
 
@@ -308,7 +329,17 @@ namespace QuanLiGara
             if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
             {
                 double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
-                Text_thanhtien.Text = sum.ToString("#,###,###.##");
+                if (sum != 0)
+                {
+
+                    
+                    Text_thanhtien.Text = sum.ToString("#,###,###.##");
+                }
+                else
+                {
+                   
+                    Text_thanhtien.Text = sum.ToString();
+                }
             }
         }
 

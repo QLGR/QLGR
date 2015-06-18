@@ -29,6 +29,7 @@ namespace QuanLiGara
         public tiepnhan getData()
         {
             tiepnhan tn = new tiepnhan();
+            tn.Email = Text_email.Text;
             tn.MaHSSC = maHSSC.Text;
             tn.TenChuXe = Text_chuxe.Text;
             tn.BienSo = Text_bienso.Text;
@@ -332,6 +333,7 @@ namespace QuanLiGara
             Text_diachi.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["DiaChi"].Value.ToString();
             Text_dienthoai.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["DienThoai"].Value.ToString();
             Date_ngaytiepnhan.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["NgayTiepNhan"].Value.ToString();
+            Text_email.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["Email"].Value.ToString();
         }
 
         private bool checkBienso(string bienso)
@@ -354,6 +356,7 @@ namespace QuanLiGara
             SetEnable(true);
             Text_chuxe.Text = "";
             Text_bienso.Text = "";
+            Text_email.Text = "";
             Text_diachi.Text = "";
             Text_dienthoai.Text ="000";
             maHSSC.Text = tnsql.SearchDaTaGrid();
@@ -375,6 +378,7 @@ namespace QuanLiGara
             Text_chuxe.ReadOnly = !a;
             Text_bienso.ReadOnly = !a;
             Text_diachi.ReadOnly = !a;
+            Text_email.ReadOnly = !a;
             Text_dienthoai.ReadOnly = !a;
             btnXoa.Enabled = !a;
             btnSua.Enabled = !a;

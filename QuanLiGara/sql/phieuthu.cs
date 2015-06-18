@@ -20,9 +20,9 @@ namespace QuanLiGara.sql
         public bool ThemMaTT(phieuthu mtt)
         {
 
-            string[] param = { "@MaThuTien", "@Email", "@SoTienThu", "@MaHSSC","@NgayThuTien" };
-            object[] value = { mtt.MaThuTien, mtt.Email, mtt.SoTienThu, mtt.MaHSSC,mtt.NgayThuTien };
-            string query = "Insert INTO PHIEUTHUTIEN (MaThuTien,Email,SoTienThu,MaHSSC,NgayThuTien) VALUES (@MaThuTien,@Email,@SoTienThu,@MaHSSC,@NgayThuTien)";
+            string[] param = { "@MaThuTien", "@SoTienThu", "@MaHSSC","@NgayThuTien" };
+            object[] value = { mtt.MaThuTien, mtt.SoTienThu, mtt.MaHSSC,mtt.NgayThuTien };
+            string query = "Insert INTO PHIEUTHUTIEN (MaThuTien,SoTienThu,MaHSSC,NgayThuTien) VALUES (@MaThuTien,@SoTienThu,@MaHSSC,@NgayThuTien)";
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
@@ -40,9 +40,9 @@ namespace QuanLiGara.sql
 
         public bool SuaMaTT(phieuthu mtt)
         {
-            string[] param = { "@MaThuTien", "@Email", "@SoTienThu", "@MaHSSC", "@NgayThuTien" };
-            object[] value = { mtt.MaThuTien, mtt.Email, mtt.SoTienThu,mtt.MaHSSC, mtt.NgayThuTien };
-            string query = "Update PHIEUTHUTIEN set Email = @Email,SoTienThu = @SoTienThu,MaHSSC = @MaHSSC," +
+            string[] param = { "@MaThuTien", "@SoTienThu", "@MaHSSC", "@NgayThuTien" };
+            object[] value = { mtt.MaThuTien, mtt.SoTienThu,mtt.MaHSSC, mtt.NgayThuTien };
+            string query = "Update PHIEUTHUTIEN set SoTienThu = @SoTienThu,MaHSSC = @MaHSSC," +
                                     "NgayThuTien = @NgayThuTien" +
                                     " where MaThuTien = @MaThuTien";
             return db.ExecuteNonQueryPara(query, param, value);
@@ -102,7 +102,6 @@ namespace QuanLiGara.sql
 public class phieuthu
 {
     public string MaThuTien = "";
-    public string Email = "";
     public string SoTienThu = "";
     public string MaHSSC = "";
     public DateTime NgayThuTien = new DateTime(2015, 6, 6);

@@ -28,21 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_TRACUU));
             this.label1 = new System.Windows.Forms.Label();
             this.dtGV_tracuu = new System.Windows.Forms.DataGridView();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.Button_timkiem = new System.Windows.Forms.Button();
-            this.Text_tienno = new System.Windows.Forms.TextBox();
-            this.Text_chuxe = new System.Windows.Forms.TextBox();
-            this.Text_hieuxe = new System.Windows.Forms.TextBox();
-            this.Text_bienso = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Text_Search = new System.Windows.Forms.TextBox();
+            this.rbChuXe = new System.Windows.Forms.RadioButton();
+            this.rbHieuXe = new System.Windows.Forms.RadioButton();
+            this.rbBienSo = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_tracuu)).BeginInit();
             this.groupPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -58,30 +54,22 @@
             // 
             // dtGV_tracuu
             // 
+            this.dtGV_tracuu.AllowUserToAddRows = false;
+            this.dtGV_tracuu.AllowUserToDeleteRows = false;
             this.dtGV_tracuu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGV_tracuu.Location = new System.Drawing.Point(12, 203);
+            this.dtGV_tracuu.Location = new System.Drawing.Point(12, 202);
             this.dtGV_tracuu.Name = "dtGV_tracuu";
-            this.dtGV_tracuu.Size = new System.Drawing.Size(837, 256);
+            this.dtGV_tracuu.Size = new System.Drawing.Size(837, 257);
             this.dtGV_tracuu.TabIndex = 9;
-            this.dtGV_tracuu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dtGV_tracuu.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // groupPanel1
             // 
             this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.groupPanel1.Controls.Add(this.Button_timkiem);
-            this.groupPanel1.Controls.Add(this.Text_tienno);
-            this.groupPanel1.Controls.Add(this.Text_chuxe);
-            this.groupPanel1.Controls.Add(this.Text_hieuxe);
-            this.groupPanel1.Controls.Add(this.Text_bienso);
-            this.groupPanel1.Controls.Add(this.label5);
-            this.groupPanel1.Controls.Add(this.label4);
-            this.groupPanel1.Controls.Add(this.label3);
-            this.groupPanel1.Controls.Add(this.label2);
+            this.groupPanel1.Controls.Add(this.groupBox1);
             this.groupPanel1.Location = new System.Drawing.Point(12, 55);
             this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(837, 125);
+            this.groupPanel1.Size = new System.Drawing.Size(837, 131);
             // 
             // 
             // 
@@ -113,85 +101,64 @@
             this.groupPanel1.TabIndex = 10;
             this.groupPanel1.Text = "Thông tin tìm xe";
             // 
-            // Button_timkiem
+            // groupBox1
             // 
-            this.Button_timkiem.AutoSize = true;
-            this.Button_timkiem.ForeColor = System.Drawing.Color.Red;
-            this.Button_timkiem.Image = ((System.Drawing.Image)(resources.GetObject("Button_timkiem.Image")));
-            this.Button_timkiem.Location = new System.Drawing.Point(681, 53);
-            this.Button_timkiem.Name = "Button_timkiem";
-            this.Button_timkiem.Size = new System.Drawing.Size(46, 46);
-            this.Button_timkiem.TabIndex = 30;
-            this.Button_timkiem.UseVisualStyleBackColor = true;
-            this.Button_timkiem.Click += new System.EventHandler(this.button1_Click);
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.groupBox1.Controls.Add(this.Text_Search);
+            this.groupBox1.Controls.Add(this.rbChuXe);
+            this.groupBox1.Controls.Add(this.rbHieuXe);
+            this.groupBox1.Controls.Add(this.rbBienSo);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(24, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(782, 83);
+            this.groupBox1.TabIndex = 27;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Khung Tìm Kiếm";
             // 
-            // Text_tienno
+            // Text_Search
             // 
-            this.Text_tienno.Location = new System.Drawing.Point(442, 64);
-            this.Text_tienno.Name = "Text_tienno";
-            this.Text_tienno.Size = new System.Drawing.Size(221, 20);
-            this.Text_tienno.TabIndex = 29;
+            this.Text_Search.Location = new System.Drawing.Point(41, 21);
+            this.Text_Search.Name = "Text_Search";
+            this.Text_Search.Size = new System.Drawing.Size(713, 22);
+            this.Text_Search.TabIndex = 28;
+            this.Text_Search.TextChanged += new System.EventHandler(this.Search_Changed);
             // 
-            // Text_chuxe
+            // rbChuXe
             // 
-            this.Text_chuxe.Location = new System.Drawing.Point(95, 64);
-            this.Text_chuxe.Name = "Text_chuxe";
-            this.Text_chuxe.Size = new System.Drawing.Size(242, 20);
-            this.Text_chuxe.TabIndex = 28;
+            this.rbChuXe.AutoSize = true;
+            this.rbChuXe.Location = new System.Drawing.Point(579, 53);
+            this.rbChuXe.Name = "rbChuXe";
+            this.rbChuXe.Size = new System.Drawing.Size(66, 19);
+            this.rbChuXe.TabIndex = 33;
+            this.rbChuXe.Text = "Chủ Xe";
+            this.rbChuXe.UseVisualStyleBackColor = true;
+            this.rbChuXe.CheckedChanged += new System.EventHandler(this.Checked_Change);
             // 
-            // Text_hieuxe
+            // rbHieuXe
             // 
-            this.Text_hieuxe.Location = new System.Drawing.Point(442, 20);
-            this.Text_hieuxe.Name = "Text_hieuxe";
-            this.Text_hieuxe.Size = new System.Drawing.Size(221, 20);
-            this.Text_hieuxe.TabIndex = 27;
+            this.rbHieuXe.AutoSize = true;
+            this.rbHieuXe.Location = new System.Drawing.Point(365, 53);
+            this.rbHieuXe.Name = "rbHieuXe";
+            this.rbHieuXe.Size = new System.Drawing.Size(69, 19);
+            this.rbHieuXe.TabIndex = 34;
+            this.rbHieuXe.Text = "Hiệu Xe";
+            this.rbHieuXe.UseVisualStyleBackColor = true;
+            this.rbHieuXe.CheckedChanged += new System.EventHandler(this.Checked_Change);
             // 
-            // Text_bienso
+            // rbBienSo
             // 
-            this.Text_bienso.Location = new System.Drawing.Point(95, 20);
-            this.Text_bienso.Name = "Text_bienso";
-            this.Text_bienso.Size = new System.Drawing.Size(242, 20);
-            this.Text_bienso.TabIndex = 26;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(47, 64);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 13);
-            this.label5.TabIndex = 25;
-            this.label5.Text = "Chủ Xe";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(382, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 13);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Tiền Nợ";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(382, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 13);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Hiệu Xe";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(45, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Biển Số";
+            this.rbBienSo.AutoSize = true;
+            this.rbBienSo.Checked = true;
+            this.rbBienSo.Location = new System.Drawing.Point(167, 53);
+            this.rbBienSo.Name = "rbBienSo";
+            this.rbBienSo.Size = new System.Drawing.Size(68, 19);
+            this.rbBienSo.TabIndex = 35;
+            this.rbBienSo.TabStop = true;
+            this.rbBienSo.Text = "Biển Số";
+            this.rbBienSo.UseVisualStyleBackColor = true;
+            this.rbBienSo.CheckedChanged += new System.EventHandler(this.Checked_Change);
             // 
             // Form_TRACUU
             // 
@@ -209,7 +176,8 @@
             this.Load += new System.EventHandler(this.Form_TRACUU_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_tracuu)).EndInit();
             this.groupPanel1.ResumeLayout(false);
-            this.groupPanel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,14 +188,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dtGV_tracuu;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
-        private System.Windows.Forms.Button Button_timkiem;
-        private System.Windows.Forms.TextBox Text_tienno;
-        private System.Windows.Forms.TextBox Text_chuxe;
-        private System.Windows.Forms.TextBox Text_hieuxe;
-        private System.Windows.Forms.TextBox Text_bienso;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox Text_Search;
+        private System.Windows.Forms.RadioButton rbChuXe;
+        private System.Windows.Forms.RadioButton rbHieuXe;
+        private System.Windows.Forms.RadioButton rbBienSo;
     }
 }

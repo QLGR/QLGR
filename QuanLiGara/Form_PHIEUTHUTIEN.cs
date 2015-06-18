@@ -43,9 +43,8 @@ namespace QuanLiGara
         public phieuthu getData()
         {
             phieuthu pt = new phieuthu();
-            pt.Email = Text_email.Text;
             pt.MaHSSC = mahssc(sql,cbB_bienso.Text);
-            pt.SoTienThu = Text_sotienthu.Text;
+            pt.SoTienThu = txt_Tongtien.Text;
             pt.NgayThuTien = DateTime.Parse(Date_ngaythutien.Text);
             pt.MaThuTien = txtMaPT.Text;
             return pt;
@@ -73,7 +72,7 @@ namespace QuanLiGara
 
 
             DataTable dt = new DataTable();
-            dt = db.getDS("SELECT PHIEUTHUTIEN.MaThuTien,HOSOSUACHUA.TenChuXe,HOSOSUACHUA.BienSo,HOSOSUACHUA.DienThoai,PHIEUTHUTIEN.Email,PHIEUTHUTIEN.SoTienThu,PHIEUTHUTIEN.NgayThuTien"+
+            dt = db.getDS("SELECT PHIEUTHUTIEN.MaThuTien,HOSOSUACHUA.TenChuXe,HOSOSUACHUA.BienSo,HOSOSUACHUA.DienThoai,PHIEUTHUTIEN.SoTienThu,PHIEUTHUTIEN.NgayThuTien"+
                             ",HOSOSUACHUA.MaHSSC FROM HOSOSUACHUA JOIN PHIEUTHUTIEN on HOSOSUACHUA.MaHSSC=PHIEUTHUTIEN.MaHSSC");
             dtGV_phieuthu.DataSource = dt;
             
@@ -97,7 +96,12 @@ namespace QuanLiGara
 
         private void Luu_Click(object sender, EventArgs e)
         {
-            
+            if(!CheckTienThu())
+            {
+                Text_sotienthu.Text = txt_Tongtien.Text;
+                MessageBox.Show("Số tiền thu không được phép nhỏ hơn số tiền cần trả");
+                return;
+            }
             try
             {
                 if(ptsql.SuaMaTT(getData()))
@@ -113,8 +117,6 @@ namespace QuanLiGara
                         MessageBox.Show("Thêm phiếu thu thành công!");
                         
                     }
-                no = (double.Parse(txt_conno.Text) - double.Parse(Text_sotienthu.Text));
-                db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + hssc+ "'");
 
             }
             catch (Exception c)
@@ -137,8 +139,7 @@ namespace QuanLiGara
                 if(ptsql.XoaMaTT(txtMaPT.Text))
                 {
                     MessageBox.Show("Xóa thành công phiếu thu!");
-                    no = (double.Parse(txt_conno.Text) + double.Parse(Text_sotienthu.Text));
-                    db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + hssc+ "'");
+                   
                 }
 
             }
@@ -160,27 +161,16 @@ namespace QuanLiGara
 
             DataTable dt,dt1 = new DataTable();
             dt = db.getDS("SELECT * FROM HOSOSUACHUA");
-            dt1 = db.getDS("Select * FROM DANHSACHXE");
+          
             
             foreach (DataRow dr in dt.Rows)
             {
                 if (cbB_bienso.Text == dr["BienSo"].ToString())
                 {
-                    Text_chuxe.Text = dr["TenChuXe"].ToString();
-                    Text_dienthoai.Text = dr["DienThoai"].ToString();
                     hssc = dr["MaHSSC"].ToString();
                     txt_Tongtien.Text = dr["TongCong"].ToString();
                 }
             }
-
-            foreach (DataRow dr1 in dt1.Rows)
-            {
-                if (hssc == dr1["MaHSSC"].ToString())
-                {
-                    txt_conno.Text = dr1["TienNo"].ToString();
-                }
-            }
-            
 
 
         }
@@ -191,21 +181,20 @@ namespace QuanLiGara
             if(double.TryParse(Text_sotienthu.Text,out i))
             {
                 if (double.Parse(Text_sotienthu.Text) < 0)
+                {
+                    Text_sotienthu.Text = txt_Tongtien.Text;
                     MessageBox.Show("So tiền thu phải lớn hơn 0!");
+                }
                 else
                 {
-
-                    double tien = (double.Parse(txt_conno.Text) - double.Parse(Text_sotienthu.Text));
-                    if (tien < 0 && btnLuu.Enabled == true)
-                    {
-                        MessageBox.Show("So tien thu không được vượt quá số tiền nợ!");
-                    }
+                    txt_TraLai.Text = (double.Parse(Text_sotienthu.Text) - double.Parse(txt_Tongtien.Text)).ToString();
                 }
             }
             else
                 if(Text_sotienthu.Text != "" && Text_sotienthu.Text != "-")
                 {
                     MessageBox.Show("So tiền thu phải lớn hơn 0!");
+                    Text_sotienthu.Text = txt_Tongtien.Text;
                 }
                
         }
@@ -213,20 +202,15 @@ namespace QuanLiGara
         private void EnterCellData(object sender, DataGridViewCellEventArgs e)
         {
             int RowIndex = e.RowIndex;
-            Text_chuxe.Text = dtGV_phieuthu.Rows[RowIndex].Cells["TenChuXe"].Value.ToString();
-            Text_email.Text = dtGV_phieuthu.Rows[RowIndex].Cells["Email"].Value.ToString();
-            Text_dienthoai.Text = dtGV_phieuthu.Rows[RowIndex].Cells["DienThoai"].Value.ToString();
             Date_ngaythutien.Text = dtGV_phieuthu.Rows[RowIndex].Cells["NgayThuTien"].Value.ToString();
             cbB_bienso.Text = dtGV_phieuthu.Rows[RowIndex].Cells["BienSo"].Value.ToString();
-            no = double.Parse(Text_sotienthu.Text = dtGV_phieuthu.Rows[RowIndex].Cells["SoTienThu"].Value.ToString());
+            Text_sotienthu.Text = dtGV_phieuthu.Rows[RowIndex].Cells["SoTienThu"].Value.ToString();
             txtMaPT.Text = dtGV_phieuthu.Rows[RowIndex].Cells["MaThuTien"].Value.ToString();
             hssc = dtGV_phieuthu.Rows[RowIndex].Cells["MaHSSC"].Value.ToString();
         }
         private void setEnable(bool a)
         {
-            Text_chuxe.ReadOnly = !a;
-            Text_email.ReadOnly = !a;
-            Text_dienthoai.ReadOnly = !a;
+            
             Text_sotienthu.ReadOnly = !a;
             btnXoa.Enabled = !a;
             btnSua.Enabled = !a;
@@ -239,11 +223,8 @@ namespace QuanLiGara
         {
             
             setEnable(true);
-            Text_chuxe.Text = "";
-            Text_email.Text = "";
-            Text_dienthoai.Text = "";
             Text_sotienthu.Text = "0";
-            txt_conno.Text = "0";
+            txt_TraLai.Text = "0";
             txt_Tongtien.Text = "0";
             txtMaPT.Text = ptsql.SearchDaTaGrid();
             
@@ -252,7 +233,7 @@ namespace QuanLiGara
         private void Sua_Click(object sender, EventArgs e)
         {
             setEnable(true);
-            txt_conno.Text = (tienno(sql, cbB_bienso.Text) + double.Parse(Text_sotienthu.Text)).ToString();
+            txt_TraLai.Text = "0";
             Text_sotienthu.Text = "0";
 
 
@@ -269,28 +250,11 @@ namespace QuanLiGara
             dtGV_phieuthu.Refresh();
         }
 
-        private void Text_dienthoai_TextChanged(object sender, EventArgs e)
+        private bool CheckTienThu()
         {
-            int i;
-            try
-            {
-
-
-                if (int.TryParse(Text_dienthoai.Text, out i))
-                {
-                    if (int.Parse(Text_dienthoai.Text) < 0)
-                        MessageBox.Show("Số điện thoại phải là dãy số nguyên dương");
-                }
-                else
-                    if (Text_dienthoai.Text != "")
-                    {
-                        MessageBox.Show("Số điện thoại phải là số nguyên");
-                    }
-            }
-            catch
-            {
-                MessageBox.Show("Số điện thoại phải là dãy số nguyên.");
-            }
+            if (double.Parse(txt_Tongtien.Text) > double.Parse(Text_sotienthu.Text))
+                return false;
+            return true;
         }
         
     }
