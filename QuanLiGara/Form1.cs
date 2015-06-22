@@ -100,6 +100,8 @@ namespace QuanLiGara
             frm.Show();
         }
 
+        
+
         private void chỉnhSửaDữLiệuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form_DuLieu frm = new Form_DuLieu();
@@ -156,6 +158,12 @@ namespace QuanLiGara
         {
             Form_About n = new Form_About();
             n.ShowDialog();
+        }
+
+        private void nhaphang_Click(object sender, EventArgs e)
+        {
+            Form_Nhaphang frm = new Form_Nhaphang();
+            frm.Show();
         }
     }
 }

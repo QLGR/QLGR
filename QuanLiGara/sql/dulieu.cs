@@ -21,16 +21,26 @@ namespace QuanLiGara.sql
         {
 
             string[] param = { "@MaVatTu", "@TenVatTu", "@DonGia", "@SoLuong"};
-            object[] value = {dl.MaVT,dl.TenVT,dl.DonGia,"100"};
+            object[] value = {dl.MaVT,dl.TenVT,dl.DonGia,dl.Soluong};
             string query = "Insert INTO VATTU (MaVatTu,TenVatTu,DonGia,SoLuong) VALUES (@MaVatTu,@TenVatTu,@DonGia,@SoLuong)";
             return db.ExecuteNonQueryPara(query, param, value);
         }
+
+       
 
         public bool SuaVT(DuLieusql dl)
         {
             string[] param = { "@MaVatTu", "@TenVatTu", "@DonGia"};
             object[] value = { dl.MaVT, dl.TenVT, dl.DonGia};
             string query = "UPDATE VATTU SET TenVatTu=@TenVatTu,DonGia=@DonGia WHERE MaVatTu=@MaVatTu";
+            return db.ExecuteNonQueryPara(query, param, value);
+        }
+
+        public bool SuaVT(string maVT,string soluong)
+        {
+            string[] param = { "@MaVatTu", "@SoLuong",};
+            object[] value = { maVT,soluong };
+            string query = "UPDATE VATTU SET SoLuong = @SoLuong WHERE MaVatTu=@MaVatTu";
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
@@ -81,6 +91,7 @@ namespace QuanLiGara.sql
             string query = "Insert INTO HIEUXE (MaHX,TenHieuXe) VALUES (@MaHX,@TenHieuXe)";
             return db.ExecuteNonQueryPara(query, param, value);
         }
+
 
         public bool SuaHX(DuLieusql dl)
         {
@@ -220,6 +231,7 @@ namespace QuanLiGara.sql
         public string TienCong = "";
         public string MaHX = "";
         public string TenHX = "";
+        public string Soluong = "100";
     }
 
 }
