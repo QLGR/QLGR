@@ -56,10 +56,38 @@ namespace QuanLiGara.sql
             string query = "Delete from PHIEUSUACHUA where MaPhieuSC=@MaPhieuSC";
             return db.ExecuteNonQueryPara(query, param, value);
         }
+        public string MaVatTu(string tenvattu)
+        {
+            DataTable dt = new DataTable();
+            dt = db.getDS("Select * from VATTU");
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (tenvattu == dr["TenVatTu"].ToString())
+                {
+                    return dr["MaVatTu"].ToString();
+                }
+            }
+            return "";
+        }
+        public string SLVatTuPN(string mapn)
+        {
+            DataTable dt = new DataTable();
+            dt = db.getDS("Select * from PHIEUSUACHUA where MaPhieuSC = '"+mapn+"'");
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0]["SoLuong"].ToString();
+            return "0";
+        }
 
-
-        
-
+        public string SLVatTu(string mavt)
+        {
+            DataTable dt = new DataTable();
+            dt = db.getDS("Select * from VATTU where MaVatTu = '" + mavt + "'");
+            if (dt.Rows.Count > 0)
+            {
+                return dt.Rows[0]["SoLuong"].ToString();
+            }
+            return "0";
+        }
         public string SearchDaTaGrid()
         {
             int Count = 0;
