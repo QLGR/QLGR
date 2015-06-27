@@ -241,19 +241,16 @@ namespace QuanLiGara
 
             try
             {
-                if (kiemtra(sql, Text_bienso.Text))
+                DialogResult dr = MessageBox.Show("Bạn có chắc muốn xóa hồ sơ này. \nNó có thể xóa tất cả phiếu thu tiền và phiều sửa chữa có liên quan!", "Xác nhận xóa hồ sơ.", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
                 {
-                    tnsql.XoaDSX(Text_bienso.Text);
-                    if (tnsql.XoaTN(Text_bienso.Text))
+                    if (tnsql.XoaTN(maHSSC.Text))
                         MessageBox.Show("Đã xóa phiếu sửa chữa cho xe " + hieuxe.Text + " - Bien so " + Text_bienso.Text);
                     else
-                    {
                         MessageBox.Show("Không thể xóa hồ sơ sửa chữa do chưa thanh toán hoặc vẫn đang sửa chữa!");
-                    }
+
                 }
-                else
-                        MessageBox.Show("Không thể xóa hồ sơ sửa chữa do chưa thanh toán hoặc vẫn đang sửa chữa!");
-                    
+
             }
             catch (Exception ex)
             {

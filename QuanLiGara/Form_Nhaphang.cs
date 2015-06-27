@@ -143,7 +143,7 @@ namespace QuanLiGara
                     
                 }
             }
-            catch { MessageBox.Show("Không thể tạo Phiếu nhập hàng, việc thanh tón thất bại!"); DeleteAllPN(maNH.Text); nhsql.XoaNH(maNH.Text); }
+            catch { MessageBox.Show("Không thể tạo Phiếu nhập hàng, việc thanh tón thất bại!");nhsql.XoaNH(maNH.Text); }
             UpdateQuantity();
             SetEnablePN(false);
             SetenableNH(false);
@@ -229,7 +229,6 @@ namespace QuanLiGara
 
         private void HuyGD_Click(object sender, EventArgs e)
         {
-            DeleteAllPN(maNH.Text);
             nhsql.XoaNH(maNH.Text);
             SetenableNH(false);
             loadbang();
@@ -278,7 +277,6 @@ namespace QuanLiGara
                 txt_Dongia.Text = dt.Rows[0]["DonGia"].ToString();
                 txt_Dongia.ReadOnly = true;
                 isNew = false;
-
             }
             else
             {
@@ -330,11 +328,6 @@ namespace QuanLiGara
             maNH.Text = dtGV_danhsachPN.Rows[RowIndex].Cells["MaNH"].Value.ToString();
             txt_Thanhtien.Text = dtGV_danhsachPN.Rows[RowIndex].Cells["ThanhTien"].Value.ToString();
             txtTongCong.Text = nhsql.SumThanhTien(maNH.Text);
-
-            DataTable dt = new DataTable();
-            dt = db.getDS("Select * from HOSONHAPHANG Where MaNH like '"+maNH.Text+"'");
-            
-
            
         }
 
@@ -342,7 +335,6 @@ namespace QuanLiGara
         {
             if (btn_TaoHoaDon.Enabled == false)
             {
-                DeleteAllPN(maNH.Text);
                 nhsql.XoaNH(maNH.Text);
             }
         }
@@ -397,6 +389,16 @@ namespace QuanLiGara
             {
                 MessageBox.Show("Số điện thoại phải là dãy số nguyên.");
             }
+        }
+
+        private void SuaHD_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void XoaHD_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

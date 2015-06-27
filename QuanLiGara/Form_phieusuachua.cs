@@ -180,7 +180,7 @@ namespace QuanLiGara
         }
         private void button1_Click(object sender, EventArgs e)
         {
-                        
+            choose = 0;            
             foreach (Control tb in this.groupPanel1.Controls)
             {
                 if ((tb is ComboBox || tb is TextBox) && tb.Text == "")
@@ -193,10 +193,8 @@ namespace QuanLiGara
             {
                 if (PSC.Sua(GetData()))
                 {
-                    no = (tienno(sql,cbBox_bienso.Text) -  double.Parse(no) + double.Parse(Text_thanhtien.Text)).ToString();
                     MessageBox.Show("Cập Nhật phiếu sửa chữa thành công!");
-                    db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(sql,cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
-                    db.getDS("update DANHSACHXE set TienNo = '"+no+"' where MaHSSC = '"+mahssc(sql,cbBox_bienso.Text)+"'");
+                    db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(sql, cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
                 }
                 else
                     if (PSC.Them(GetData()))
@@ -204,8 +202,6 @@ namespace QuanLiGara
 
                         db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(sql, cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
                         MessageBox.Show("Lập phiếu sửa chữa thành công!");
-                        no = (tienno(sql, cbBox_bienso.Text) + double.Parse(Text_thanhtien.Text)).ToString();
-                        db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + mahssc(sql,cbBox_bienso.Text) + "'");
                     }
                 UpdateSoLuong(choose,0);
                 loadbang(sql);
@@ -248,13 +244,22 @@ namespace QuanLiGara
         private void soluong_TextChanged(object sender, EventArgs e)
         {
             int i;
+            string oldsoluong = Text_soluong.Text;
             if ((Text_dongia.Text != "") && Text_soluong.Text != "" && (Text_tiencong.Text != ""))
             {
+                
+                
                 if (int.TryParse(Text_soluong.Text, out i) && int.Parse(Text_soluong.Text) > -1)
                 {   
                     string temp = PSC.SLVatTu(mavt(sql,cbBoc_vattu.Text));
-                    if (int.Parse(Text_soluong.Text) > int.Parse(temp) && btnLuu.Enabled == true)
+                    if (int.Parse(Text_soluong.Text) > int.Parse(temp) && choose != 0)
                     {
+                        if (choose == 2 && (int.Parse(Text_soluong.Text) - int.Parse(oldsoluong) > int.Parse(temp)))
+                        {
+                            MessageBox.Show("Sồ lượng phụ tùng không được vượt quá số lượng vật tư còn trong kho.");
+                            Text_soluong.Text = (int.Parse(oldsoluong) + int.Parse(temp)).ToString();
+                            return;
+                        }
                         MessageBox.Show("Sồ lượng phụ tùng không được vượt quá số lượng vật tư còn trong kho.");
                         Text_soluong.Text = temp;
                         return;
@@ -281,27 +286,28 @@ namespace QuanLiGara
             string postdelete = Text_soluong.Text;
             try
             {
-                if (PSC.Xoa(tbxMaPhieu.Text))
+                DialogResult dr = MessageBox.Show("Bạn muốn xóa phiếu sửa chữa náy!","Xác Nhận",MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
                 {
-                    MessageBox.Show("Đã xóa thành công");
+                    if (PSC.Xoa(tbxMaPhieu.Text))
+                    {
+                        MessageBox.Show("Đã xóa thành công");
 
-                    no = (tienno(sql, cbBox_bienso.Text) - double.Parse(no)).ToString();
-                    db.getDS("update DANHSACHXE set TienNo = '" + no + "' where MaHSSC = '" + cbBox_bienso.Text + "'"); 
-                    db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(cbBox_bienso.Text) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                        no = (tienno(sql, cbBox_bienso.Text) - double.Parse(no)).ToString();
+                        db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(cbBox_bienso.Text) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không thể xóa. Vui lòng kiểm tra lại.");
+                    }
+
                 }
-                else
-                {
-                    MessageBox.Show("Không thể xóa. Vui lòng kiểm tra lại.");
-                }
-
-
 
             }
             catch (Exception c)
             {
                 MessageBox.Show("Không thể xóa phiếu sửa chữa!");
             }
-            UpdateSoLuong(3,int.Parse(postdelete));
             loadbang(sql);
             dtGV_danhsachSuaChua.Update();
             dtGV_danhsachSuaChua.Refresh();
@@ -465,10 +471,6 @@ namespace QuanLiGara
                 case 2:
                     oldsoluong += midsoluong;
                     oldsoluong -= soluong;
-                    dl.SuaVT(mavattu, oldsoluong.ToString());
-                    break;
-                case 3:
-                    oldsoluong += postdelete;
                     dl.SuaVT(mavattu, oldsoluong.ToString());
                     break;
             }

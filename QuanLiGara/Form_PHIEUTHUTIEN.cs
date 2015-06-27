@@ -136,10 +136,14 @@ namespace QuanLiGara
             
             try
             {
-                if(ptsql.XoaMaTT(txtMaPT.Text))
+                DialogResult dr = MessageBox.Show("Bạn có chắc muốn xóa phiều thu này?","Xác Nhận",MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
                 {
-                    MessageBox.Show("Xóa thành công phiếu thu!");
-                   
+                    if (ptsql.XoaMaTT(txtMaPT.Text))
+                    {
+                        MessageBox.Show("Xóa thành công phiếu thu!");
+
+                    }
                 }
 
             }
@@ -207,6 +211,7 @@ namespace QuanLiGara
             Text_sotienthu.Text = dtGV_phieuthu.Rows[RowIndex].Cells["SoTienThu"].Value.ToString();
             txtMaPT.Text = dtGV_phieuthu.Rows[RowIndex].Cells["MaThuTien"].Value.ToString();
             hssc = dtGV_phieuthu.Rows[RowIndex].Cells["MaHSSC"].Value.ToString();
+            txt_TraLai.Text = "0";
         }
         private void setEnable(bool a)
         {

@@ -62,6 +62,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnThem = new DevComponents.DotNetBar.ButtonX();
             this.text_phieunhap = new System.Windows.Forms.TextBox();
+            this.buttonX2 = new DevComponents.DotNetBar.ButtonX();
+            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
+            this.buttonX3 = new DevComponents.DotNetBar.ButtonX();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachPN)).BeginInit();
             this.groupPanel2.SuspendLayout();
@@ -141,7 +144,7 @@
             this.btnHuyGiaoDich.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnHuyGiaoDich.Enabled = false;
             this.btnHuyGiaoDich.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHuyGiaoDich.Location = new System.Drawing.Point(271, 218);
+            this.btnHuyGiaoDich.Location = new System.Drawing.Point(292, 218);
             this.btnHuyGiaoDich.Name = "btnHuyGiaoDich";
             this.btnHuyGiaoDich.Size = new System.Drawing.Size(103, 34);
             this.btnHuyGiaoDich.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -155,7 +158,7 @@
             this.btn_ThanhToan.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btn_ThanhToan.Enabled = false;
             this.btn_ThanhToan.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ThanhToan.Location = new System.Drawing.Point(76, 218);
+            this.btn_ThanhToan.Location = new System.Drawing.Point(78, 218);
             this.btn_ThanhToan.Name = "btn_ThanhToan";
             this.btn_ThanhToan.Size = new System.Drawing.Size(103, 34);
             this.btn_ThanhToan.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -275,7 +278,7 @@
             this.dtGV_danhsachPN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_danhsachPN.Location = new System.Drawing.Point(12, 359);
             this.dtGV_danhsachPN.Name = "dtGV_danhsachPN";
-            this.dtGV_danhsachPN.Size = new System.Drawing.Size(735, 235);
+            this.dtGV_danhsachPN.Size = new System.Drawing.Size(735, 269);
             this.dtGV_danhsachPN.TabIndex = 19;
             this.dtGV_danhsachPN.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtNhapHangRowEnter);
             // 
@@ -499,18 +502,61 @@
             this.text_phieunhap.Size = new System.Drawing.Size(98, 20);
             this.text_phieunhap.TabIndex = 60;
             // 
+            // buttonX2
+            // 
+            this.buttonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonX2.Location = new System.Drawing.Point(203, 641);
+            this.buttonX2.Name = "buttonX2";
+            this.buttonX2.Size = new System.Drawing.Size(74, 34);
+            this.buttonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX2.TabIndex = 55;
+            this.buttonX2.Text = "Sửa";
+            this.buttonX2.Click += new System.EventHandler(this.SuaHD_Click);
+            // 
+            // buttonX1
+            // 
+            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonX1.Location = new System.Drawing.Point(336, 641);
+            this.buttonX1.Name = "buttonX1";
+            this.buttonX1.Size = new System.Drawing.Size(74, 34);
+            this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX1.TabIndex = 55;
+            this.buttonX1.Text = "Xóa";
+            this.buttonX1.Click += new System.EventHandler(this.XoaHD_Click);
+            // 
+            // buttonX3
+            // 
+            this.buttonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX3.Enabled = false;
+            this.buttonX3.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonX3.Location = new System.Drawing.Point(462, 641);
+            this.buttonX3.Name = "buttonX3";
+            this.buttonX3.Size = new System.Drawing.Size(74, 29);
+            this.buttonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX3.TabIndex = 54;
+            this.buttonX3.Text = "Lưu";
+            this.buttonX3.Click += new System.EventHandler(this.Luu_Click);
+            // 
             // Form_Nhaphang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(759, 606);
+            this.ClientSize = new System.Drawing.Size(759, 680);
             this.Controls.Add(this.text_phieunhap);
             this.Controls.Add(this.groupPanel2);
             this.Controls.Add(this.maNH);
             this.Controls.Add(this.btn_TaoHoaDon);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonX3);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.dtGV_danhsachPN);
+            this.Controls.Add(this.buttonX2);
+            this.Controls.Add(this.buttonX1);
             this.DoubleBuffered = true;
             this.Name = "Form_Nhaphang";
             this.Text = "7";
@@ -563,5 +609,8 @@
         private System.Windows.Forms.Label label4;
         private DevComponents.DotNetBar.ButtonX btnThem;
         private System.Windows.Forms.TextBox text_phieunhap;
+        private DevComponents.DotNetBar.ButtonX buttonX2;
+        private DevComponents.DotNetBar.ButtonX buttonX1;
+        private DevComponents.DotNetBar.ButtonX buttonX3;
     }
 }
