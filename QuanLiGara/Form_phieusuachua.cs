@@ -180,7 +180,13 @@ namespace QuanLiGara
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            choose = 0;            
+            choose = 0;
+            if (Date_ngaysuachua.Value > System.DateTime.Now)
+            {
+                MessageBox.Show("Ngày sửa chữa không được lớn hơn ngày hiện tại");
+                Date_ngaysuachua.Text = DateTime.Now.ToString();
+                return;
+            }
             foreach (Control tb in this.groupPanel1.Controls)
             {
                 if ((tb is ComboBox || tb is TextBox) && tb.Text == "")

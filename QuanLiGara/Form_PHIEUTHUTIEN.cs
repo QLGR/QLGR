@@ -96,6 +96,12 @@ namespace QuanLiGara
 
         private void Luu_Click(object sender, EventArgs e)
         {
+            if (Date_ngaythutien.Value > System.DateTime.Now)
+            {
+                MessageBox.Show("Ngày thu tiền không được lớn hơn ngày hiện tại");
+                Date_ngaythutien.Text = DateTime.Now.ToString();
+                return;
+            }
             if(!CheckTienThu())
             {
                 Text_sotienthu.Text = txt_Tongtien.Text;

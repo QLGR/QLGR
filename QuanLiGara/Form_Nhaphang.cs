@@ -43,6 +43,11 @@ namespace QuanLiGara
             dtGV_danhsachPN.DataSource = db.getDS("Select * from PHIEUNHAPHANG");
         }
 
+        public DataTable loadbangNH(string maNH)
+        {
+            return db.getDS("select * from HOSONHAPHANG where MaNH = '" + maNH + "'");
+        }
+
         public String Vattu(string mavattu)
         {
             DataTable dt = new DataTable();
@@ -125,7 +130,12 @@ namespace QuanLiGara
 
         private void ThanhToan_Click(object sender, EventArgs e)
         {
-            
+            if (Date_ngaytiepnhan.Value > System.DateTime.Now)
+            {
+                MessageBox.Show("Ngày nhập hàng không được lớn hơn ngày hiện tại");
+                Date_ngaytiepnhan.Text = DateTime.Now.ToString();
+                return;
+            }
             foreach (Control tb in this.groupPanel1.Controls)
             {
                 if ((tb is ComboBox || tb is TextBox) && tb.Text == "")
@@ -393,13 +403,78 @@ namespace QuanLiGara
 
         private void SuaHD_Click(object sender, EventArgs e)
         {
-
+            btnLuu_HD.Enabled = true;
+            btnSua_HD.Enabled = false;
+            btnXoa_HD.Enabled = false;
+            Text_NCC.ReadOnly = false;
+            Text_diachi.ReadOnly = false;
+            Text_dienthoai.ReadOnly = false;
+            Text_email.ReadOnly = false;
         }
 
         private void XoaHD_Click(object sender, EventArgs e)
         {
-
+            DialogResult dr = MessageBox.Show("Bạn muốn xóa hồ sơ " + maNH.Text + "?Nó có thể xóa tất cả những giao dịch liên quan đế hồ sơ này.", "Xác Nhận", MessageBoxButtons.YesNo);
+            try
+            {
+                if (dr == DialogResult.Yes)
+                {
+                    if (nhsql.XoaNH(maNH.Text))
+                    {
+                        MessageBox.Show("Hồ sơ nhập hành " + maNH.Text + " thành công.");
+                    }
+                    else
+                        MessageBox.Show("Việc xóa hồ sơ không hoàn thành.");
+                }
+            }
+            catch { MessageBox.Show("Việc xóa hồ sơ không hoàn thành."); }
+            
+            loadbang();
+            dtGV_danhsachPN.Update();
+            dtGV_danhsachPN.Refresh();
         }
+
+        private void LuuHD_Click(object sender, System.EventArgs e)
+        {
+            if (Date_ngaytiepnhan.Value > System.DateTime.Now)
+            {
+                MessageBox.Show("Ngày nhập hàng không được lớn hơn ngày hiện tại");
+                Date_ngaytiepnhan.Text = DateTime.Now.ToString();
+                return;
+            }
+            foreach (Control tb in this.groupPanel1.Controls)
+            {
+                if ((tb is ComboBox || tb is TextBox) && tb.Text == "")
+                {
+                    MessageBox.Show("Dữ liệu nhập không đầy đủ yêu cầu nhập lại!");
+                    return;
+                }
+            }
+
+            try
+            {
+                if(nhsql.SuaNH(getData()))
+                {
+                    MessageBox.Show("Cập nhật hồ sơ nhập hàng thành công.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Cập nhật không thành công. Vui lòng kiểm tra lại dữ liệu.");
+            }
+            btnLuu_HD.Enabled = false;
+            btnSua_HD.Enabled = true;
+            btnXoa_HD.Enabled = true;
+            Text_NCC.ReadOnly = true;
+            Text_diachi.ReadOnly = true;
+            Text_dienthoai.ReadOnly = true;
+            Text_email.ReadOnly = true;
+
+            loadbang();
+            dtGV_danhsachPN.Update();
+            dtGV_danhsachPN.Refresh();
+        }
+
     }
 }
     

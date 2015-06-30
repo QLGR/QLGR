@@ -169,57 +169,48 @@ namespace QuanLiGara
 
         private void Luu_Click(object sender, EventArgs e)
         {
-            switch(choose)
+
+            if (Date_ngaytiepnhan.Value > System.DateTime.Now)
+            {
+                MessageBox.Show("Ngày tiếp nhận không được lớn hơn ngày hiện tại");
+                Date_ngaytiepnhan.Text = DateTime.Now.ToString();
+                return;
+            }
+            if (Check(sql, Date_ngaytiepnhan.Value.ToShortDateString().ToString()) == false)
+            {
+                MessageBox.Show("Đã tiếp nhận sửa chữa đủ xe vào ngày " + Date_ngaytiepnhan.Text);
+                return;
+            }
+            switch (choose)
             {
                 case 1:
+
                     try
                     {
-                        if (Date_ngaytiepnhan.Value > System.DateTime.Now)
+                        if (checkBienso(Text_bienso.Text))
                         {
-                            MessageBox.Show("Ngày tiếp nhận không được lớn hơn ngày hiện tại");
-                            return;
+                            if (tnsql.ThemTN(getData()))
+                            {
+                                tnsql.ThemDSX(getData());
+                                MessageBox.Show("Đã thêm phiếu sửa chữa cho xe " + hieuxe.Text + " - Bien so " + Text_bienso.Text);
+                            }
                         }
                         else
-                        {
+                            MessageBox.Show("Bien so " + Text_bienso.Text + " đã tồn tại trong hồ sơ.");
 
-                            if (Check(sql, Date_ngaytiepnhan.Value.ToShortDateString().ToString()) == false)
-                            {
-                                MessageBox.Show("Đã tiếp nhận sửa chữa đủ xe vào ngày " + Date_ngaytiepnhan.Text);
-                                return;
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    if (checkBienso(Text_bienso.Text))
-                                    {
-                                        if (tnsql.ThemTN(getData()))
-                                        {
-                                            tnsql.ThemDSX(getData());
-                                            MessageBox.Show("Đã thêm phiếu sửa chữa cho xe " + hieuxe.Text + " - Bien so " + Text_bienso.Text);
-                                        }
-                                    }
-                                    else
-                                        MessageBox.Show("Bien so " + Text_bienso.Text + " đã tồn tại trong hồ sơ.");
-
-                                }
-                                catch
-                                { MessageBox.Show("Không thể thêm hồ sơ sử chữa. Yêu cầu kiểm tra lại thông tin!"); }
-                            }
-                        }
                     }
                     catch
-                    {
+                    { MessageBox.Show("Không thể thêm hồ sơ sử chữa. Yêu cầu kiểm tra lại thông tin!"); }
 
-                        MessageBox.Show("Không thể thêm hồ sơ!");
-                    }
+
+
                     break;
                 case 2:
                     try
                     {
-                        if(tnsql.SuaTN(getData()))
+                        if (tnsql.SuaTN(getData()))
                         {
-                            
+
                             MessageBox.Show("Đã cập nhật hờ sơ của xe mang biển số " + Text_bienso.Text);
                         }
                     }
@@ -228,6 +219,7 @@ namespace QuanLiGara
                         MessageBox.Show("Không thể cập nhật hồ sơ sửa chữa!");
                     }
                     break;
+
             }
             loadbang(sql);
             dtGV_danhsachTN.Update();
@@ -395,17 +387,23 @@ namespace QuanLiGara
                 if (int.TryParse(Text_dienthoai.Text, out i))
                 {
                     if (int.Parse(Text_dienthoai.Text) < 0)
+                    {
                         MessageBox.Show("Số điện thoại phải là dãy số nguyên dương");
+                        Text_dienthoai.Text = "000";
+                    }
                 }
                 else
                     if (Text_dienthoai.Text != "")
                     {
                         MessageBox.Show("Số điện thoại phải là số nguyên");
+                        Text_dienthoai.Text = "000";
+                    
                     }
             }
             catch
             {
                 MessageBox.Show("Số điện thoại phải là dãy số nguyên.");
+                Text_dienthoai.Text = "000";
             }
         }
     }

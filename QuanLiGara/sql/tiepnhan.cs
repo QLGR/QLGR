@@ -20,9 +20,9 @@ namespace QuanLiGara.sql
         public bool ThemTN(tiepnhan mtt)
         {
 
-            string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan","@Email" };
-            object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan,mtt.Email };
-            string query = "Insert INTO HOSOSUACHUA (MaHSSC,TenChuXe,BienSo,MaHX,DiaChi,DienThoai,NgayTiepNhan,Email) VALUES (@MaHSSC,@TenChuXe,@BienSo,@MaHX,@DiaChi,@DienThoai,@NgayTiepNhan,@Email)";
+            string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan","@TongCong","@Email" };
+            object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan,"0",mtt.Email };
+            string query = "Insert INTO HOSOSUACHUA (MaHSSC,TenChuXe,BienSo,MaHX,DiaChi,DienThoai,NgayTiepNhan,TongCong,Email) VALUES (@MaHSSC,@TenChuXe,@BienSo,@MaHX,@DiaChi,@DienThoai,@NgayTiepNhan,@TongCong,@Email)";
             return db.ExecuteNonQueryPara(query, param, value);
 
         }
