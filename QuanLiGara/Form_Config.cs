@@ -49,10 +49,34 @@ namespace QuanLiGara
         {
 
             SqlConnection connect;
-            if (checkBoxX1.Checked)
-                connect = new SqlConnection("Data Source=" + Text_tenserver.Text + ";Initial Catalog=" + txtDatabase.Text + ";Integrated Security=True");
+            if (rdBtnSuaCSDL.Checked)
+            {
+                if (checkBoxX1.Checked)
+                    connect = new SqlConnection("Data Source=" + Text_tenserver.Text + ";Initial Catalog=" + txtDatabase.Text + ";Integrated Security=True");
+                else
+                    connect = new SqlConnection("Data Source=" + Text_tenserver.Text + ";Initial Catalog=" + txtDatabase.Text + ";uid=" + txtUsername.Text + ";pwd=" + txtPass.Text);
+            }
             else
-                connect = new SqlConnection("Data Source=" + Text_tenserver.Text + ";Initial Catalog=" + txtDatabase.Text + ";uid=" + txtUsername.Text + ";pwd=" + txtPass.Text);
+            {
+                try
+                {
+                    if (checkBoxX1.Checked)
+                        connect = new SqlConnection("Data Source=" + Text_tenserver.Text + ";Integrated Security=True");
+                    else
+                        connect = new SqlConnection("Data Source=" + Text_tenserver.Text + ";uid=" + txtUsername.Text + ";pwd=" + txtPass.Text);
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    process.StartInfo.FileName = "sqlcmd.exe";
+                    process.StartInfo.Arguments = "-S " + Text_tenserver.Text + " -E  -i defaultsql.sql";
+                    process.Start();
+                    process.WaitForExit();
+                    connect.ConnectionString += ";Initial Catalog=QLGR";
+                }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+            }
             try
             {
                 connect.Open();
@@ -60,9 +84,8 @@ namespace QuanLiGara
                 FileStream fs;
                 fs = new FileStream("Server.txt", FileMode.Create);//Tạo file mới tên là Pass.txt
                 StreamWriter sWriter = new StreamWriter(fs, Encoding.UTF8);
-
-                sWriter.WriteLine(Text_tenserver.Text);
-                sWriter.WriteLine(txtDatabase.Text);
+                sWriter.WriteLine(connect.DataSource);
+                sWriter.WriteLine(connect.Database);
                 sWriter.WriteLine(checkBoxX1.Checked);
                 if (!checkBoxX1.Checked)
                 {
@@ -91,6 +114,11 @@ namespace QuanLiGara
             FormCollection fc = Application.OpenForms;
             if (fc.Count == 0)
                 Application.Exit();
+        }
+
+        private void rdBtnSuaCSDL_CheckedChanged(object sender, EventArgs e)
+        {
+            txtDatabase.Enabled = rdBtnSuaCSDL.Checked;
         }
     }
 }

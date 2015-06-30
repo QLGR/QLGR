@@ -22,9 +22,6 @@ namespace QuanLiGara
             SetEnable(true);
         }
        
-        
-        SqlConnection sql = new SqlConnection();
-       
 
         int Choose = 0;
         Connection db = new Connection();
@@ -32,25 +29,25 @@ namespace QuanLiGara
         dulieu DL = new dulieu();
 
 
-        public void loadvattu(SqlConnection sql)
+        public void loadvattu()
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * From VATTU");
             dtGV_vattu.DataSource = dt;
         }
-        public void loadtiencong(SqlConnection sql)
+        public void loadtiencong()
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * From TIENCONG");
             dtGV_tiencong.DataSource = dt;
         }
-        public void loadhieuxe(SqlConnection sql)
+        public void loadhieuxe()
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * From HIEUXE");
             dtGV_hieuxe.DataSource = dt;
         }
-        public void loadmaxxe(SqlConnection sql)
+        public void loadmaxxe()
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * From THAMSO");
@@ -61,10 +58,10 @@ namespace QuanLiGara
         }
         private void Form_DuLieu_Load(object sender, EventArgs e)
         {
-            loadvattu(sql);
-            loadtiencong(sql);
-            loadhieuxe(sql);
-            loadmaxxe(sql);
+            loadvattu();
+            loadtiencong();
+            loadhieuxe();
+            loadmaxxe();
         }
 
         public DuLieusql Getdata()
@@ -139,7 +136,7 @@ namespace QuanLiGara
                         MessageBox.Show("Không thể chỉnh sửa hoặc thêm mới.\nVui lòng kiểm tra lại dữ liệu đã nhập");
                     }
 
-                    loadvattu(sql);
+                    loadvattu();
                     dtGV_vattu.Update();
                     dtGV_vattu.Refresh();
 
@@ -167,7 +164,7 @@ namespace QuanLiGara
                     {
                         MessageBox.Show("Không thể chỉnh sửa hoặc thêm mới.\nVui lòng kiểm tra lại dữ liệu đã nhập");
                     }
-                    loadtiencong(sql);
+                    loadtiencong();
                     dtGV_tiencong.Update();
                     dtGV_tiencong.Refresh();
                     break;
@@ -193,7 +190,7 @@ namespace QuanLiGara
                     {
                         MessageBox.Show("Không thể chỉnh sửa hoặc thêm mới.\nVui lòng kiểm tra lại dữ liệu đã nhập");
                     }
-                    loadhieuxe(sql);
+                    loadhieuxe();
                     dtGV_hieuxe.Update();
                     dtGV_hieuxe.Refresh();
                     break;
@@ -223,7 +220,7 @@ namespace QuanLiGara
             {
                 MessageBox.Show("Không thể xóa vật tư.");
             }
-            loadvattu(sql);
+            loadvattu();
             dtGV_vattu.Update();
             dtGV_vattu.Refresh();
         }
@@ -250,7 +247,7 @@ namespace QuanLiGara
             {
                 MessageBox.Show("Không thể xóa công việc.");
             }
-            loadtiencong(sql);
+            loadtiencong();
             dtGV_tiencong.Update();
             dtGV_tiencong.Refresh();
         }
@@ -277,7 +274,7 @@ namespace QuanLiGara
             {
                 MessageBox.Show("Không thể xóa xe.");
             }
-            loadhieuxe(sql);
+            loadhieuxe();
             dtGV_hieuxe.Update();
             dtGV_hieuxe.Refresh();
         }
@@ -290,7 +287,7 @@ namespace QuanLiGara
                 DataTable dt = new DataTable();
                 dt = db.getDS("UPDATE THAMSO SET SuaChuaToiDa='" + Text_soxemax.Text + "'");
                 MessageBox.Show("Chỉnh sửa tham số thành công!");
-                loadmaxxe(sql);
+                loadmaxxe();
             }
             catch (Exception c)
             {
@@ -382,17 +379,17 @@ namespace QuanLiGara
             switch (Choose)
             {
                 case 1:
-                    loadvattu(sql);
+                    loadvattu();
                     dtGV_vattu.Update();
                     dtGV_vattu.Refresh();
                     break;
                 case 2:
-                    loadtiencong(sql);
+                    loadtiencong();
                     dtGV_tiencong.Update();
                     dtGV_tiencong.Refresh();
                     break;
                 case 3:
-                    loadhieuxe(sql);
+                    loadhieuxe();
                     dtGV_hieuxe.Update();
                     dtGV_hieuxe.Refresh();
                     break;

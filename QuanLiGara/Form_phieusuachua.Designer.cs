@@ -136,7 +136,6 @@
             this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.groupPanel1.TabIndex = 21;
             this.groupPanel1.Text = "Thông tin phiếu sửa";
-            this.groupPanel1.Click += new System.EventHandler(this.groupPanel1_Click);
             // 
             // Text_tiencong
             // 

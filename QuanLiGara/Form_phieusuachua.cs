@@ -25,8 +25,6 @@ namespace QuanLiGara
         int midsoluong;
         string no = "0";
 
-
-        SqlConnection sql = new SqlConnection();
         public Form_PhieuSuaChua()
         {
             
@@ -36,16 +34,16 @@ namespace QuanLiGara
             btnHuy.Enabled = false;
         }
 
-        public void loadbang(SqlConnection sql)
+        public void loadbang()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,VATTU.DonGia,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong");
+            dt = db.getDS("SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong");
 
             dtGV_danhsachSuaChua.DataSource = dt;
 
 
         }
-        public void loadbienso(SqlConnection sql)
+        public void loadbienso()
         {
             DataTable dt = new DataTable();
             dt = db.getDS("SELECT * FROM HOSOSUACHUA");
@@ -56,7 +54,7 @@ namespace QuanLiGara
 
 
         }
-        public void loadvattu(SqlConnection sql)
+        public void loadvattu()
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * from VATTU");
@@ -66,7 +64,7 @@ namespace QuanLiGara
             }
 
         }
-        public void loadtiencong(SqlConnection sql)
+        public void loadtiencong()
         {
 
             DataTable dt = new DataTable();
@@ -79,12 +77,12 @@ namespace QuanLiGara
         }
         private void Form_PhieuSuaChua_Load(object sender, EventArgs e)
         {
-            loadbang(sql);
-            loadbienso(sql);
-            loadtiencong(sql);
-            loadvattu(sql);
+            loadbang();
+            loadbienso();
+            loadtiencong();
+            loadvattu();
         }
-        public string mahssc(SqlConnection sql, String bienso)
+        public string mahssc(String bienso)
         {
             DataTable dt = new DataTable();
             dt = db.getDS("select * from HOSOSUACHUA");
@@ -99,7 +97,7 @@ namespace QuanLiGara
             return "";
         }
   
-        public string bienso(SqlConnection sql, String MaHSSC)
+        public string bienso(String MaHSSC)
         {
             DataTable dt = new DataTable();
             dt = db.getDS("select * from HOSOSUACHUA");
@@ -112,7 +110,7 @@ namespace QuanLiGara
 
             return "";
         }
-        public string mavt(SqlConnection sql, String ten)
+        public string mavt(String ten)
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * from VATTU where TenVatTu like N'"+ten+"'");
@@ -121,7 +119,7 @@ namespace QuanLiGara
             else
                 return "";
         }
-        public string matc(SqlConnection sql, String ten)
+        public string matc(String ten)
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * from TIENCONG");
@@ -136,7 +134,7 @@ namespace QuanLiGara
 
             return "";
         }
-        public double tienno(SqlConnection sql, string mahssc)
+        public double tienno(string mahssc)
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * from DANHSACHXE");
@@ -149,7 +147,7 @@ namespace QuanLiGara
 
             return 0;
         }
-        public string loadngaytiepnhan(SqlConnection sql, string xe)
+        public string loadngaytiepnhan(string xe)
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * from HOSOSUACHUA");
@@ -170,11 +168,11 @@ namespace QuanLiGara
             PhieuSuaChuasql sql1 = new PhieuSuaChuasql();
             sql1.MaPSC = tbxMaPhieu.Text;
             sql1.NoiDung = Text_noidung.Text;
-            sql1.MaVatTu = mavt(sql, cbBoc_vattu.Text);
+            sql1.MaVatTu = mavt(cbBoc_vattu.Text);
             sql1.SoLuong = Text_soluong.Text;
-            sql1.MaTienCong = matc(sql, cbBox_tiencong.Text);
+            sql1.MaTienCong = matc(cbBox_tiencong.Text);
             sql1.ThanhTien = Text_thanhtien.Text;
-            sql1.MaHSSC = mahssc(sql, cbBox_bienso.Text);
+            sql1.MaHSSC = mahssc(cbBox_bienso.Text);
             sql1.NgaySuaChua = DateTime.Parse(Date_ngaysuachua.Text);
             return sql1;
         }
@@ -200,52 +198,24 @@ namespace QuanLiGara
                 if (PSC.Sua(GetData()))
                 {
                     MessageBox.Show("Cập Nhật phiếu sửa chữa thành công!");
-                    db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(sql, cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                    db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
                 }
                 else
                     if (PSC.Them(GetData()))
                     {
 
-                        db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(sql, cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                        db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
                         MessageBox.Show("Lập phiếu sửa chữa thành công!");
                     }
                 UpdateSoLuong(choose,0);
-                loadbang(sql);
+                loadbang();
                 dtGV_danhsachSuaChua.Refresh();
                 SetEnable(false);
 
             }
             catch { MessageBox.Show("Coi Lại Dữ Liệu Đã Nhập!"); }
 
-        }
-        private void vattu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataTable dt = new DataTable();
-            dt = db.getDS("select * from VATTU");
-            foreach (DataRow dr in dt.Rows)
-            {
-                if (dr["TenVatTu"].ToString() == cbBoc_vattu.SelectedItem.ToString())
-                {
-                    double don = double.Parse(dr["DonGia"].ToString());
-                    if(don != 0)
-                        Text_dongia.Text = don.ToString("#,###,###.##");
-                    else
-                        Text_dongia.Text = don.ToString();
-                }
-            }
-
-
-            if ((Text_dongia.Text != "") && (Text_soluong.Text != "") && (Text_tiencong.Text != ""))
-            {
-                double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
-                if(sum != 0)
-                    Text_thanhtien.Text = sum.ToString("#,###,###.##");
-                else
-                    Text_thanhtien.Text = sum.ToString();
-            }
-        }
-
-        
+        }        
 
         private void soluong_TextChanged(object sender, EventArgs e)
         {
@@ -257,7 +227,7 @@ namespace QuanLiGara
                 
                 if (int.TryParse(Text_soluong.Text, out i) && int.Parse(Text_soluong.Text) > -1)
                 {   
-                    string temp = PSC.SLVatTu(mavt(sql,cbBoc_vattu.Text));
+                    string temp = PSC.SLVatTu(mavt(cbBoc_vattu.Text));
                     if (int.Parse(Text_soluong.Text) > int.Parse(temp) && choose != 0)
                     {
                         if (choose == 2 && (int.Parse(Text_soluong.Text) - int.Parse(oldsoluong) > int.Parse(temp)))
@@ -288,7 +258,7 @@ namespace QuanLiGara
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string hssc = mahssc(sql, cbBox_bienso.Text);
+            string hssc = mahssc(cbBox_bienso.Text);
             string postdelete = Text_soluong.Text;
             try
             {
@@ -299,7 +269,7 @@ namespace QuanLiGara
                     {
                         MessageBox.Show("Đã xóa thành công");
 
-                        no = (tienno(sql, cbBox_bienso.Text) - double.Parse(no)).ToString();
+                        no = (tienno(cbBox_bienso.Text) - double.Parse(no)).ToString();
                         db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(cbBox_bienso.Text) + "' where BienSo = '" + cbBox_bienso.Text + "'");
                     }
                     else
@@ -314,7 +284,7 @@ namespace QuanLiGara
             {
                 MessageBox.Show("Không thể xóa phiếu sửa chữa!");
             }
-            loadbang(sql);
+            loadbang();
             dtGV_danhsachSuaChua.Update();
             dtGV_danhsachSuaChua.Refresh();
         }
@@ -327,13 +297,12 @@ namespace QuanLiGara
 
             int RowIndex = e.RowIndex;
             tbxMaPhieu.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["MaPhieuSC"].Value.ToString();
-            Text_dongia.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["DonGia"].Value.ToString();
             cbBoc_vattu.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["TenVatTu"].Value.ToString();
             cbBox_tiencong.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["TenCongViec"].Value.ToString();
             Text_soluong.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["SoLuong"].Value.ToString();
             no = Text_thanhtien.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["ThanhTien"].Value.ToString();
             Text_tiencong.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["TienCong"].Value.ToString();
-            cbBox_bienso.Text = bienso(sql,dtGV_danhsachSuaChua.Rows[RowIndex].Cells["MaHSSC"].Value.ToString());
+            cbBox_bienso.Text = bienso(dtGV_danhsachSuaChua.Rows[RowIndex].Cells["MaHSSC"].Value.ToString());
             Text_noidung.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["NoiDung"].Value.ToString();
         }
 
@@ -346,7 +315,7 @@ namespace QuanLiGara
             {
                 if (dr["TenVatTu"].ToString() == cbBoc_vattu.SelectedItem.ToString())
                 {
-                    double don = double.Parse(dr["DonGia"].ToString());
+                    double don = double.Parse(dr["DonGia"].ToString()) * 1.1;
                     if (don != 0)
                     {
 
@@ -409,12 +378,6 @@ namespace QuanLiGara
                     Text_thanhtien.Text = sum.ToString();
                 }
             }
-        }
-
-
-        private void groupPanel1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnThem_Click(object sender, EventArgs e)

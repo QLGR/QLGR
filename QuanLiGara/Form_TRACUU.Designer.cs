@@ -36,6 +36,7 @@
             this.rbChuXe = new System.Windows.Forms.RadioButton();
             this.rbHieuXe = new System.Windows.Forms.RadioButton();
             this.rbBienSo = new System.Windows.Forms.RadioButton();
+            this.rbAll = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_tracuu)).BeginInit();
             this.groupPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -107,6 +108,7 @@
             this.groupBox1.Controls.Add(this.Text_Search);
             this.groupBox1.Controls.Add(this.rbChuXe);
             this.groupBox1.Controls.Add(this.rbHieuXe);
+            this.groupBox1.Controls.Add(this.rbAll);
             this.groupBox1.Controls.Add(this.rbBienSo);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -128,7 +130,7 @@
             // rbChuXe
             // 
             this.rbChuXe.AutoSize = true;
-            this.rbChuXe.Location = new System.Drawing.Point(579, 53);
+            this.rbChuXe.Location = new System.Drawing.Point(630, 53);
             this.rbChuXe.Name = "rbChuXe";
             this.rbChuXe.Size = new System.Drawing.Size(66, 19);
             this.rbChuXe.TabIndex = 33;
@@ -139,7 +141,7 @@
             // rbHieuXe
             // 
             this.rbHieuXe.AutoSize = true;
-            this.rbHieuXe.Location = new System.Drawing.Point(365, 53);
+            this.rbHieuXe.Location = new System.Drawing.Point(454, 53);
             this.rbHieuXe.Name = "rbHieuXe";
             this.rbHieuXe.Size = new System.Drawing.Size(69, 19);
             this.rbHieuXe.TabIndex = 34;
@@ -150,15 +152,25 @@
             // rbBienSo
             // 
             this.rbBienSo.AutoSize = true;
-            this.rbBienSo.Checked = true;
-            this.rbBienSo.Location = new System.Drawing.Point(167, 53);
+            this.rbBienSo.Location = new System.Drawing.Point(273, 53);
             this.rbBienSo.Name = "rbBienSo";
             this.rbBienSo.Size = new System.Drawing.Size(68, 19);
             this.rbBienSo.TabIndex = 35;
-            this.rbBienSo.TabStop = true;
             this.rbBienSo.Text = "Biển Số";
             this.rbBienSo.UseVisualStyleBackColor = true;
             this.rbBienSo.CheckedChanged += new System.EventHandler(this.Checked_Change);
+            // 
+            // rbAll
+            // 
+            this.rbAll.AutoSize = true;
+            this.rbAll.Checked = true;
+            this.rbAll.Location = new System.Drawing.Point(98, 53);
+            this.rbAll.Name = "rbAll";
+            this.rbAll.Size = new System.Drawing.Size(58, 19);
+            this.rbAll.TabIndex = 35;
+            this.rbAll.Text = "Tất cả";
+            this.rbAll.UseVisualStyleBackColor = true;
+            this.rbAll.CheckedChanged += new System.EventHandler(this.Checked_Change);
             // 
             // Form_TRACUU
             // 
@@ -193,5 +205,6 @@
         private System.Windows.Forms.RadioButton rbChuXe;
         private System.Windows.Forms.RadioButton rbHieuXe;
         private System.Windows.Forms.RadioButton rbBienSo;
+        private System.Windows.Forms.RadioButton rbAll;
     }
 }

@@ -23,11 +23,9 @@ namespace QuanLiGara
         Connection db = new Connection();
         phieuthusql ptsql = new phieuthusql();
         phieuthu pt = new phieuthu();
-        SqlConnection sql = new SqlConnection();
         public string hssc;
-        double no = 0;
 
-        public string mahssc(SqlConnection sql, String bienso)
+        public string mahssc(String bienso)
         {
             DataTable dt = new DataTable();
             dt = db.getDS("select * from HOSOSUACHUA");
@@ -43,13 +41,13 @@ namespace QuanLiGara
         public phieuthu getData()
         {
             phieuthu pt = new phieuthu();
-            pt.MaHSSC = mahssc(sql,cbB_bienso.Text);
+            pt.MaHSSC = mahssc(cbB_bienso.Text);
             pt.SoTienThu = txt_Tongtien.Text;
             pt.NgayThuTien = DateTime.Parse(Date_ngaythutien.Text);
             pt.MaThuTien = txtMaPT.Text;
             return pt;
         }
-        public void loadbienso(SqlConnection sql)
+        public void loadbienso()
         {
             DataTable dt = new DataTable();
             dt = db.getDS("SELECT * FROM HOSOSUACHUA");
@@ -62,12 +60,12 @@ namespace QuanLiGara
         }
         private void Form_PHIEUTHUTIEN_Load(object sender, EventArgs e)
         {
-            loadbienso(sql);
-            loadbang(sql);
+            loadbienso();
+            loadbang();
         }
 
         
-        public void loadbang(SqlConnection sql)
+        public void loadbang()
         {
 
 
@@ -76,22 +74,6 @@ namespace QuanLiGara
                             ",HOSOSUACHUA.MaHSSC FROM HOSOSUACHUA JOIN PHIEUTHUTIEN on HOSOSUACHUA.MaHSSC=PHIEUTHUTIEN.MaHSSC");
             dtGV_phieuthu.DataSource = dt;
             
-        }
-        public double tienno(SqlConnection sql, string mahssc)
-        {
-            
-            
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM DANHSACHXE");
-            
-            foreach (DataRow dr in dt.Rows)
-            {
-                if (dr["MaHSSC"].ToString() == mahssc)
-                    return Double.Parse(dr["TienNo"].ToString());
-            }
-
-
-            return 0;
         }
 
         private void Luu_Click(object sender, EventArgs e)
@@ -130,7 +112,7 @@ namespace QuanLiGara
                 MessageBox.Show("Vui lòng kiểm tra lại dữ liệu");
             }
             setEnable(false);
-            loadbang(sql);
+            loadbang();
             dtGV_phieuthu.Update();
             dtGV_phieuthu.Refresh();
             
@@ -158,7 +140,7 @@ namespace QuanLiGara
                 MessageBox.Show("Không thể xóa do vẫn còn đang sửa hoặc chưa thanh toán!");
             }
             
-            loadbang(sql);
+            loadbang();
             dtGV_phieuthu.Update();
             dtGV_phieuthu.Refresh();
         }
@@ -255,7 +237,7 @@ namespace QuanLiGara
             setEnable(false);
             txt_Tongtien.Text = "0";
             Text_sotienthu.Text = "0";
-            loadbang(sql);
+            loadbang();
             cbB_bienso.SelectedIndex = 0;
             dtGV_phieuthu.Update();
             dtGV_phieuthu.Refresh();

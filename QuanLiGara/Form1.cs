@@ -165,5 +165,13 @@ namespace QuanLiGara
             Form_Nhaphang frm = new Form_Nhaphang();
             frm.Show();
         }
+
+        private void buttonItem12_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            proc.EnableRaisingEvents = false;
+            proc.StartInfo.FileName = "help.pdf";
+            proc.Start();
+        }
     }
 }

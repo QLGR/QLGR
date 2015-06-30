@@ -17,8 +17,6 @@ namespace QuanLiGara
 {
     public partial class Form_TiepNhan : Office2007Form
     {
-
-        SqlConnection sql = new SqlConnection();
         Connection db = new Connection();
         tiepnhansql tnsql = new tiepnhansql();
         int choose = 0;
@@ -39,7 +37,7 @@ namespace QuanLiGara
             tn.NgayTiepNhan = DateTime.Parse(Date_ngaytiepnhan.Text);
             return tn;
         }
-        public int SuaChuaToiDa(SqlConnection sql)
+        public int SuaChuaToiDa()
         {
 
             DataTable dt = new DataTable();
@@ -56,7 +54,7 @@ namespace QuanLiGara
 
         }
 
-        public void loadbang(SqlConnection sql)
+        public void loadbang()
         {
 
             DataTable dt = new DataTable();
@@ -65,7 +63,7 @@ namespace QuanLiGara
 
 
         }
-        public void loadhieuxe(SqlConnection sql)
+        public void loadhieuxe()
         {
 
 
@@ -77,7 +75,7 @@ namespace QuanLiGara
             }
 
         }
-        public bool Check(SqlConnection sql, String date)
+        public bool Check(String date)
         {
             int count = 0;
 
@@ -95,7 +93,7 @@ namespace QuanLiGara
                 }
             }
 
-            if (SuaChuaToiDa(sql) <= count)
+            if (SuaChuaToiDa() <= count)
                 return false;
             else
             {
@@ -103,68 +101,12 @@ namespace QuanLiGara
             }
 
         }
-        public bool kiemtra(SqlConnection sql, string mhss)
-        {
-            int check = 0;
-
-
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM PHIEUSUACHUA");
-            foreach (DataRow dr in dt.Rows)
-            {
-                if (dr["MaHSSC"].ToString() == mhss)
-                    check = 1;
-
-            }
-
-            
-
-            DataTable dt1 = new DataTable();
-            dt1 = db.getDS("SELECT * FROM PHIEUTHUTIEN");
-            foreach (DataRow dr in dt1.Rows)
-            {
-                if (dr["MaHSSC"].ToString() == mhss)
-                    check = 1;
-
-            }
-
-            if (check == 0)
-                return true;
-            return false;
-        }
-
-
-        public void Them(SqlConnection sql)
-        {
-
-
-
-        }
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Form_TiepNhan_Load(object sender, EventArgs e)
         {
 
-            loadbang(sql);
-            loadhieuxe(sql);
+            loadbang();
+            loadhieuxe();
         }
 
         private void Luu_Click(object sender, EventArgs e)
@@ -176,7 +118,7 @@ namespace QuanLiGara
                 Date_ngaytiepnhan.Text = DateTime.Now.ToString();
                 return;
             }
-            if (Check(sql, Date_ngaytiepnhan.Value.ToShortDateString().ToString()) == false)
+            if (Check(Date_ngaytiepnhan.Value.ToShortDateString().ToString()) == false)
             {
                 MessageBox.Show("Đã tiếp nhận sửa chữa đủ xe vào ngày " + Date_ngaytiepnhan.Text);
                 return;
@@ -221,7 +163,7 @@ namespace QuanLiGara
                     break;
 
             }
-            loadbang(sql);
+            loadbang();
             dtGV_danhsachTN.Update();
             dtGV_danhsachTN.Refresh();
             SetEnable(false);
@@ -251,45 +193,16 @@ namespace QuanLiGara
 
 
 
-            loadbang(sql);
+            loadbang();
             dtGV_danhsachTN.Update();
             dtGV_danhsachTN.Refresh();
         }
 
-        
-
-        private void hieuxe_TextChanged(object sender, EventArgs e)
-        {
-            SqlConnection _sql = new SqlConnection();
-            SqlCommand command = _sql.CreateCommand();
-            command.CommandText = "SELECT * FROM HIEUXE";
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            foreach (DataRow dr in dt.Rows)
-            {
-                if (hieuxe.Text == dr["MaHX"].ToString())
-                {
-                    cbBox_hieuxe.Text = dr["TenHieuXe"].ToString();
-                }
-            }
-
-
-        }
 
         private void Sua_Click(object sender, EventArgs e)
         {
             choose = 2;
             SetEnable(true);
-        }
-
-        
-
-        private void ngaytiepnhan_ValueChanged(object sender, EventArgs e)
-        {
-
-
         }
 
         private void HieuXe_SelectedIndexChanged(object sender, EventArgs e)
@@ -356,7 +269,7 @@ namespace QuanLiGara
 
         private void Huy_Click(object sender, EventArgs e)
         {
-            loadbang(sql);
+            loadbang();
             dtGV_danhsachTN.Update();
             dtGV_danhsachTN.Refresh();
             SetEnable(false);

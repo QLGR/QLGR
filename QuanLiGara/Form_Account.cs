@@ -30,19 +30,6 @@ namespace QuanLiGara
             txtUser.Text = grdt.Rows[RowIndex].Cells["Username"].Value.ToString();
             cboQuyen.Text = grdt.Rows[RowIndex].Cells["Loai"].Value.ToString();
             txtPass.Text = "";
-            btnXoa.Enabled = true;
-            try
-            {
-                if (Form1.username.ToUpper().Equals(txtUser.Text.ToUpper()))
-                    btnXoa.Enabled = false;
-            }
-            catch {}
-            for (int i = 0; i < grdt.SelectedRows.Count; i++)
-                if (grdt.SelectedRows[i].Cells[0].Value.ToString().ToUpper().Equals(Form1.username.ToUpper()))
-                {
-                    btnXoa.Enabled = false;
-                    break;
-                }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -65,8 +52,6 @@ namespace QuanLiGara
             txtUser.Enabled = a;
             txtPass.Enabled = a;
             cboQuyen.Enabled = a;
-            if (txtUser.Text.ToUpper() == Form1.username.ToUpper())
-                btnXoa.Enabled = false;
         }
 
         private void btnHuy_Click(object sender, EventArgs e)
@@ -84,6 +69,17 @@ namespace QuanLiGara
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            if (Form1.username.ToUpper().Equals(txtUser.Text.ToUpper()))
+            {
+                MessageBox.Show("Không thể xóa tài khoản đang đăng nhập!", "Error");
+                return;
+            }
+            for (int i = 0; i < grdt.SelectedRows.Count; i++)
+                if (grdt.SelectedRows[i].Cells[0].Value.ToString().ToUpper().Equals(Form1.username.ToUpper()))
+                {
+                    MessageBox.Show("Không thể xóa tài khoản đang đăng nhập!", "Error");
+                    return;
+                }
             if (grdt.SelectedRows.Count > 1)
             {
                 if (MessageBox.Show("Bạn Có Chắc Muốn xóa các tài khoản đã chọn", "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
