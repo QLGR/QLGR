@@ -338,6 +338,13 @@ namespace QuanLiGara
             maNH.Text = dtGV_danhsachPN.Rows[RowIndex].Cells["MaNH"].Value.ToString();
             txt_Thanhtien.Text = dtGV_danhsachPN.Rows[RowIndex].Cells["ThanhTien"].Value.ToString();
             txtTongCong.Text = nhsql.SumThanhTien(maNH.Text);
+
+            Text_NCC.Text = loadbangNH(maNH.Text).Rows[0]["TenNCC"].ToString();
+            Text_dienthoai.Text = loadbangNH(maNH.Text).Rows[0]["DienThoai"].ToString();
+            Text_diachi.Text = loadbangNH(maNH.Text).Rows[0]["DiaChi"].ToString();
+            Text_email.Text = loadbangNH(maNH.Text).Rows[0]["Email"].ToString();
+            Date_ngaytiepnhan.Text = loadbangNH(maNH.Text).Rows[0]["NgayNhapHang"].ToString();
+
            
         }
 
@@ -349,18 +356,7 @@ namespace QuanLiGara
             }
         }
 
-        public void DeleteAllPN(string manh)
-        {
-            DataTable dt = new DataTable();
-            dt = db.getDS("select * from PHIEUNHAPHANG where MaNH like '" + manh + "'");
-            if (dt.Rows.Count > 0)
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    nhsql.XoaPN(dr["MaPhieuNhap"].ToString());
-                }
-            }
-        }
+        
 
         public void UpdateQuantity()
         {
@@ -387,17 +383,22 @@ namespace QuanLiGara
                 if (int.TryParse(Text_dienthoai.Text, out i))
                 {
                     if (int.Parse(Text_dienthoai.Text) < 0)
+                    {
                         MessageBox.Show("Số điện thoại phải là dãy số nguyên dương");
+                        Text_dienthoai.Text = "000";
+                    }
                 }
                 else
                     if (Text_dienthoai.Text != "")
                     {
                         MessageBox.Show("Số điện thoại phải là số nguyên");
+                        Text_dienthoai.Text = "000";
                     }
             }
             catch
             {
                 MessageBox.Show("Số điện thoại phải là dãy số nguyên.");
+                Text_dienthoai.Text = "000";
             }
         }
 
