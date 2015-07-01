@@ -20,7 +20,8 @@ CREATE TABLE [dbo].[HIEUXE] (
 GO
 
 CREATE TABLE [dbo].[THAMSO] (
-    [SuaChuaToiDa] INT NULL
+    [SuaChuaToiDa] INT NOT NULL,
+	[ChenhLech] INT NOT NULL
 );
 
 GO
@@ -133,14 +134,14 @@ BEGIN
             FROM   HOSOSUACHUA
             WHERE  HIEUXE.MaHX = HOSOSUACHUA.MaHX
                    AND MONTH(HOSOSUACHUA.NgayTiepNhan) = @Thang) AS SoLuotSua,
-           (SELECT HOSOSUACHUA.TongCong
+           (SELECT Sum(HOSOSUACHUA.TongCong)
             FROM   HOSOSUACHUA
             WHERE  HIEUXE.MaHX = HOSOSUACHUA.MaHX
                    AND MONTH(HOSOSUACHUA.NgayTiepNhan) = @Thang) AS DoanhSo,
-           (SELECT count(*)
+           (SELECT Sum(TongCong)
             FROM   HOSOSUACHUA
-            WHERE  HIEUXE.MaHX = HOSOSUACHUA.MaHX
-                   AND MONTH(HOSOSUACHUA.NgayTiepNhan) = @Thang) / CAST ((SELECT count(*)
+            WHERE  (SELECT sum(TongCong)   FROM   HOSOSUACHUA  WHERE  MONTH(HOSOSUACHUA.NgayTiepNhan) = @Thang) <> 0 and HIEUXE.MaHX = HOSOSUACHUA.MaHX
+                   AND MONTH(HOSOSUACHUA.NgayTiepNhan) = @Thang) / CAST ((SELECT sum(TongCong)
                                                                           FROM   HOSOSUACHUA
                                                                           WHERE  MONTH(HOSOSUACHUA.NgayTiepNhan) = @Thang) AS FLOAT) AS TiLe
     FROM   HIEUXE;
@@ -153,15 +154,11 @@ AS
 BEGIN
     SET NOCOUNT ON;
     SELECT VATTU.TenVatTu,
-           VATTU.SoLuong AS TonDau,
+           VATTU.SoLuong AS Ton,
            (SELECT sum(PHIEUSUACHUA.SoLuong)
             FROM   PHIEUSUACHUA
             WHERE  VATTU.MaVatTu = PHIEUSUACHUA.MaVatTu
-                   AND MONTH(PHIEUSUACHUA.NgaySuaChua) = @Thang) AS PhatSinh,
-           (VATTU.SoLuong - (SELECT sum(PHIEUSUACHUA.SoLuong)
-                             FROM   PHIEUSUACHUA
-                             WHERE  VATTU.MaVatTu = PHIEUSUACHUA.MaVatTu
-                                    AND MONTH(PHIEUSUACHUA.NgaySuaChua) = @Thang)) AS TonCuoi
+                   AND MONTH(PHIEUSUACHUA.NgaySuaChua) = @Thang) AS PhatSinh
     FROM   VATTU;
 END
 
@@ -177,7 +174,7 @@ INSERT INTO [dbo].[HIEUXE] ([MaHX], [TenHieuXe]) VALUES (N'HD', N'HonDa')
 INSERT INTO [dbo].[HIEUXE] ([MaHX], [TenHieuXe]) VALUES (N'ME', N'Mescedes')
 INSERT INTO [dbo].[HIEUXE] ([MaHX], [TenHieuXe]) VALUES (N'SU', N'Suzuki')
 INSERT INTO [dbo].[HIEUXE] ([MaHX], [TenHieuXe]) VALUES (N'TO', N'Toyota')
-INSERT INTO [dbo].[THAMSO] ([SuaChuaToiDa]) VALUES (40)
+INSERT INTO [dbo].[THAMSO] ([SuaChuaToiDa], [ChenhLech]) VALUES (40, 10)
 INSERT INTO [dbo].[TIENCONG] ([MaTienCong], [TenCongViec], [TienCong]) VALUES (N'TC1', N'Sơn ', CAST(100000.0000 AS Money))
 INSERT INTO [dbo].[TIENCONG] ([MaTienCong], [TenCongViec], [TienCong]) VALUES (N'TC2', N'Thay Kiếng Hậu', CAST(500000.0000 AS Money))
 INSERT INTO [dbo].[TIENCONG] ([MaTienCong], [TenCongViec], [TienCong]) VALUES (N'TC3', N'Thay Căm Xe', CAST(500000.0000 AS Money))

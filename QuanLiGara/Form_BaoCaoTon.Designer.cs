@@ -281,6 +281,7 @@
             this.DoubleBuffered = true;
             this.EnableGlass = false;
             this.Name = "Form_BaoCaoTon";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Báo Cáo Tồn Kho";
             this.Load += new System.EventHandler(this.Form_BaoCaoTon_Load);
             ((System.ComponentModel.ISupportInitialize)(this.BaoCaoTonBindingSource)).EndInit();

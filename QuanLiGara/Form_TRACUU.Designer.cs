@@ -35,8 +35,8 @@
             this.Text_Search = new System.Windows.Forms.TextBox();
             this.rbChuXe = new System.Windows.Forms.RadioButton();
             this.rbHieuXe = new System.Windows.Forms.RadioButton();
-            this.rbBienSo = new System.Windows.Forms.RadioButton();
             this.rbAll = new System.Windows.Forms.RadioButton();
+            this.rbBienSo = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_tracuu)).BeginInit();
             this.groupPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -149,6 +149,19 @@
             this.rbHieuXe.UseVisualStyleBackColor = true;
             this.rbHieuXe.CheckedChanged += new System.EventHandler(this.Checked_Change);
             // 
+            // rbAll
+            // 
+            this.rbAll.AutoSize = true;
+            this.rbAll.Checked = true;
+            this.rbAll.Location = new System.Drawing.Point(98, 53);
+            this.rbAll.Name = "rbAll";
+            this.rbAll.Size = new System.Drawing.Size(58, 19);
+            this.rbAll.TabIndex = 35;
+            this.rbAll.TabStop = true;
+            this.rbAll.Text = "Tất cả";
+            this.rbAll.UseVisualStyleBackColor = true;
+            this.rbAll.CheckedChanged += new System.EventHandler(this.Checked_Change);
+            // 
             // rbBienSo
             // 
             this.rbBienSo.AutoSize = true;
@@ -159,18 +172,6 @@
             this.rbBienSo.Text = "Biển Số";
             this.rbBienSo.UseVisualStyleBackColor = true;
             this.rbBienSo.CheckedChanged += new System.EventHandler(this.Checked_Change);
-            // 
-            // rbAll
-            // 
-            this.rbAll.AutoSize = true;
-            this.rbAll.Checked = true;
-            this.rbAll.Location = new System.Drawing.Point(98, 53);
-            this.rbAll.Name = "rbAll";
-            this.rbAll.Size = new System.Drawing.Size(58, 19);
-            this.rbAll.TabIndex = 35;
-            this.rbAll.Text = "Tất cả";
-            this.rbAll.UseVisualStyleBackColor = true;
-            this.rbAll.CheckedChanged += new System.EventHandler(this.Checked_Change);
             // 
             // Form_TRACUU
             // 
@@ -184,6 +185,7 @@
             this.DoubleBuffered = true;
             this.EnableGlass = false;
             this.Name = "Form_TRACUU";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tra Cứu";
             this.Load += new System.EventHandler(this.Form_TRACUU_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_tracuu)).EndInit();

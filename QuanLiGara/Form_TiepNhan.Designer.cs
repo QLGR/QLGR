@@ -30,11 +30,12 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.Text_email = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.Date_ngaytiepnhan = new System.Windows.Forms.DateTimePicker();
             this.cbBox_hieuxe = new System.Windows.Forms.ComboBox();
             this.Text_dienthoai = new System.Windows.Forms.TextBox();
             this.Text_diachi = new System.Windows.Forms.TextBox();
-            this.hieuxe = new System.Windows.Forms.TextBox();
             this.Text_bienso = new System.Windows.Forms.TextBox();
             this.Text_chuxe = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -50,8 +51,6 @@
             this.btnSua = new DevComponents.DotNetBar.ButtonX();
             this.btnThem = new DevComponents.DotNetBar.ButtonX();
             this.maHSSC = new System.Windows.Forms.TextBox();
-            this.Text_email = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachTN)).BeginInit();
             this.SuspendLayout();
@@ -77,7 +76,6 @@
             this.groupPanel1.Controls.Add(this.cbBox_hieuxe);
             this.groupPanel1.Controls.Add(this.Text_dienthoai);
             this.groupPanel1.Controls.Add(this.Text_diachi);
-            this.groupPanel1.Controls.Add(this.hieuxe);
             this.groupPanel1.Controls.Add(this.Text_bienso);
             this.groupPanel1.Controls.Add(this.Text_chuxe);
             this.groupPanel1.Controls.Add(this.label7);
@@ -120,62 +118,76 @@
             this.groupPanel1.TabIndex = 18;
             this.groupPanel1.Text = "Thông Tin Xe";
             // 
+            // Text_email
+            // 
+            this.Text_email.Enabled = false;
+            this.Text_email.Location = new System.Drawing.Point(100, 105);
+            this.Text_email.Name = "Text_email";
+            this.Text_email.Size = new System.Drawing.Size(595, 20);
+            this.Text_email.TabIndex = 7;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Red;
+            this.label8.Location = new System.Drawing.Point(33, 108);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(32, 13);
+            this.label8.TabIndex = 46;
+            this.label8.Text = "Email";
+            // 
             // Date_ngaytiepnhan
             // 
+            this.Date_ngaytiepnhan.Enabled = false;
+            this.Date_ngaytiepnhan.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.Date_ngaytiepnhan.Location = new System.Drawing.Point(323, 140);
             this.Date_ngaytiepnhan.Name = "Date_ngaytiepnhan";
             this.Date_ngaytiepnhan.Size = new System.Drawing.Size(193, 20);
-            this.Date_ngaytiepnhan.TabIndex = 45;
+            this.Date_ngaytiepnhan.TabIndex = 9;
             // 
             // cbBox_hieuxe
             // 
             this.cbBox_hieuxe.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbBox_hieuxe.Enabled = false;
             this.cbBox_hieuxe.FormattingEnabled = true;
-            this.cbBox_hieuxe.Location = new System.Drawing.Point(564, 31);
+            this.cbBox_hieuxe.Location = new System.Drawing.Point(564, 30);
             this.cbBox_hieuxe.Name = "cbBox_hieuxe";
             this.cbBox_hieuxe.Size = new System.Drawing.Size(131, 21);
-            this.cbBox_hieuxe.TabIndex = 44;
+            this.cbBox_hieuxe.TabIndex = 5;
             this.cbBox_hieuxe.SelectedIndexChanged += new System.EventHandler(this.HieuXe_SelectedIndexChanged);
             // 
             // Text_dienthoai
             // 
+            this.Text_dienthoai.Enabled = false;
             this.Text_dienthoai.Location = new System.Drawing.Point(100, 140);
             this.Text_dienthoai.Name = "Text_dienthoai";
-            this.Text_dienthoai.ReadOnly = true;
             this.Text_dienthoai.Size = new System.Drawing.Size(132, 20);
-            this.Text_dienthoai.TabIndex = 43;
+            this.Text_dienthoai.TabIndex = 8;
             this.Text_dienthoai.TextChanged += new System.EventHandler(this.Text_dienthoai_TextChanged);
             // 
             // Text_diachi
             // 
+            this.Text_diachi.Enabled = false;
             this.Text_diachi.Location = new System.Drawing.Point(100, 68);
             this.Text_diachi.Name = "Text_diachi";
-            this.Text_diachi.ReadOnly = true;
             this.Text_diachi.Size = new System.Drawing.Size(595, 20);
-            this.Text_diachi.TabIndex = 42;
-            // 
-            // hieuxe
-            // 
-            this.hieuxe.Location = new System.Drawing.Point(564, 31);
-            this.hieuxe.Name = "hieuxe";
-            this.hieuxe.Size = new System.Drawing.Size(72, 20);
-            this.hieuxe.TabIndex = 41;
+            this.Text_diachi.TabIndex = 6;
             // 
             // Text_bienso
             // 
+            this.Text_bienso.Enabled = false;
             this.Text_bienso.Location = new System.Drawing.Point(411, 31);
             this.Text_bienso.Name = "Text_bienso";
-            this.Text_bienso.ReadOnly = true;
             this.Text_bienso.Size = new System.Drawing.Size(98, 20);
-            this.Text_bienso.TabIndex = 40;
+            this.Text_bienso.TabIndex = 4;
             // 
             // Text_chuxe
             // 
+            this.Text_chuxe.Enabled = false;
             this.Text_chuxe.Location = new System.Drawing.Point(100, 31);
             this.Text_chuxe.Name = "Text_chuxe";
-            this.Text_chuxe.ReadOnly = true;
             this.Text_chuxe.Size = new System.Drawing.Size(257, 20);
-            this.Text_chuxe.TabIndex = 39;
+            this.Text_chuxe.TabIndex = 3;
             // 
             // label7
             // 
@@ -243,8 +255,9 @@
             this.dtGV_danhsachTN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_danhsachTN.Location = new System.Drawing.Point(12, 278);
             this.dtGV_danhsachTN.Name = "dtGV_danhsachTN";
+            this.dtGV_danhsachTN.ReadOnly = true;
             this.dtGV_danhsachTN.Size = new System.Drawing.Size(735, 251);
-            this.dtGV_danhsachTN.TabIndex = 15;
+            this.dtGV_danhsachTN.TabIndex = 0;
             this.dtGV_danhsachTN.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGV_danhsachTN_RowEnter);
             // 
             // btnHuy
@@ -257,7 +270,7 @@
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(74, 29);
             this.btnHuy.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnHuy.TabIndex = 46;
+            this.btnHuy.TabIndex = 11;
             this.btnHuy.Text = "Hủy";
             this.btnHuy.Click += new System.EventHandler(this.Huy_Click);
             // 
@@ -271,7 +284,7 @@
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(74, 29);
             this.btnLuu.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnLuu.TabIndex = 47;
+            this.btnLuu.TabIndex = 10;
             this.btnLuu.Text = "Lưu";
             this.btnLuu.Click += new System.EventHandler(this.Luu_Click);
             // 
@@ -284,7 +297,7 @@
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(74, 29);
             this.btnXoa.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnXoa.TabIndex = 48;
+            this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -297,7 +310,7 @@
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(74, 29);
             this.btnSua.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSua.TabIndex = 49;
+            this.btnSua.TabIndex = 1;
             this.btnSua.Text = "Sửa";
             this.btnSua.Click += new System.EventHandler(this.Sua_Click);
             // 
@@ -310,35 +323,18 @@
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(74, 29);
             this.btnThem.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnThem.TabIndex = 50;
+            this.btnThem.TabIndex = 0;
             this.btnThem.Text = "Thêm";
             this.btnThem.Click += new System.EventHandler(this.Them_Click);
             // 
             // maHSSC
             // 
+            this.maHSSC.Enabled = false;
             this.maHSSC.Location = new System.Drawing.Point(649, 12);
             this.maHSSC.Name = "maHSSC";
             this.maHSSC.ReadOnly = true;
             this.maHSSC.Size = new System.Drawing.Size(98, 20);
             this.maHSSC.TabIndex = 46;
-            // 
-            // Text_email
-            // 
-            this.Text_email.Location = new System.Drawing.Point(100, 105);
-            this.Text_email.Name = "Text_email";
-            this.Text_email.ReadOnly = true;
-            this.Text_email.Size = new System.Drawing.Size(595, 20);
-            this.Text_email.TabIndex = 47;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(33, 108);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(32, 13);
-            this.label8.TabIndex = 46;
-            this.label8.Text = "Email";
             // 
             // Form_TiepNhan
             // 
@@ -358,6 +354,7 @@
             this.DoubleBuffered = true;
             this.EnableGlass = false;
             this.Name = "Form_TiepNhan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tiếp Nhận Xe";
             this.Load += new System.EventHandler(this.Form_TiepNhan_Load);
             this.groupPanel1.ResumeLayout(false);
@@ -376,7 +373,6 @@
         private System.Windows.Forms.ComboBox cbBox_hieuxe;
         private System.Windows.Forms.TextBox Text_dienthoai;
         private System.Windows.Forms.TextBox Text_diachi;
-        private System.Windows.Forms.TextBox hieuxe;
         private System.Windows.Forms.TextBox Text_bienso;
         private System.Windows.Forms.TextBox Text_chuxe;
         private System.Windows.Forms.Label label7;

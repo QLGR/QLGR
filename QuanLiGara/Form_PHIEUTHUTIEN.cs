@@ -204,7 +204,10 @@ namespace QuanLiGara
         private void setEnable(bool a)
         {
             
-            Text_sotienthu.ReadOnly = !a;
+            Text_sotienthu.Enabled = a;
+            cbB_bienso.Enabled = a;
+            Text_sotienthu.Enabled = a;
+            Date_ngaythutien.Enabled = a;
             btnXoa.Enabled = !a;
             btnSua.Enabled = !a;
             btnLuu.Enabled = a;

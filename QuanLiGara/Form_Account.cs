@@ -63,19 +63,19 @@ namespace QuanLiGara
         {
             use = txtUser.Text;
             enable(true);
-            if (txtUser.Text.ToUpper() == Form1.username.ToUpper())
+            if (txtUser.Text.ToUpper() == Form_Main.username.ToUpper())
                 cboQuyen.Enabled = false;
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (Form1.username.ToUpper().Equals(txtUser.Text.ToUpper()))
+            if (Form_Main.username.ToUpper().Equals(txtUser.Text.ToUpper()))
             {
                 MessageBox.Show("Không thể xóa tài khoản đang đăng nhập!", "Error");
                 return;
             }
             for (int i = 0; i < grdt.SelectedRows.Count; i++)
-                if (grdt.SelectedRows[i].Cells[0].Value.ToString().ToUpper().Equals(Form1.username.ToUpper()))
+                if (grdt.SelectedRows[i].Cells[0].Value.ToString().ToUpper().Equals(Form_Main.username.ToUpper()))
                 {
                     MessageBox.Show("Không thể xóa tài khoản đang đăng nhập!", "Error");
                     return;

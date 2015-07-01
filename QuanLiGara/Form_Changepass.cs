@@ -21,7 +21,7 @@ namespace QuanLiGara
         private void button1_Click(object sender, EventArgs e)
         {
             DataTable nv = new DataTable();
-            nv = db.getDS("select PassWord from Account where UserName ='" + Form1.username + "'");
+            nv = db.getDS("select PassWord from Account where UserName ='" + Form_Main.username + "'");
             string mk = nv.Rows[0]["PassWord"].ToString();
             string mkc = txtold.Text;
             string mkm = txtnew.Text;
@@ -30,7 +30,7 @@ namespace QuanLiGara
             {
                 if (mkm.Equals(xn))
                 {
-                    db.getDS("update Account set PassWord = '" + mkm + "' where UserName = '" + Form1.username + "'");
+                    db.getDS("update Account set PassWord = '" + mkm + "' where UserName = '" + Form_Main.username + "'");
                     MessageBox.Show("Mật khẩu của bạn đã được thay đổi thành công !");
                     Hide();
                 }

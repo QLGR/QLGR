@@ -31,7 +31,7 @@ namespace QuanLiGara
             tn.MaHSSC = maHSSC.Text;
             tn.TenChuXe = Text_chuxe.Text;
             tn.BienSo = Text_bienso.Text;
-            tn.MaHieuXe = hieuxe.Text;
+            tn.MaHieuXe = cbBox_hieuxe.SelectedValue.ToString();
             tn.DiaChi = Text_diachi.Text;
             tn.DienThoai = Text_dienthoai.Text;
             tn.NgayTiepNhan = DateTime.Parse(Date_ngaytiepnhan.Text);
@@ -40,17 +40,8 @@ namespace QuanLiGara
         public int SuaChuaToiDa()
         {
 
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM THAMSO");
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                int max = Int32.Parse(dr["SuaChuaToiDa"].ToString());
-                return max;
-
-            }
-
-            return 0;
+            DataTable dt = db.getDS("SELECT * FROM THAMSO");
+            return Int32.Parse(dt.Rows[0]["SuaChuaToiDa"].ToString());
 
         }
 
@@ -65,15 +56,9 @@ namespace QuanLiGara
         }
         public void loadhieuxe()
         {
-
-
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM HIEUXE");
-            foreach (DataRow dr in dt.Rows)
-            {
-                cbBox_hieuxe.Items.Add(dr["TenHieuXe"].ToString());
-            }
-
+            cbBox_hieuxe.DataSource = db.getDS("SELECT * FROM HIEUXE");
+            cbBox_hieuxe.ValueMember = "MaHX";
+            cbBox_hieuxe.DisplayMember = "TenHieuXe";
         }
         public bool Check(String date)
         {
@@ -134,7 +119,7 @@ namespace QuanLiGara
                             if (tnsql.ThemTN(getData()))
                             {
                                 tnsql.ThemDSX(getData());
-                                MessageBox.Show("Đã thêm phiếu sửa chữa cho xe " + hieuxe.Text + " - Bien so " + Text_bienso.Text);
+                                MessageBox.Show("Đã thêm phiếu sửa chữa cho xe " + cbBox_hieuxe.Text + " - Bien so " + Text_bienso.Text);
                             }
                         }
                         else
@@ -179,7 +164,7 @@ namespace QuanLiGara
                 if (dr == DialogResult.Yes)
                 {
                     if (tnsql.XoaTN(maHSSC.Text))
-                        MessageBox.Show("Đã xóa phiếu sửa chữa cho xe " + hieuxe.Text + " - Bien so " + Text_bienso.Text);
+                        MessageBox.Show("Đã xóa phiếu sửa chữa cho xe " + cbBox_hieuxe.Text + " - Bien so " + Text_bienso.Text);
                     else
                         MessageBox.Show("Không thể xóa hồ sơ sửa chữa do chưa thanh toán hoặc vẫn đang sửa chữa!");
 
@@ -213,7 +198,7 @@ namespace QuanLiGara
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenHieuXe"].ToString() == cbBox_hieuxe.Text)
-                    hieuxe.Text = dr["MaHX"].ToString();
+                    cbBox_hieuxe.Text = dr["MaHX"].ToString();
 
             }
 
@@ -234,7 +219,7 @@ namespace QuanLiGara
             }
             Text_diachi.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["DiaChi"].Value.ToString();
             Text_dienthoai.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["DienThoai"].Value.ToString();
-            Date_ngaytiepnhan.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["NgayTiepNhan"].Value.ToString();
+            Date_ngaytiepnhan.Value = DateTime.Parse(dtGV_danhsachTN.Rows[RowIndex].Cells["NgayTiepNhan"].Value.ToString());
             Text_email.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["Email"].Value.ToString();
         }
 
@@ -262,6 +247,7 @@ namespace QuanLiGara
             Text_diachi.Text = "";
             Text_dienthoai.Text ="000";
             maHSSC.Text = tnsql.SearchDaTaGrid();
+            Date_ngaytiepnhan.Value = DateTime.Now;
 
         }
 
@@ -277,11 +263,13 @@ namespace QuanLiGara
 
         public void SetEnable(bool a)
         {
-            Text_chuxe.ReadOnly = !a;
-            Text_bienso.ReadOnly = !a;
-            Text_diachi.ReadOnly = !a;
-            Text_email.ReadOnly = !a;
-            Text_dienthoai.ReadOnly = !a;
+            Text_chuxe.Enabled = a;
+            Text_bienso.Enabled = a;
+            Text_diachi.Enabled = a;
+            Text_email.Enabled = a;
+            Text_dienthoai.Enabled = a;
+            cbBox_hieuxe.Enabled = a;
+            Date_ngaytiepnhan.Enabled = a;
             btnXoa.Enabled = !a;
             btnSua.Enabled = !a;
             btnLuu.Enabled = a;

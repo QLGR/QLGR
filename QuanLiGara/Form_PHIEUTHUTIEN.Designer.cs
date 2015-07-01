@@ -33,6 +33,7 @@
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.Date_ngaythutien = new System.Windows.Forms.DateTimePicker();
             this.cbB_bienso = new System.Windows.Forms.ComboBox();
+            this.txtMaPT = new System.Windows.Forms.TextBox();
             this.txt_Tongtien = new System.Windows.Forms.TextBox();
             this.txt_TraLai = new System.Windows.Forms.TextBox();
             this.Text_sotienthu = new System.Windows.Forms.TextBox();
@@ -40,14 +41,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnHuy = new DevComponents.DotNetBar.ButtonX();
             this.btnLuu = new DevComponents.DotNetBar.ButtonX();
             this.btnXoa = new DevComponents.DotNetBar.ButtonX();
             this.btnSua = new DevComponents.DotNetBar.ButtonX();
             this.btnThem = new DevComponents.DotNetBar.ButtonX();
-            this.txtMaPT = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_phieuthu)).BeginInit();
             this.groupPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +69,7 @@
             this.dtGV_phieuthu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_phieuthu.Location = new System.Drawing.Point(22, 214);
             this.dtGV_phieuthu.Name = "dtGV_phieuthu";
+            this.dtGV_phieuthu.ReadOnly = true;
             this.dtGV_phieuthu.Size = new System.Drawing.Size(799, 259);
             this.dtGV_phieuthu.TabIndex = 13;
             this.dtGV_phieuthu.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.EnterCellData);
@@ -125,6 +126,8 @@
             // 
             // Date_ngaythutien
             // 
+            this.Date_ngaythutien.Enabled = false;
+            this.Date_ngaythutien.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.Date_ngaythutien.Location = new System.Drawing.Point(516, 93);
             this.Date_ngaythutien.Name = "Date_ngaythutien";
             this.Date_ngaythutien.Size = new System.Drawing.Size(180, 20);
@@ -133,6 +136,7 @@
             // cbB_bienso
             // 
             this.cbB_bienso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbB_bienso.Enabled = false;
             this.cbB_bienso.FormattingEnabled = true;
             this.cbB_bienso.Location = new System.Drawing.Point(181, 58);
             this.cbB_bienso.Name = "cbB_bienso";
@@ -140,29 +144,37 @@
             this.cbB_bienso.TabIndex = 26;
             this.cbB_bienso.SelectedIndexChanged += new System.EventHandler(this.bienso_SelectedIndexChanged);
             // 
+            // txtMaPT
+            // 
+            this.txtMaPT.Enabled = false;
+            this.txtMaPT.Location = new System.Drawing.Point(181, 14);
+            this.txtMaPT.Name = "txtMaPT";
+            this.txtMaPT.Size = new System.Drawing.Size(190, 20);
+            this.txtMaPT.TabIndex = 25;
+            // 
             // txt_Tongtien
             // 
+            this.txt_Tongtien.Enabled = false;
             this.txt_Tongtien.Location = new System.Drawing.Point(497, 11);
             this.txt_Tongtien.Name = "txt_Tongtien";
-            this.txt_Tongtien.ReadOnly = true;
             this.txt_Tongtien.Size = new System.Drawing.Size(199, 20);
             this.txt_Tongtien.TabIndex = 25;
             this.txt_Tongtien.Text = "0";
             // 
-            // txt_conno
+            // txt_TraLai
             // 
+            this.txt_TraLai.Enabled = false;
             this.txt_TraLai.Location = new System.Drawing.Point(181, 97);
-            this.txt_TraLai.Name = "txt_conno";
-            this.txt_TraLai.ReadOnly = true;
+            this.txt_TraLai.Name = "txt_TraLai";
             this.txt_TraLai.Size = new System.Drawing.Size(190, 20);
             this.txt_TraLai.TabIndex = 25;
             this.txt_TraLai.Text = "0";
             // 
             // Text_sotienthu
             // 
+            this.Text_sotienthu.Enabled = false;
             this.Text_sotienthu.Location = new System.Drawing.Point(497, 55);
             this.Text_sotienthu.Name = "Text_sotienthu";
-            this.Text_sotienthu.ReadOnly = true;
             this.Text_sotienthu.Size = new System.Drawing.Size(199, 20);
             this.Text_sotienthu.TabIndex = 25;
             this.Text_sotienthu.Text = "0";
@@ -207,6 +219,16 @@
             this.label6.Size = new System.Drawing.Size(78, 13);
             this.label6.TabIndex = 20;
             this.label6.Text = "Ngày Thu Tiền";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(81, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Mã Phiếu: ";
             // 
             // label3
             // 
@@ -285,24 +307,6 @@
             this.btnThem.Text = "Thêm";
             this.btnThem.Click += new System.EventHandler(this.Them_Click);
             // 
-            // txtMaPT
-            // 
-            this.txtMaPT.Location = new System.Drawing.Point(181, 14);
-            this.txtMaPT.Name = "txtMaPT";
-            this.txtMaPT.ReadOnly = true;
-            this.txtMaPT.Size = new System.Drawing.Size(190, 20);
-            this.txtMaPT.TabIndex = 25;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(81, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Mã Phiếu: ";
-            // 
             // Form_PHIEUTHUTIEN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,6 +323,7 @@
             this.DoubleBuffered = true;
             this.EnableGlass = false;
             this.Name = "Form_PHIEUTHUTIEN";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lập Phiếu Thu Tiền";
             this.Load += new System.EventHandler(this.Form_PHIEUTHUTIEN_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_phieuthu)).EndInit();

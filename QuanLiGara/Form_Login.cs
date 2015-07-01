@@ -24,9 +24,9 @@ namespace QuanLiGara
             DataTable a = db.getDS("Select * from Account where UserName = '" + txtUser.Text + "'" + " and PassWord = '" + txtPass.Text + "'");
             if (a.Rows.Count == 1)
             {
-                Form1.username = a.Rows[0]["Username"].ToString();
-                Form1.loai = a.Rows[0]["Loai"].ToString();
-                Form1 form = new Form1();
+                Form_Main.username = a.Rows[0]["Username"].ToString();
+                Form_Main.loai = a.Rows[0]["Loai"].ToString();
+                Form_Main form = new Form_Main();
                 form.Show();
                 Hide();
             }

@@ -54,7 +54,7 @@
             this.Text_tenserver.Name = "Text_tenserver";
             this.Text_tenserver.PreventEnterBeep = true;
             this.Text_tenserver.Size = new System.Drawing.Size(190, 20);
-            this.Text_tenserver.TabIndex = 0;
+            this.Text_tenserver.TabIndex = 2;
             // 
             // labelX1
             // 
@@ -76,7 +76,7 @@
             this.Buttom_LuuServer.Name = "Buttom_LuuServer";
             this.Buttom_LuuServer.Size = new System.Drawing.Size(77, 32);
             this.Buttom_LuuServer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.Buttom_LuuServer.TabIndex = 2;
+            this.Buttom_LuuServer.TabIndex = 7;
             this.Buttom_LuuServer.Text = "Lưu";
             this.Buttom_LuuServer.Click += new System.EventHandler(this.buttonX1_Click);
             // 
@@ -89,7 +89,7 @@
             this.Buttom_ThoatServer.Name = "Buttom_ThoatServer";
             this.Buttom_ThoatServer.Size = new System.Drawing.Size(77, 32);
             this.Buttom_ThoatServer.Style = DevComponents.DotNetBar.eDotNetBarStyle.Windows7;
-            this.Buttom_ThoatServer.TabIndex = 3;
+            this.Buttom_ThoatServer.TabIndex = 8;
             this.Buttom_ThoatServer.Text = "Thoát";
             // 
             // txtDatabase
@@ -103,7 +103,7 @@
             this.txtDatabase.Name = "txtDatabase";
             this.txtDatabase.PreventEnterBeep = true;
             this.txtDatabase.Size = new System.Drawing.Size(190, 20);
-            this.txtDatabase.TabIndex = 0;
+            this.txtDatabase.TabIndex = 3;
             // 
             // labelX2
             // 
@@ -142,7 +142,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.PreventEnterBeep = true;
             this.txtUsername.Size = new System.Drawing.Size(190, 20);
-            this.txtUsername.TabIndex = 0;
+            this.txtUsername.TabIndex = 5;
             // 
             // labelX4
             // 
@@ -167,7 +167,7 @@
             this.txtPass.Name = "txtPass";
             this.txtPass.PreventEnterBeep = true;
             this.txtPass.Size = new System.Drawing.Size(190, 20);
-            this.txtPass.TabIndex = 0;
+            this.txtPass.TabIndex = 6;
             // 
             // labelX5
             // 
@@ -187,7 +187,7 @@
             this.rdBtnTaoCSDL.Location = new System.Drawing.Point(28, 95);
             this.rdBtnTaoCSDL.Name = "rdBtnTaoCSDL";
             this.rdBtnTaoCSDL.Size = new System.Drawing.Size(94, 17);
-            this.rdBtnTaoCSDL.TabIndex = 18;
+            this.rdBtnTaoCSDL.TabIndex = 1;
             this.rdBtnTaoCSDL.Text = "Tạo mới CSDL";
             this.rdBtnTaoCSDL.UseVisualStyleBackColor = true;
             // 
@@ -198,7 +198,7 @@
             this.rdBtnSuaCSDL.Location = new System.Drawing.Point(28, 51);
             this.rdBtnSuaCSDL.Name = "rdBtnSuaCSDL";
             this.rdBtnSuaCSDL.Size = new System.Drawing.Size(75, 17);
-            this.rdBtnSuaCSDL.TabIndex = 19;
+            this.rdBtnSuaCSDL.TabIndex = 0;
             this.rdBtnSuaCSDL.TabStop = true;
             this.rdBtnSuaCSDL.Text = "Sửa CSDL";
             this.rdBtnSuaCSDL.UseVisualStyleBackColor = true;
@@ -208,7 +208,7 @@
             // 
             this.AcceptButton = this.Buttom_LuuServer;
             this.CancelButton = this.Buttom_ThoatServer;
-            this.ClientSize = new System.Drawing.Size(474, 265);
+            this.ClientSize = new System.Drawing.Size(488, 272);
             this.Controls.Add(this.rdBtnTaoCSDL);
             this.Controls.Add(this.rdBtnSuaCSDL);
             this.Controls.Add(this.checkBoxX1);

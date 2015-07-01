@@ -243,6 +243,7 @@
             this.DoubleBuffered = true;
             this.EnableGlass = false;
             this.Name = "Form_DoanhSo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Báo Cáo Doanh Số";
             this.Load += new System.EventHandler(this.Form_DoanhSo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.BaoCaoDoanhThuBindingSource)).EndInit();

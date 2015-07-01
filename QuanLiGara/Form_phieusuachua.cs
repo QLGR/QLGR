@@ -21,7 +21,6 @@ namespace QuanLiGara
         PhieuSuaChuasql pscsql = new PhieuSuaChuasql();
         phieusuachua PSC = new phieusuachua();
         dulieu dl = new dulieu();
-        int choose = 0;
         int midsoluong;
         string no = "0";
 
@@ -34,6 +33,11 @@ namespace QuanLiGara
             btnHuy.Enabled = false;
         }
 
+        public int ChenhLech()
+        {
+            DataTable dt = db.getDS("SELECT * FROM THAMSO");
+            return Int32.Parse(dt.Rows[0]["ChenhLech"].ToString());
+        }
         public void loadbang()
         {
             DataTable dt = new DataTable();
@@ -178,7 +182,6 @@ namespace QuanLiGara
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            choose = 0;
             if (Date_ngaysuachua.Value > System.DateTime.Now)
             {
                 MessageBox.Show("Ngày sửa chữa không được lớn hơn ngày hiện tại");
@@ -193,6 +196,8 @@ namespace QuanLiGara
                     return;
                 }
             }
+
+            int soluong = int.Parse(PSC.SLVatTuPN(tbxMaPhieu.Text)) - int.Parse(Text_soluong.Text);
             try
             {
                 if (PSC.Sua(GetData()))
@@ -203,15 +208,13 @@ namespace QuanLiGara
                 else
                     if (PSC.Them(GetData()))
                     {
-
                         db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
                         MessageBox.Show("Lập phiếu sửa chữa thành công!");
                     }
-                UpdateSoLuong(choose,0);
+                UpdateSoLuong(soluong);
                 loadbang();
                 dtGV_danhsachSuaChua.Refresh();
                 SetEnable(false);
-
             }
             catch { MessageBox.Show("Coi Lại Dữ Liệu Đã Nhập!"); }
 
@@ -226,21 +229,14 @@ namespace QuanLiGara
                 
                 
                 if (int.TryParse(Text_soluong.Text, out i) && int.Parse(Text_soluong.Text) > -1)
-                {   
-                    string temp = PSC.SLVatTu(mavt(cbBoc_vattu.Text));
-                    if (int.Parse(Text_soluong.Text) > int.Parse(temp) && choose != 0)
+                {
+                    int soluong = int.Parse(Text_soluong.Text) - int.Parse(PSC.SLVatTuPN(tbxMaPhieu.Text));
+                    if (soluong > int.Parse(PSC.SLVatTu(mavt(cbBoc_vattu.Text))))
                     {
-                        if (choose == 2 && (int.Parse(Text_soluong.Text) - int.Parse(oldsoluong) > int.Parse(temp)))
-                        {
-                            MessageBox.Show("Sồ lượng phụ tùng không được vượt quá số lượng vật tư còn trong kho.");
-                            Text_soluong.Text = (int.Parse(oldsoluong) + int.Parse(temp)).ToString();
-                            return;
-                        }
                         MessageBox.Show("Sồ lượng phụ tùng không được vượt quá số lượng vật tư còn trong kho.");
-                        Text_soluong.Text = temp;
-                        return;
+                        Text_soluong.Text = int.Parse(PSC.SLVatTu(mavt(cbBoc_vattu.Text))) + int.Parse(PSC.SLVatTuPN(tbxMaPhieu.Text)) + "";
                     }
-                        
+
                     double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
                     if(sum != 0)
                         Text_thanhtien.Text = sum.ToString("#,###,###.##");
@@ -265,12 +261,14 @@ namespace QuanLiGara
                 DialogResult dr = MessageBox.Show("Bạn muốn xóa phiếu sửa chữa náy!","Xác Nhận",MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
                 {
+                    int soluong = int.Parse(PSC.SLVatTuPN(tbxMaPhieu.Text));
                     if (PSC.Xoa(tbxMaPhieu.Text))
                     {
                         MessageBox.Show("Đã xóa thành công");
 
                         no = (tienno(cbBox_bienso.Text) - double.Parse(no)).ToString();
                         db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(cbBox_bienso.Text) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                        UpdateSoLuong(soluong);
                     }
                     else
                     {
@@ -304,6 +302,7 @@ namespace QuanLiGara
             Text_tiencong.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["TienCong"].Value.ToString();
             cbBox_bienso.Text = bienso(dtGV_danhsachSuaChua.Rows[RowIndex].Cells["MaHSSC"].Value.ToString());
             Text_noidung.Text = dtGV_danhsachSuaChua.Rows[RowIndex].Cells["NoiDung"].Value.ToString();
+            Date_ngaysuachua.Value = DateTime.Parse(dtGV_danhsachSuaChua.Rows[RowIndex].Cells["NgaySuaChua"].Value.ToString());
         }
 
 
@@ -315,7 +314,8 @@ namespace QuanLiGara
             {
                 if (dr["TenVatTu"].ToString() == cbBoc_vattu.SelectedItem.ToString())
                 {
-                    double don = double.Parse(dr["DonGia"].ToString()) * 1.1;
+                    int a = ChenhLech();
+                    double don = double.Parse(dr["DonGia"].ToString()) * (1.0 + ChenhLech()/100.0);
                     if (don != 0)
                     {
 
@@ -383,23 +383,25 @@ namespace QuanLiGara
         private void btnThem_Click(object sender, EventArgs e)
         {
             SetEnable(true);
-            Text_dongia.Text = "0";
             Text_soluong.Text = "0";
             Text_thanhtien.Text = "0";
             Text_tiencong.Text = "0";
             Text_noidung.Text = "";
-            cbBoc_vattu.SelectedIndex = 0;
-            cbBox_tiencong.SelectedItem = 0;
+            cbBoc_vattu.SelectedIndex = 3;
+            cbBox_tiencong.SelectedIndex = 5;
             tbxMaPhieu.Text = PSC.SearchDaTaGrid();
-            choose = 1;
 
         }
 
 
         public void SetEnable(bool a)
         {
-            Text_noidung.ReadOnly = !a;
-            Text_soluong.ReadOnly = !a;
+            Text_noidung.Enabled = a;
+            Text_soluong.Enabled = a;
+            cbBoc_vattu.Enabled = a;
+            cbBox_bienso.Enabled = a;
+            cbBox_tiencong.Enabled = a;
+            Date_ngaysuachua.Enabled = a;
             btnXoa.Enabled = !a;
             btnSua.Enabled = !a;
             btnLuu.Enabled = a;
@@ -410,7 +412,6 @@ namespace QuanLiGara
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            choose = 2;
             midsoluong = int.Parse(Text_soluong.Text);
             GetData();
             SetEnable(true);
@@ -419,30 +420,15 @@ namespace QuanLiGara
 
         private void btnHuy_Click(object sender, EventArgs e)
         {
-            choose = 0;
             SetEnable(false);
         }
 
-        public void UpdateSoLuong(int loai,int postdelete = 0)
+        public void UpdateSoLuong(int thaydoi)
         {
-            DataTable dt, dt1 = new DataTable();
             string mavattu = PSC.MaVatTu(cbBoc_vattu.Text);
-            int  soluong,oldsoluong;
-            soluong = int.Parse(PSC.SLVatTuPN(tbxMaPhieu.Text));
-            oldsoluong = int.Parse(PSC.SLVatTu(mavattu));
-
-            switch (loai)
-            {
-                case 1:
-                    oldsoluong -= soluong;
-                    dl.SuaVT(mavattu, oldsoluong.ToString());
-                    break;
-                case 2:
-                    oldsoluong += midsoluong;
-                    oldsoluong -= soluong;
-                    dl.SuaVT(mavattu, oldsoluong.ToString());
-                    break;
-            }
+            int soluong;
+            soluong = int.Parse(PSC.SLVatTu(mavattu)) + thaydoi;
+            dl.SuaVT(mavattu, soluong.ToString());
         }
     }
 }

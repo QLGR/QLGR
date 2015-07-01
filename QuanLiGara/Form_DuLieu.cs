@@ -54,6 +54,7 @@ namespace QuanLiGara
             foreach (DataRow dr in dt.Rows)
             {
                 Text_soxemax.Text = dr["SuaChuaToiDa"].ToString();
+                Text_Chenhlech.Text = dr["ChenhLech"].ToString();
             }
         }
         private void Form_DuLieu_Load(object sender, EventArgs e)
@@ -285,7 +286,7 @@ namespace QuanLiGara
             {
 
                 DataTable dt = new DataTable();
-                dt = db.getDS("UPDATE THAMSO SET SuaChuaToiDa='" + Text_soxemax.Text + "'");
+                dt = db.getDS("UPDATE THAMSO SET SuaChuaToiDa='" + Text_soxemax.Text + "', ChenhLech='" + Text_Chenhlech.Text + "'");
                 MessageBox.Show("Chỉnh sửa tham số thành công!");
                 loadmaxxe();
             }

@@ -188,6 +188,8 @@
             // 
             // Date_ngaytiepnhan
             // 
+            this.Date_ngaytiepnhan.Enabled = false;
+            this.Date_ngaytiepnhan.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.Date_ngaytiepnhan.Location = new System.Drawing.Point(250, 135);
             this.Date_ngaytiepnhan.Name = "Date_ngaytiepnhan";
             this.Date_ngaytiepnhan.Size = new System.Drawing.Size(145, 20);
@@ -217,7 +219,6 @@
             this.Text_NCC.ReadOnly = true;
             this.Text_NCC.Size = new System.Drawing.Size(298, 20);
             this.Text_NCC.TabIndex = 39;
-            this.Text_NCC.TextChanged += new System.EventHandler(this.Text_chuxe_TextChanged);
             // 
             // label7
             // 
@@ -278,6 +279,7 @@
             this.dtGV_danhsachPN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGV_danhsachPN.Location = new System.Drawing.Point(12, 359);
             this.dtGV_danhsachPN.Name = "dtGV_danhsachPN";
+            this.dtGV_danhsachPN.ReadOnly = true;
             this.dtGV_danhsachPN.Size = new System.Drawing.Size(735, 269);
             this.dtGV_danhsachPN.TabIndex = 19;
             this.dtGV_danhsachPN.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtNhapHangRowEnter);
@@ -354,6 +356,7 @@
             // 
             // cbBox_VatTu
             // 
+            this.cbBox_VatTu.Enabled = false;
             this.cbBox_VatTu.FormattingEnabled = true;
             this.cbBox_VatTu.Location = new System.Drawing.Point(80, 26);
             this.cbBox_VatTu.Name = "cbBox_VatTu";
@@ -559,7 +562,8 @@
             this.Controls.Add(this.btnXoa_HD);
             this.DoubleBuffered = true;
             this.Name = "Form_Nhaphang";
-            this.Text = "7";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Nhập hàng";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Closing_Form);
             this.Load += new System.EventHandler(this.Form_Nhaphang_Load);
             this.TextChanged += new System.EventHandler(this.SoLuong_Changed);

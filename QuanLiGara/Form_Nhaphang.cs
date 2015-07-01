@@ -108,11 +108,6 @@ namespace QuanLiGara
             return dlsql;
         }
 
-        private void Text_chuxe_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void TaoHoaDon_Click(object sender, EventArgs e)
         {
             SetenableNH(true);
@@ -247,6 +242,7 @@ namespace QuanLiGara
 
         public void SetEnablePN(bool a)
         {
+            cbBox_VatTu.Enabled = a;
             txt_Soluong.ReadOnly = !a;
             btnXoa.Enabled = !a;
             btnSua.Enabled = !a;
@@ -258,6 +254,7 @@ namespace QuanLiGara
 
         public void SetenableNH(bool a)
         {
+            Date_ngaytiepnhan.Enabled = a;
             btnXoa.Enabled = a;
             btnSua.Enabled = a;
             btnThem.Enabled = a;
@@ -339,11 +336,14 @@ namespace QuanLiGara
             txt_Thanhtien.Text = dtGV_danhsachPN.Rows[RowIndex].Cells["ThanhTien"].Value.ToString();
             txtTongCong.Text = nhsql.SumThanhTien(maNH.Text);
 
-            Text_NCC.Text = loadbangNH(maNH.Text).Rows[0]["TenNCC"].ToString();
-            Text_dienthoai.Text = loadbangNH(maNH.Text).Rows[0]["DienThoai"].ToString();
-            Text_diachi.Text = loadbangNH(maNH.Text).Rows[0]["DiaChi"].ToString();
-            Text_email.Text = loadbangNH(maNH.Text).Rows[0]["Email"].ToString();
-            Date_ngaytiepnhan.Text = loadbangNH(maNH.Text).Rows[0]["NgayNhapHang"].ToString();
+            if (!btn_ThanhToan.Enabled)
+            {
+                Text_NCC.Text = loadbangNH(maNH.Text).Rows[0]["TenNCC"].ToString();
+                Text_dienthoai.Text = loadbangNH(maNH.Text).Rows[0]["DienThoai"].ToString();
+                Text_diachi.Text = loadbangNH(maNH.Text).Rows[0]["DiaChi"].ToString();
+                Text_email.Text = loadbangNH(maNH.Text).Rows[0]["Email"].ToString();
+                Date_ngaytiepnhan.Text = loadbangNH(maNH.Text).Rows[0]["NgayNhapHang"].ToString();
+            }
 
            
         }
@@ -411,6 +411,7 @@ namespace QuanLiGara
             Text_diachi.ReadOnly = false;
             Text_dienthoai.ReadOnly = false;
             Text_email.ReadOnly = false;
+            Date_ngaytiepnhan.Enabled = true;
         }
 
         private void XoaHD_Click(object sender, EventArgs e)
@@ -466,6 +467,7 @@ namespace QuanLiGara
             btnLuu_HD.Enabled = false;
             btnSua_HD.Enabled = true;
             btnXoa_HD.Enabled = true;
+            Date_ngaytiepnhan.Enabled = false;
             Text_NCC.ReadOnly = true;
             Text_diachi.ReadOnly = true;
             Text_dienthoai.ReadOnly = true;
