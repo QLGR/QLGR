@@ -156,11 +156,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="sql\doanhso.cs" />
     <Compile Include="sql\dulieu.cs" />
     <Compile Include="sql\nhaphang.cs" />
     <Compile Include="sql\phieusuachua.cs" />
     <Compile Include="sql\phieuthu.cs" />
     <Compile Include="sql\tiepnhan.cs" />
+    <Compile Include="sql\ton.cs" />
+    <Compile Include="sql\tracuu.cs" />
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>

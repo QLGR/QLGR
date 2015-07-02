@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.sql;
 namespace QuanLiGara
 {
     public partial class Form_BaoCaoTon : Office2007Form
@@ -20,13 +21,12 @@ namespace QuanLiGara
             InitializeComponent();
         }
 
-        Connection db = new Connection();
-
+        ton t = new ton();
         public void loadthang()
         {
             try
             {
-                DataTable dt = db.getDS("execute BaoCaoTon '" + comboBoxEx1.SelectedItem.ToString() + "'");
+                DataTable dt = t.getTon(comboBoxEx1.SelectedItem.ToString());
                 reportViewer1.LocalReport.DataSources.Clear();
                 Microsoft.Reporting.WinForms.ReportDataSource rp = new Microsoft.Reporting.WinForms.ReportDataSource("DataSet1", dt);
 

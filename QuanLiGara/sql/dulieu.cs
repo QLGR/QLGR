@@ -26,7 +26,15 @@ namespace QuanLiGara.sql
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
-       
+        public DataTable GetAll(string table)
+        {
+            return db.getDS("SELECT * FROM " + table);
+        }
+
+        public void CapNhat(string max, string chenhlech)
+        {
+            db.getDS("UPDATE THAMSO SET SuaChuaToiDa='" + max + "', ChenhLech='" + chenhlech + "'");
+        }
 
         public bool SuaVT(DuLieusql dl)
         {

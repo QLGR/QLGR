@@ -17,6 +17,23 @@ namespace QuanLiGara.sql
     public class phieuthusql
     {
         Connection db = new Connection();
+
+        public DataTable GetAll(string table)
+        {
+            return db.getDS("SELECT * FROM " + table);
+        }
+
+        public string mahssc(String bienso)
+        {
+            return db.getDS("select MaHSSC from HOSOSUACHUA where BienSo = '" + bienso + "'").Rows[0][0].ToString();
+        }
+
+        public DataTable loadbang()
+        {
+            return db.getDS("SELECT PHIEUTHUTIEN.MaThuTien,HOSOSUACHUA.TenChuXe,HOSOSUACHUA.BienSo,HOSOSUACHUA.DienThoai,PHIEUTHUTIEN.SoTienThu,PHIEUTHUTIEN.NgayThuTien" +
+                            ",HOSOSUACHUA.MaHSSC FROM HOSOSUACHUA JOIN PHIEUTHUTIEN on HOSOSUACHUA.MaHSSC=PHIEUTHUTIEN.MaHSSC");
+        }
+
         public bool ThemMaTT(phieuthu mtt)
         {
 

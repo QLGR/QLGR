@@ -17,7 +17,6 @@ namespace QuanLiGara
 {
     public partial class Form_TiepNhan : Office2007Form
     {
-        Connection db = new Connection();
         tiepnhansql tnsql = new tiepnhansql();
         int choose = 0;
         public Form_TiepNhan()
@@ -37,26 +36,15 @@ namespace QuanLiGara
             tn.NgayTiepNhan = DateTime.Parse(Date_ngaytiepnhan.Text);
             return tn;
         }
-        public int SuaChuaToiDa()
-        {
-
-            DataTable dt = db.getDS("SELECT * FROM THAMSO");
-            return Int32.Parse(dt.Rows[0]["SuaChuaToiDa"].ToString());
-
-        }
 
         public void loadbang()
         {
-
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM HOSOSUACHUA");
-            dtGV_danhsachTN.DataSource = dt;
-
-
+            dtGV_danhsachTN.DataSource = tnsql.GetAll("HOSOSUACHUA");
         }
+
         public void loadhieuxe()
         {
-            cbBox_hieuxe.DataSource = db.getDS("SELECT * FROM HIEUXE");
+            cbBox_hieuxe.DataSource = tnsql.GetAll("HIEUXE");
             cbBox_hieuxe.ValueMember = "MaHX";
             cbBox_hieuxe.DisplayMember = "TenHieuXe";
         }
@@ -65,8 +53,7 @@ namespace QuanLiGara
             int count = 0;
 
 
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM HOSOSUACHUA");
+            DataTable dt = tnsql.GetAll("HOSOSUACHUA");
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -78,7 +65,7 @@ namespace QuanLiGara
                 }
             }
 
-            if (SuaChuaToiDa() <= count)
+            if (tnsql.GetSuaChuaToiDa() <= count)
                 return false;
             else
             {
@@ -89,7 +76,6 @@ namespace QuanLiGara
 
         private void Form_TiepNhan_Load(object sender, EventArgs e)
         {
-
             loadbang();
             loadhieuxe();
         }
@@ -114,7 +100,7 @@ namespace QuanLiGara
 
                     try
                     {
-                        if (checkBienso(Text_bienso.Text))
+                        if (!tnsql.checkBienso(Text_bienso.Text))
                         {
                             if (tnsql.ThemTN(getData()))
                             {
@@ -190,51 +176,17 @@ namespace QuanLiGara
             SetEnable(true);
         }
 
-        private void HieuXe_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataTable dt = new DataTable(); 
-            dt = db.getDS("SELECT * FROM HIEUXE");
-            
-            foreach (DataRow dr in dt.Rows)
-            {
-                if (dr["TenHieuXe"].ToString() == cbBox_hieuxe.Text)
-                    cbBox_hieuxe.Text = dr["MaHX"].ToString();
-
-            }
-
-        }
-
         private void dtGV_danhsachTN_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             int RowIndex = e.RowIndex;
             maHSSC.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["MaHSSC"].Value.ToString();
             Text_chuxe.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["TenChuXe"].Value.ToString();
             Text_bienso.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["Bienso"].Value.ToString();
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM HIEUXE");
-            foreach (DataRow dr in dt.Rows)
-            {
-                if (dtGV_danhsachTN.Rows[RowIndex].Cells["MaHX"].Value.ToString() == dr["MaHX"].ToString())
-                    cbBox_hieuxe.Text = dr["TenHieuXe"].ToString();
-            }
+            cbBox_hieuxe.Text = tnsql.GetTenHieuXE(dtGV_danhsachTN.Rows[RowIndex].Cells["MaHX"].Value.ToString());
             Text_diachi.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["DiaChi"].Value.ToString();
             Text_dienthoai.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["DienThoai"].Value.ToString();
             Date_ngaytiepnhan.Value = DateTime.Parse(dtGV_danhsachTN.Rows[RowIndex].Cells["NgayTiepNhan"].Value.ToString());
             Text_email.Text = dtGV_danhsachTN.Rows[RowIndex].Cells["Email"].Value.ToString();
-        }
-
-        private bool checkBienso(string bienso)
-        {
-            DataTable dt2 = new DataTable();
-            dt2 = db.getDS("SELECT * FROM HOSOSUACHUA");
-            foreach (DataRow dr in dt2.Rows)
-            {
-                if (dr["MaHSSC"].ToString() == bienso)
-                {
-                    return false;
-                }
-            }
-            return true;
         }
 
         private void Them_Click(object sender, EventArgs e)
@@ -250,7 +202,6 @@ namespace QuanLiGara
             Date_ngaytiepnhan.Value = DateTime.Now;
 
         }
-
 
 
         private void Huy_Click(object sender, EventArgs e)

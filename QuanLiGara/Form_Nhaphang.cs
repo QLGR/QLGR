@@ -15,7 +15,6 @@ namespace QuanLiGara
     {
         bool isNew;
         dulieu dls = new dulieu();
-        Connection db = new Connection();
         nhaphang nh = new nhaphang();
         nhaphangsql nhsql = new nhaphangsql();
         public Form_Nhaphang()
@@ -28,7 +27,7 @@ namespace QuanLiGara
         public string MaVatTu()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * from VATTU");
+            dt = nhsql.GetAll("VATTU");
             foreach (DataRow dr in dt.Rows)
             {
                 if (cbBox_VatTu.Text == dr["TenVatTu"].ToString())
@@ -40,27 +39,14 @@ namespace QuanLiGara
         }
         public void loadbang()
         {
-            dtGV_danhsachPN.DataSource = db.getDS("Select * from PHIEUNHAPHANG");
+            dtGV_danhsachPN.DataSource = nhsql.GetAll("PHIEUNHAPHANG");
         }
 
-        public DataTable loadbangNH(string maNH)
-        {
-            return db.getDS("select * from HOSONHAPHANG where MaNH = '" + maNH + "'");
-        }
 
-        public String Vattu(string mavattu)
-        {
-            DataTable dt = new DataTable();
-            dt = db.getDS("Select * from VATTU where MaVatTu like N'" + mavattu + "'");
-            if (dt.Rows.Count > 0)
-                return dt.Rows[0]["TenVatTu"].ToString();
-            else
-                return "";
-        }
         public void loadVatTu()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * From VATTU");
+            dt = nhsql.GetAll("VATTU");
             if (dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
@@ -75,7 +61,7 @@ namespace QuanLiGara
         public void loadbang(string mahosonh)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * from PHIEUNHAPHANG where Manh = '" + mahosonh + "'");
+            dt = nhsql.loadbang(mahosonh);
             dtGV_danhsachPN.DataSource = dt;
            
         }
@@ -279,7 +265,7 @@ namespace QuanLiGara
         private void cbBox_VatTu_TextChanged(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * From VATTU where TenVatTu like N'" + cbBox_VatTu.Text + "'");
+            dt = nhsql.getVatTuTen(cbBox_VatTu.Text);
             if (dt.Rows.Count > 0)
             {
                 txt_Dongia.Text = dt.Rows[0]["DonGia"].ToString();
@@ -330,7 +316,7 @@ namespace QuanLiGara
         private void dtNhapHangRowEnter(object sender, DataGridViewCellEventArgs e)
         {
             int RowIndex = e.RowIndex;
-            cbBox_VatTu.Text = Vattu(dtGV_danhsachPN.Rows[RowIndex].Cells["MaVatTu"].Value.ToString());
+            cbBox_VatTu.Text = nhsql.Vattu(dtGV_danhsachPN.Rows[RowIndex].Cells["MaVatTu"].Value.ToString());
             text_phieunhap.Text = dtGV_danhsachPN.Rows[RowIndex].Cells["MaPhieuNhap"].Value.ToString();
             txt_Soluong.Text = dtGV_danhsachPN.Rows[RowIndex].Cells["SoLuong"].Value.ToString();
             maNH.Text = dtGV_danhsachPN.Rows[RowIndex].Cells["MaNH"].Value.ToString();
@@ -339,11 +325,11 @@ namespace QuanLiGara
 
             if (!btn_ThanhToan.Enabled)
             {
-                Text_NCC.Text = loadbangNH(maNH.Text).Rows[0]["TenNCC"].ToString();
-                Text_dienthoai.Text = loadbangNH(maNH.Text).Rows[0]["DienThoai"].ToString();
-                Text_diachi.Text = loadbangNH(maNH.Text).Rows[0]["DiaChi"].ToString();
-                Text_email.Text = loadbangNH(maNH.Text).Rows[0]["Email"].ToString();
-                Date_ngaytiepnhan.Text = loadbangNH(maNH.Text).Rows[0]["NgayNhapHang"].ToString();
+                Text_NCC.Text = nhsql.loadbangNH(maNH.Text).Rows[0]["TenNCC"].ToString();
+                Text_dienthoai.Text = nhsql.loadbangNH(maNH.Text).Rows[0]["DienThoai"].ToString();
+                Text_diachi.Text = nhsql.loadbangNH(maNH.Text).Rows[0]["DiaChi"].ToString();
+                Text_email.Text = nhsql.loadbangNH(maNH.Text).Rows[0]["Email"].ToString();
+                Date_ngaytiepnhan.Text = nhsql.loadbangNH(maNH.Text).Rows[0]["NgayNhapHang"].ToString();
             }
 
            
@@ -366,7 +352,7 @@ namespace QuanLiGara
             foreach (DataRow dr in dt.Rows)
             {
 
-                dt1 = db.getDS("Select * from VATTU where MaVatTu = '" + dr["MaVatTu"].ToString() + "'");
+                dt1 = nhsql.getVatTuMa(dr["MaVatTu"].ToString());
                 int soluong1 = int.Parse(dt1.Rows[0]["SoLuong"].ToString());
                 soluong1 += int.Parse(dr["SoLuong"].ToString());
                 dls.SuaVT(dr["MaVatTu"].ToString(), soluong1.ToString());

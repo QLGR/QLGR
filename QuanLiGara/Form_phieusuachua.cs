@@ -16,8 +16,7 @@ namespace QuanLiGara
 {
     public partial class Form_PhieuSuaChua : Office2007Form
     {
-        
-        Connection db = new Connection();
+
         PhieuSuaChuasql pscsql = new PhieuSuaChuasql();
         phieusuachua PSC = new phieusuachua();
         dulieu dl = new dulieu();
@@ -32,36 +31,23 @@ namespace QuanLiGara
             btnLuu.Enabled = false;
             btnHuy.Enabled = false;
         }
-
-        public int ChenhLech()
-        {
-            DataTable dt = db.getDS("SELECT * FROM THAMSO");
-            return Int32.Parse(dt.Rows[0]["ChenhLech"].ToString());
-        }
         public void loadbang()
         {
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong");
-
-            dtGV_danhsachSuaChua.DataSource = dt;
-
-
+            dtGV_danhsachSuaChua.DataSource = PSC.loadbang();
         }
         public void loadbienso()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM HOSOSUACHUA");
+            dt = PSC.GetAll("HOSOSUACHUA");
             foreach (DataRow dr in dt.Rows)
             {
                 cbBox_bienso.Items.Add(dr["BienSo"].ToString());
             }
-
-
         }
         public void loadvattu()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * from VATTU");
+            dt = PSC.GetAll("VATTU");
             foreach (DataRow dr in dt.Rows)
             {
                 cbBoc_vattu.Items.Add(dr["TenVatTu"].ToString());
@@ -72,7 +58,7 @@ namespace QuanLiGara
         {
 
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * from TIENCONG");
+            dt = PSC.GetAll("TIENCONG");
             foreach (DataRow dr in dt.Rows)
             {
                 cbBox_tiencong.Items.Add(dr["TenCongViec"].ToString());
@@ -89,7 +75,7 @@ namespace QuanLiGara
         public string mahssc(String bienso)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("select * from HOSOSUACHUA");
+            dt = PSC.GetAll("HOSOSUACHUA");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["BienSo"].ToString() == cbBox_bienso.Text)
@@ -104,7 +90,7 @@ namespace QuanLiGara
         public string bienso(String MaHSSC)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("select * from HOSOSUACHUA");
+            dt = PSC.GetAll("HOSOSUACHUA");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["MaHSSC"].ToString() == MaHSSC)
@@ -114,19 +100,11 @@ namespace QuanLiGara
 
             return "";
         }
-        public string mavt(String ten)
-        {
-            DataTable dt = new DataTable();
-            dt = db.getDS("Select * from VATTU where TenVatTu like N'"+ten+"'");
-            if (dt.Rows.Count > 0)
-                return dt.Rows[0]["MaVatTu"].ToString();
-            else
-                return "";
-        }
+
         public string matc(String ten)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * from TIENCONG");
+            dt = PSC.GetAll("TIENCONG");
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -141,7 +119,7 @@ namespace QuanLiGara
         public double tienno(string mahssc)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * from DANHSACHXE");
+            dt = PSC.GetAll("DANHSACHXE");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["MaHSSC"].ToString() == mahssc)
@@ -154,7 +132,7 @@ namespace QuanLiGara
         public string loadngaytiepnhan(string xe)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * from HOSOSUACHUA");
+            dt = PSC.GetAll("HOSOSUACHUA");
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -172,7 +150,7 @@ namespace QuanLiGara
             PhieuSuaChuasql sql1 = new PhieuSuaChuasql();
             sql1.MaPSC = tbxMaPhieu.Text;
             sql1.NoiDung = Text_noidung.Text;
-            sql1.MaVatTu = mavt(cbBoc_vattu.Text);
+            sql1.MaVatTu = PSC.mavt(cbBoc_vattu.Text);
             sql1.SoLuong = Text_soluong.Text;
             sql1.MaTienCong = matc(cbBox_tiencong.Text);
             sql1.ThanhTien = Text_thanhtien.Text;
@@ -203,12 +181,12 @@ namespace QuanLiGara
                 if (PSC.Sua(GetData()))
                 {
                     MessageBox.Show("Cập Nhật phiếu sửa chữa thành công!");
-                    db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                    PSC.setTongCong(PSC.Sum(mahssc(cbBox_bienso.Text)), cbBox_bienso.Text);
                 }
                 else
                     if (PSC.Them(GetData()))
                     {
-                        db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(mahssc(cbBox_bienso.Text)) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                        PSC.setTongCong(PSC.Sum(mahssc(cbBox_bienso.Text)), cbBox_bienso.Text);
                         MessageBox.Show("Lập phiếu sửa chữa thành công!");
                     }
                 UpdateSoLuong(soluong);
@@ -231,10 +209,10 @@ namespace QuanLiGara
                 if (int.TryParse(Text_soluong.Text, out i) && int.Parse(Text_soluong.Text) > -1)
                 {
                     int soluong = int.Parse(Text_soluong.Text) - int.Parse(PSC.SLVatTuPN(tbxMaPhieu.Text));
-                    if (soluong > int.Parse(PSC.SLVatTu(mavt(cbBoc_vattu.Text))))
+                    if (soluong > int.Parse(PSC.SLVatTu(PSC.mavt(cbBoc_vattu.Text))))
                     {
                         MessageBox.Show("Sồ lượng phụ tùng không được vượt quá số lượng vật tư còn trong kho.");
-                        Text_soluong.Text = int.Parse(PSC.SLVatTu(mavt(cbBoc_vattu.Text))) + int.Parse(PSC.SLVatTuPN(tbxMaPhieu.Text)) + "";
+                        Text_soluong.Text = int.Parse(PSC.SLVatTu(PSC.mavt(cbBoc_vattu.Text))) + int.Parse(PSC.SLVatTuPN(tbxMaPhieu.Text)) + "";
                     }
 
                     double sum = (double.Parse(Text_dongia.Text) * double.Parse(Text_soluong.Text) + double.Parse(Text_tiencong.Text));
@@ -267,7 +245,7 @@ namespace QuanLiGara
                         MessageBox.Show("Đã xóa thành công");
 
                         no = (tienno(cbBox_bienso.Text) - double.Parse(no)).ToString();
-                        db.getDS("update HOSOSUACHUA set TongCong = '" + PSC.Sum(cbBox_bienso.Text) + "' where BienSo = '" + cbBox_bienso.Text + "'");
+                        PSC.setTongCong(PSC.Sum(cbBox_bienso.Text), cbBox_bienso.Text);
                         UpdateSoLuong(soluong);
                     }
                     else
@@ -309,13 +287,13 @@ namespace QuanLiGara
         private void vattu_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * from VATTU");
+            dt = PSC.GetAll("VATTU");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenVatTu"].ToString() == cbBoc_vattu.SelectedItem.ToString())
                 {
-                    int a = ChenhLech();
-                    double don = double.Parse(dr["DonGia"].ToString()) * (1.0 + ChenhLech()/100.0);
+                    int a = PSC.ChenhLech();
+                    double don = double.Parse(dr["DonGia"].ToString()) * (1.0 + PSC.ChenhLech()/100.0);
                     if (don != 0)
                     {
 
@@ -351,7 +329,7 @@ namespace QuanLiGara
         {
 
             DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM TIENCONG");
+            dt = PSC.GetAll("TIENCONG");
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr["TenCongViec"].ToString() == cbBox_tiencong.SelectedItem.ToString())

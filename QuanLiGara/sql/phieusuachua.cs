@@ -17,6 +17,38 @@ namespace QuanLiGara.sql
     public class phieusuachua
     {
         Connection db = new Connection();
+
+        public int ChenhLech()
+        {
+            DataTable dt = db.getDS("SELECT * FROM THAMSO");
+            return Int32.Parse(dt.Rows[0]["ChenhLech"].ToString());
+        }
+
+        public DataTable loadbang()
+        {
+            return db.getDS("SELECT PHIEUSUACHUA.*,VATTU.TenVatTu,TIENCONG.TenCongViec,TIENCONG.TienCong FROM PHIEUSUACHUA INNER JOIN VATTU ON PHIEUSUACHUA.MaVatTu=VATTU.MaVatTu INNER JOIN TIENCONG ON PHIEUSUACHUA.MaTienCong=TIENCONG.MaTienCong");
+        }
+
+        public DataTable GetAll(string table)
+        {
+            return db.getDS("SELECT * FROM " + table);
+        }
+
+        public void setTongCong(string sum, string bienso)
+        {
+            db.getDS("update HOSOSUACHUA set TongCong = '" + sum + "' where BienSo = '" + bienso + "'");
+        }
+
+        public string mavt(String ten)
+        {
+            DataTable dt = new DataTable();
+            dt = db.getDS("Select * from VATTU where TenVatTu like N'" + ten + "'");
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0]["MaVatTu"].ToString();
+            else
+                return "";
+        }
+
         public bool Them(PhieuSuaChuasql psc)
         {
             

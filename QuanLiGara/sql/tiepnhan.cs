@@ -105,6 +105,29 @@ namespace QuanLiGara.sql
             return MaTN;
         }
 
+        public int GetSuaChuaToiDa()
+        {
+            DataTable dt = db.getDS("SELECT * FROM THAMSO");
+            return Int32.Parse(dt.Rows[0]["SuaChuaToiDa"].ToString());
+        }
+
+        public DataTable GetAll(string table)
+        {
+            return db.getDS("SELECT * FROM " + table);
+        }
+
+        public string GetTenHieuXE(string MaHX)
+        {
+            return db.getDS("SELECT TenHieuXe FROM HieuXe where MaHX = '" + MaHX + "'").Rows[0][0].ToString();
+        }
+
+        public bool checkBienso(string bienso)
+        {
+            if (db.getDS("Select * from HOSOSUACHUA where BienSo = '" + bienso + "'").Rows.Count > 0)
+                return true;
+            return false;
+        }
+
         public string SearchDaTaGridMX()
         {
             int Count = 0;

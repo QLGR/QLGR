@@ -20,28 +20,14 @@ namespace QuanLiGara
         {
             InitializeComponent();
         }
-        Connection db = new Connection();
         phieuthusql ptsql = new phieuthusql();
         phieuthu pt = new phieuthu();
         public string hssc;
 
-        public string mahssc(String bienso)
-        {
-            DataTable dt = new DataTable();
-            dt = db.getDS("select * from HOSOSUACHUA");
-            foreach (DataRow dr in dt.Rows)
-            {
-                if (dr["BienSo"].ToString() == cbB_bienso.Text)
-                    return dr["MaHSSC"].ToString();
-
-            }
-            return "";
-        }
-
         public phieuthu getData()
         {
             phieuthu pt = new phieuthu();
-            pt.MaHSSC = mahssc(cbB_bienso.Text);
+            pt.MaHSSC = ptsql.mahssc(cbB_bienso.Text);
             pt.SoTienThu = txt_Tongtien.Text;
             pt.NgayThuTien = DateTime.Parse(Date_ngaythutien.Text);
             pt.MaThuTien = txtMaPT.Text;
@@ -49,8 +35,7 @@ namespace QuanLiGara
         }
         public void loadbienso()
         {
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM HOSOSUACHUA");
+            DataTable dt = ptsql.GetAll("HOSOSUACHUA");
    
             foreach (DataRow dr in dt.Rows)
             {
@@ -67,13 +52,7 @@ namespace QuanLiGara
         
         public void loadbang()
         {
-
-
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT PHIEUTHUTIEN.MaThuTien,HOSOSUACHUA.TenChuXe,HOSOSUACHUA.BienSo,HOSOSUACHUA.DienThoai,PHIEUTHUTIEN.SoTienThu,PHIEUTHUTIEN.NgayThuTien"+
-                            ",HOSOSUACHUA.MaHSSC FROM HOSOSUACHUA JOIN PHIEUTHUTIEN on HOSOSUACHUA.MaHSSC=PHIEUTHUTIEN.MaHSSC");
-            dtGV_phieuthu.DataSource = dt;
-            
+            dtGV_phieuthu.DataSource = ptsql.loadbang();           
         }
 
         private void Luu_Click(object sender, EventArgs e)
@@ -151,10 +130,8 @@ namespace QuanLiGara
         private void bienso_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            DataTable dt,dt1 = new DataTable();
-            dt = db.getDS("SELECT * FROM HOSOSUACHUA");
-          
-            
+            DataTable dt = ptsql.GetAll("HOSOSUACHUA");
+                  
             foreach (DataRow dr in dt.Rows)
             {
                 if (cbB_bienso.Text == dr["BienSo"].ToString())

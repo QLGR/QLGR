@@ -11,23 +11,23 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.sql;
 namespace QuanLiGara
 {
     public partial class Form_DoanhSo : Office2007Form
     {
+        doanhso ds = new doanhso();
         public Form_DoanhSo()
         {
             InitializeComponent();
         }
-
-        Connection db = new Connection();
 
         public void loadthang()
         {
             try
             {
                 double sum = 0;
-                DataTable dt = db.getDS("execute BaoCaoDoanhThu '" + comboBoxEx1.SelectedItem.ToString() + "'");
+                DataTable dt = ds.getDoanhSo(comboBoxEx1.SelectedItem.ToString());
 
                 foreach (DataRow dr in dt.Rows)
                 {

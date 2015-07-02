@@ -24,7 +24,6 @@ namespace QuanLiGara
        
 
         int Choose = 0;
-        Connection db = new Connection();
         DuLieusql dlsql = new DuLieusql();
         dulieu DL = new dulieu();
 
@@ -32,25 +31,25 @@ namespace QuanLiGara
         public void loadvattu()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * From VATTU");
+            dt = DL.GetAll("VATTU");
             dtGV_vattu.DataSource = dt;
         }
         public void loadtiencong()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * From TIENCONG");
+            dt = DL.GetAll("TIENCONG");
             dtGV_tiencong.DataSource = dt;
         }
         public void loadhieuxe()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * From HIEUXE");
+            dt = DL.GetAll("HIEUXE");
             dtGV_hieuxe.DataSource = dt;
         }
         public void loadmaxxe()
         {
             DataTable dt = new DataTable();
-            dt = db.getDS("Select * From THAMSO");
+            dt = DL.GetAll("THAMSO");
             foreach (DataRow dr in dt.Rows)
             {
                 Text_soxemax.Text = dr["SuaChuaToiDa"].ToString();
@@ -288,7 +287,7 @@ namespace QuanLiGara
             {
 
                 DataTable dt = new DataTable();
-                dt = db.getDS("UPDATE THAMSO SET SuaChuaToiDa='" + Text_soxemax.Text + "', ChenhLech='" + Text_Chenhlech.Text + "'");
+                DL.CapNhat(Text_soxemax.Text, Text_Chenhlech.Text);
                 MessageBox.Show("Chỉnh sửa tham số thành công!");
                 loadmaxxe();
             }

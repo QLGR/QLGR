@@ -154,7 +154,6 @@
             this.cbBox_hieuxe.Name = "cbBox_hieuxe";
             this.cbBox_hieuxe.Size = new System.Drawing.Size(131, 21);
             this.cbBox_hieuxe.TabIndex = 5;
-            this.cbBox_hieuxe.SelectedIndexChanged += new System.EventHandler(this.HieuXe_SelectedIndexChanged);
             // 
             // Text_dienthoai
             // 

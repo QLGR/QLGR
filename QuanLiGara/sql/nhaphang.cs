@@ -29,8 +29,41 @@ namespace QuanLiGara.sql
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
+        public DataTable GetAll(string table)
+        {
+            return db.getDS("SELECT * FROM " + table);
+        }
 
+        public String Vattu(string mavattu)
+        {
+            DataTable dt = new DataTable();
+            dt = db.getDS("Select * from VATTU where MaVatTu like N'" + mavattu + "'");
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0]["TenVatTu"].ToString();
+            else
+                return "";
+        }
 
+        public DataTable loadbangNH(string maNH)
+        {
+            return db.getDS("select * from HOSONHAPHANG where MaNH = '" + maNH + "'");
+        }
+
+        public DataTable loadbang(string mahosonh)
+        {
+            return db.getDS("Select * from PHIEUNHAPHANG where Manh = '" + mahosonh + "'");
+        }
+
+        public DataTable getVatTuTen(string tenVT)
+        {
+            return db.getDS("Select * From VATTU where TenVatTu like N'" + tenVT + "'");
+        }
+
+        public DataTable getVatTuMa(string maVT)
+        {
+            return db.getDS("Select * From VATTU where MaVatTu ='" + maVT + "'");
+        }
+        
         public bool SuaNH(nhaphang mtt)
         {
             string[] param = { "@MaNH", "@TenNCC", "@DiaChi", "@DienThoai", "@NgayNhapHang", "@TongCong", "@Email" };
