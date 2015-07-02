@@ -308,9 +308,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\12949220512059867599_574_574.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\labelX3.BackgroundImage.png" />
   </ItemGroup>
   <ItemGroup>
@@ -336,21 +333,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\modern-garage-and-shed.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\modern-garage-and-shed1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1232.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\12321.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\12322.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\12323.jpg" />
