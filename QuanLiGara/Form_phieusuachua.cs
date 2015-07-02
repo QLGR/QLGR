@@ -390,7 +390,7 @@ namespace QuanLiGara
             cbBoc_vattu.SelectedIndex = 3;
             cbBox_tiencong.SelectedIndex = 5;
             tbxMaPhieu.Text = PSC.SearchDaTaGrid();
-
+            Date_ngaysuachua.Value = DateTime.Now;
         }
 
 

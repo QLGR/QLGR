@@ -65,6 +65,7 @@
             this.btnSua_HD = new DevComponents.DotNetBar.ButtonX();
             this.btnXoa_HD = new DevComponents.DotNetBar.ButtonX();
             this.btnLuu_HD = new DevComponents.DotNetBar.ButtonX();
+            this.btnHuyHD = new DevComponents.DotNetBar.ButtonX();
             this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_danhsachPN)).BeginInit();
             this.groupPanel2.SuspendLayout();
@@ -510,7 +511,7 @@
             this.btnSua_HD.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSua_HD.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSua_HD.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSua_HD.Location = new System.Drawing.Point(203, 641);
+            this.btnSua_HD.Location = new System.Drawing.Point(154, 644);
             this.btnSua_HD.Name = "btnSua_HD";
             this.btnSua_HD.Size = new System.Drawing.Size(74, 34);
             this.btnSua_HD.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -523,7 +524,7 @@
             this.btnXoa_HD.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnXoa_HD.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnXoa_HD.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXoa_HD.Location = new System.Drawing.Point(336, 641);
+            this.btnXoa_HD.Location = new System.Drawing.Point(287, 644);
             this.btnXoa_HD.Name = "btnXoa_HD";
             this.btnXoa_HD.Size = new System.Drawing.Size(74, 34);
             this.btnXoa_HD.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -537,13 +538,27 @@
             this.btnLuu_HD.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnLuu_HD.Enabled = false;
             this.btnLuu_HD.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLuu_HD.Location = new System.Drawing.Point(462, 641);
+            this.btnLuu_HD.Location = new System.Drawing.Point(413, 644);
             this.btnLuu_HD.Name = "btnLuu_HD";
             this.btnLuu_HD.Size = new System.Drawing.Size(74, 29);
             this.btnLuu_HD.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnLuu_HD.TabIndex = 54;
             this.btnLuu_HD.Text = "Lưu";
             this.btnLuu_HD.Click += new System.EventHandler(this.LuuHD_Click);
+            // 
+            // btnHuyHD
+            // 
+            this.btnHuyHD.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnHuyHD.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnHuyHD.Enabled = false;
+            this.btnHuyHD.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuyHD.Location = new System.Drawing.Point(519, 644);
+            this.btnHuyHD.Name = "btnHuyHD";
+            this.btnHuyHD.Size = new System.Drawing.Size(74, 34);
+            this.btnHuyHD.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnHuyHD.TabIndex = 55;
+            this.btnHuyHD.Text = "Hủy";
+            this.btnHuyHD.Click += new System.EventHandler(this.btnHuyHD_Click);
             // 
             // Form_Nhaphang
             // 
@@ -558,6 +573,7 @@
             this.Controls.Add(this.btnLuu_HD);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.dtGV_danhsachPN);
+            this.Controls.Add(this.btnHuyHD);
             this.Controls.Add(this.btnSua_HD);
             this.Controls.Add(this.btnXoa_HD);
             this.DoubleBuffered = true;
@@ -618,5 +634,6 @@
         private DevComponents.DotNetBar.ButtonX btnSua_HD;
         private DevComponents.DotNetBar.ButtonX btnXoa_HD;
         private DevComponents.DotNetBar.ButtonX btnLuu_HD;
+        private DevComponents.DotNetBar.ButtonX btnHuyHD;
     }
 }

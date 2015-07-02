@@ -71,6 +71,7 @@ namespace QuanLiGara
             dl.MaVT = Text_maVT.Text;
             dl.TenVT = Text_tenVT.Text;
             dl.DonGia = Text_dongia.Text;
+            dl.Soluong = text_SoLuong.Text;
 
             dl.MaTC = Text_matiencong.Text;
             dl.TenCV = Text_tentiencong.Text;
@@ -89,6 +90,7 @@ namespace QuanLiGara
             Text_maVT.Text = dtGV_vattu.Rows[RowIndex].Cells["MaVatTu"].Value.ToString();
             Text_tenVT.Text = dtGV_vattu.Rows[RowIndex].Cells["TenVatTu"].Value.ToString();
             Text_dongia.Text = dtGV_vattu.Rows[RowIndex].Cells["DonGia"].Value.ToString();
+            text_SoLuong.Text = dtGV_vattu.Rows[RowIndex].Cells["SoLuong"].Value.ToString();
 
         }
 
@@ -115,7 +117,7 @@ namespace QuanLiGara
             {
                 //thêm vật tư vào csdl
                 case 1:
-                    if (Text_maVT.Text == "" || Text_tenVT.Text == "" || Text_dongia.Text == "")
+                    if (Text_maVT.Text == "" || Text_tenVT.Text == "" || Text_dongia.Text == "" || text_SoLuong.Text == "")
                     {
                         MessageBox.Show("Dữ liệu chưa được nhập đầy đủ. Yêu cầu nhập lại.");
                     }
@@ -208,7 +210,7 @@ namespace QuanLiGara
             try
             {
                 if (DL.CheckExistReference(Text_maVT.Text))
-                    MessageBox.Show("Phiếu sửa chữa chưa được thanh toán. Không Thể Xóa " + Text_maVT.Text + " - " + Text_tenVT.Text);
+                    MessageBox.Show("Không thể xóa do vật tư " + Text_tenVT.Text + " do còn liên quan đến phiếu sửa chữa hoặc phiếu nhập hàng", "Không thể xóa");
                 else
                 {
                     if (DL.XoaVT(Text_maVT.Text))
@@ -235,7 +237,7 @@ namespace QuanLiGara
             try
             {
                 if (DL.CheckExistReferenceTC(Text_matiencong.Text))
-                    MessageBox.Show("Phiếu sửa chữa chưa được thanh toán. Không Thể Xóa công việc " + Text_matiencong.Text + " - " + Text_tentiencong.Text);
+                    MessageBox.Show("Không thể xóa công việc " + Text_tentiencong.Text +" do còn liên quan đến phiếu sửa chữa", "Không thể xóa");
                 else
                 {
                     if (DL.XoaTC(Text_matiencong.Text))
@@ -262,18 +264,18 @@ namespace QuanLiGara
             try
             {
                 if (DL.CheckExistReferenceHieuXe(Text_mahieuxe.Text))
-                    MessageBox.Show("Hồ sơ sửa chữa vẫn còn đang được lưu trữ. Không Thể Xóa Xe " + Text_mahieuxe.Text + " - " + Text_tenhieuxe.Text);
+                    MessageBox.Show("Không thể xóa hiệu xe " + Text_tenhieuxe.Text + " do còn liên quan đến hồ sơ sửa chữa", "Không Thể Xóa Xe ");
                 else
                 {
                     if (DL.XoaHX(Text_mahieuxe.Text))
-                        MessageBox.Show("Xóa xe thành công.");
+                        MessageBox.Show("Xóa hiệu xe thành công.");
                 }
 
 
             }
             catch (Exception c)
             {
-                MessageBox.Show("Không thể xóa xe.");
+                MessageBox.Show("Không thể xóa hiệu xe.");
             }
             loadhieuxe();
             dtGV_hieuxe.Update();
@@ -307,6 +309,7 @@ namespace QuanLiGara
                 case 1:
                     Text_tenVT.ReadOnly = a;
                     Text_dongia.ReadOnly = a;
+                    text_SoLuong.ReadOnly = a;
                     break;
                 case 2:
                     Text_tentiencong.ReadOnly = a;
@@ -320,6 +323,7 @@ namespace QuanLiGara
                 default:
                      Text_tenVT.ReadOnly = a;
                     Text_dongia.ReadOnly = a;
+                    text_SoLuong.ReadOnly = a;
                     Text_mahieuxe.ReadOnly = a;
                     Text_tenhieuxe.ReadOnly = a;
                     Text_tentiencong.ReadOnly = a;
@@ -337,6 +341,7 @@ namespace QuanLiGara
             SetEnable(false);
             Text_tenVT.Text = "";
             Text_dongia.Text = "0";
+            text_SoLuong.Text = "0";
         }
         private void btnSuaVT(object sender, EventArgs e)
         {
@@ -400,22 +405,25 @@ namespace QuanLiGara
         private void SoLuong_TextChange(object sender, EventArgs e)
         {
             double i;
-            switch (Choose)
+            if ((!Double.TryParse(Text_dongia.Text, out i) || double.Parse(Text_dongia.Text) < 0) && Text_dongia.Text != "")
             {
-                case 1:
-                    if ((!Double.TryParse(Text_dongia.Text, out i) || double.Parse(Text_dongia.Text) < -1) && Text_dongia.Text != "")
-                    {
-                        MessageBox.Show("đon giá phải là số lớn hơn 0");
-                    }
-                    break;
-                case 2:
-                    if ((!Double.TryParse(Text_tiencong.Text, out i) || double.Parse(Text_tiencong.Text) < -1) && Text_tiencong.Text != "")
-                    {
-                        MessageBox.Show("Tiền công phải là số lớn hơn 0");
-                    }
-                    break;
-                default:
-                    break;
+                MessageBox.Show("đon giá phải là số lớn hơn 0");
+            }
+            if ((!Double.TryParse(Text_tiencong.Text, out i) || double.Parse(Text_tiencong.Text) < 0) && Text_tiencong.Text != "")
+            {
+                MessageBox.Show("Tiền công phải là số lớn hơn 0");
+            }
+            if ((!Double.TryParse(text_SoLuong.Text, out i) || double.Parse(text_SoLuong.Text) < 0) && text_SoLuong.Text != "")
+            {
+                MessageBox.Show("Số lượng phải là số lớn hơn 0");
+            }
+            if ((!Double.TryParse(Text_Chenhlech.Text, out i) || double.Parse(Text_Chenhlech.Text) < 0) && Text_Chenhlech.Text != "")
+            {
+                MessageBox.Show("Chênh lệch phải là số lớn hơn 0");
+            }
+            if ((!Double.TryParse(Text_soxemax.Text, out i) || double.Parse(Text_soxemax.Text) < 0) && Text_soxemax.Text != "")
+            {
+                MessageBox.Show("Số xe sửa chữa tối đa phải là số lớn hơn 0");
             }
         }
     }

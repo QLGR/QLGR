@@ -229,10 +229,6 @@ namespace QuanLiGara
         private void Sua_Click(object sender, EventArgs e)
         {
             setEnable(true);
-            txt_TraLai.Text = "0";
-            Text_sotienthu.Text = "0";
-
-
         }
 
         private void Huy_Click(object sender, EventArgs e)

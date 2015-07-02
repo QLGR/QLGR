@@ -30,9 +30,9 @@ namespace QuanLiGara.sql
 
         public bool SuaVT(DuLieusql dl)
         {
-            string[] param = { "@MaVatTu", "@TenVatTu", "@DonGia"};
-            object[] value = { dl.MaVT, dl.TenVT, dl.DonGia};
-            string query = "UPDATE VATTU SET TenVatTu=@TenVatTu,DonGia=@DonGia WHERE MaVatTu=@MaVatTu";
+            string[] param = { "@MaVatTu", "@TenVatTu", "@DonGia", "@SoLuong"};
+            object[] value = { dl.MaVT, dl.TenVT, dl.DonGia, dl.Soluong};
+            string query = "UPDATE VATTU SET TenVatTu=@TenVatTu,DonGia=@DonGia,SoLuong=@SoLuong WHERE MaVatTu=@MaVatTu";
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
@@ -113,15 +113,11 @@ namespace QuanLiGara.sql
         //kiem tra coi phieu sua chua co su dung cong việc này hay không
         public bool CheckExistReference(String MaVT)
         {
-           
-            DataTable dt = new DataTable();
-            dt = db.getDS("SELECT * FROM PHIEUSUACHUA");
-            foreach (DataRow dr in dt.Rows)
-            {
-                if (dr["MaVatTu"].ToString().Equals(MaVT))
-                    return true;
 
-            }
+            if (db.getDS("SELECT * FROM PHIEUSUACHUA where MaVatTu ='" + MaVT + "'").Rows.Count > 0)
+                return true;
+            if (db.getDS("SELECT * FROM PHIEUNHAPHANG where MaVatTu ='" + MaVT + "'").Rows.Count > 0)
+                return true;
             return false;
         }
 
@@ -231,7 +227,7 @@ namespace QuanLiGara.sql
         public string TienCong = "";
         public string MaHX = "";
         public string TenHX = "";
-        public string Soluong = "100";
+        public string Soluong = "";
     }
 
 }

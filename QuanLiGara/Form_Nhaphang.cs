@@ -112,6 +112,7 @@ namespace QuanLiGara
         {
             SetenableNH(true);
             maNH.Text = nhsql.SearchDaTaGridNH();
+            Date_ngaytiepnhan.Value = DateTime.Now;
             txtTongCong.Text = "0";
             loadbang(maNH.Text);
             try
@@ -407,6 +408,7 @@ namespace QuanLiGara
             btnLuu_HD.Enabled = true;
             btnSua_HD.Enabled = false;
             btnXoa_HD.Enabled = false;
+            btnHuyHD.Enabled = true;
             Text_NCC.ReadOnly = false;
             Text_diachi.ReadOnly = false;
             Text_dienthoai.ReadOnly = false;
@@ -476,6 +478,16 @@ namespace QuanLiGara
             loadbang();
             dtGV_danhsachPN.Update();
             dtGV_danhsachPN.Refresh();
+        }
+
+        private void btnHuyHD_Click(object sender, EventArgs e)
+        {
+            btnLuu_HD.Enabled = false;
+            btnHuyHD.Enabled = false;
+            btnSua_HD.Enabled = true;
+            btnXoa_HD.Enabled = true;
+            SetenableNH(false);
+            loadbang();
         }
 
     }

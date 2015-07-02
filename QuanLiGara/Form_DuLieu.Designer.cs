@@ -66,6 +66,8 @@
             this.Button_themvt = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.Text_Chenhlech = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.text_SoLuong = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_vattu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_tiencong)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtGV_hieuxe)).BeginInit();
@@ -448,6 +450,25 @@
             this.Text_Chenhlech.Name = "Text_Chenhlech";
             this.Text_Chenhlech.Size = new System.Drawing.Size(91, 20);
             this.Text_Chenhlech.TabIndex = 37;
+            this.Text_Chenhlech.TextChanged += new System.EventHandler(this.SoLuong_TextChange);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(185, 524);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 13);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "Số lượng";
+            // 
+            // text_SoLuong
+            // 
+            this.text_SoLuong.Location = new System.Drawing.Point(249, 521);
+            this.text_SoLuong.Name = "text_SoLuong";
+            this.text_SoLuong.ReadOnly = true;
+            this.text_SoLuong.Size = new System.Drawing.Size(186, 20);
+            this.text_SoLuong.TabIndex = 13;
+            this.text_SoLuong.TextChanged += new System.EventHandler(this.SoLuong_TextChange);
             // 
             // Form_DuLieu
             // 
@@ -478,8 +499,10 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
+            this.Controls.Add(this.text_SoLuong);
             this.Controls.Add(this.Text_dongia);
             this.Controls.Add(this.Text_tenVT);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.Text_maVT);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -546,5 +569,7 @@
         private DevComponents.DotNetBar.ButtonX btnLuu;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox Text_Chenhlech;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox text_SoLuong;
     }
 }
