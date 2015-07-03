@@ -322,6 +322,8 @@
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.EnableGlass = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_PHIEUTHUTIEN";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lập Phiếu Thu Tiền";

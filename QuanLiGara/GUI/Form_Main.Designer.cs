@@ -685,6 +685,8 @@
             this.Controls.Add(this.ribbonControl1);
             this.EnableGlass = false;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_Main";
             this.Text = "Phần Mềm Quản Lí Gara Ô Tô";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);

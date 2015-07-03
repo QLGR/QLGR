@@ -352,6 +352,8 @@
             this.Controls.Add(this.btnThem);
             this.DoubleBuffered = true;
             this.EnableGlass = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_TiepNhan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tiếp Nhận Xe";

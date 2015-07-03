@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using QuanLiGara.DAL;
 
-namespace QuanLiGara.sql
+namespace QuanLiGara.BLL
 {
 
     public class phieuthusql

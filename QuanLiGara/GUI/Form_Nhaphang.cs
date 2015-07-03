@@ -409,7 +409,7 @@ namespace QuanLiGara
                 {
                     if (nhsql.XoaNH(maNH.Text))
                     {
-                        MessageBox.Show("Hồ sơ nhập hành " + maNH.Text + " thành công.");
+                        MessageBox.Show("Xóa Hồ sơ nhập hàng " + maNH.Text + " thành công.");
                     }
                     else
                         MessageBox.Show("Việc xóa hồ sơ không hoàn thành.");

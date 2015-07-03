@@ -517,6 +517,8 @@
             this.Controls.Add(this.dtGV_vattu);
             this.DoubleBuffered = true;
             this.EnableGlass = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_DuLieu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dữ Liệu";

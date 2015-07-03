@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
-using QuanLiGara.sql;
+using QuanLiGara.BLL;
 namespace QuanLiGara
 {
     public partial class Form_PHIEUTHUTIEN : Office2007Form

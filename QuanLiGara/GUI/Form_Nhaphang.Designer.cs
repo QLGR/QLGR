@@ -540,7 +540,7 @@
             this.btnLuu_HD.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLuu_HD.Location = new System.Drawing.Point(413, 644);
             this.btnLuu_HD.Name = "btnLuu_HD";
-            this.btnLuu_HD.Size = new System.Drawing.Size(74, 29);
+            this.btnLuu_HD.Size = new System.Drawing.Size(74, 34);
             this.btnLuu_HD.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnLuu_HD.TabIndex = 54;
             this.btnLuu_HD.Text = "Lưu";
@@ -577,6 +577,8 @@
             this.Controls.Add(this.btnSua_HD);
             this.Controls.Add(this.btnXoa_HD);
             this.DoubleBuffered = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_Nhaphang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nhập hàng";

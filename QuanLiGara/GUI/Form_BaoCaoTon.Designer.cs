@@ -280,6 +280,8 @@
             this.Controls.Add(this.label2);
             this.DoubleBuffered = true;
             this.EnableGlass = false;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form_BaoCaoTon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Báo Cáo Tồn Kho";
