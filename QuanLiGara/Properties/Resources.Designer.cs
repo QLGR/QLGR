@@ -63,49 +63,9 @@ namespace QuanLiGara.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1232 {
-            get {
-                object obj = ResourceManager.GetObject("_1232", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _12321 {
-            get {
-                object obj = ResourceManager.GetObject("_12321", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _12322 {
-            get {
-                object obj = ResourceManager.GetObject("_12322", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _12323 {
             get {
                 object obj = ResourceManager.GetObject("_12323", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _12949220512059867599_574_574 {
-            get {
-                object obj = ResourceManager.GetObject("_12949220512059867599_574_574", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -293,39 +253,9 @@ namespace QuanLiGara.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap logout {
-            get {
-                object obj = ResourceManager.GetObject("logout", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap logout1 {
             get {
                 object obj = ResourceManager.GetObject("logout1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modern_garage_and_shed {
-            get {
-                object obj = ResourceManager.GetObject("modern_garage_and_shed", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap modern_garage_and_shed1 {
-            get {
-                object obj = ResourceManager.GetObject("modern_garage_and_shed1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

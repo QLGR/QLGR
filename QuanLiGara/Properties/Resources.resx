@@ -160,9 +160,6 @@
   <data name="labelX3_BackgroundImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\labelX3.BackgroundImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="labelX4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\labelX4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="labelX4_BackgroundImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\labelX4.BackgroundImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -172,17 +169,8 @@
   <data name="lap_phieu_thu_tien" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lap phieu thu tien.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logout" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="logout1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logout1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="modern_garage_and_shed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\modern-garage-and-shed.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="modern_garage_and_shed1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\modern-garage-and-shed1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="nhap_lai__2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nhap lai (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,19 +199,10 @@
   <data name="xoa" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\xoa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_1232" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1232.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_12321" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\12321.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_12322" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\12322.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="_12323" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\12323.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_12949220512059867599_574_574" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\12949220512059867599_574_574.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="labelX4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\labelX4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
