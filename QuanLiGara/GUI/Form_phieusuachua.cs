@@ -17,9 +17,8 @@ namespace QuanLiGara
     public partial class Form_PhieuSuaChua : Office2007Form
     {
 
-        PhieuSuaChuasql pscsql = new PhieuSuaChuasql();
-        phieusuachua PSC = new phieusuachua();
-        dulieu dl = new dulieu();
+        phieusuachuasql PSC = new phieusuachuasql();
+        dulieusql dl = new dulieusql();
         int midsoluong;
         string no = "0";
 
@@ -145,9 +144,9 @@ namespace QuanLiGara
         }
 
 
-        public PhieuSuaChuasql GetData()
+        public phieusuachuasql GetData()
         {
-            PhieuSuaChuasql sql1 = new PhieuSuaChuasql();
+            phieusuachuasql sql1 = new phieusuachuasql();
             sql1.MaPSC = tbxMaPhieu.Text;
             sql1.NoiDung = Text_noidung.Text;
             sql1.MaVatTu = PSC.mavt(cbBoc_vattu.Text);
@@ -403,7 +402,7 @@ namespace QuanLiGara
 
         public void UpdateSoLuong(int thaydoi)
         {
-            string mavattu = PSC.MaVatTu(cbBoc_vattu.Text);
+            string mavattu = PSC.GetMaVatTu(cbBoc_vattu.Text);
             int soluong;
             soluong = int.Parse(PSC.SLVatTu(mavattu)) + thaydoi;
             dl.SuaVT(mavattu, soluong.ToString());

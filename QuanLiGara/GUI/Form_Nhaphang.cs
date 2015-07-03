@@ -14,8 +14,7 @@ namespace QuanLiGara
     public partial class Form_Nhaphang : DevComponents.DotNetBar.Office2007Form
     {
         bool isNew;
-        dulieu dls = new dulieu();
-        nhaphang nh = new nhaphang();
+        dulieusql dls = new dulieusql();
         nhaphangsql nhsql = new nhaphangsql();
         public Form_Nhaphang()
         {
@@ -66,9 +65,9 @@ namespace QuanLiGara
            
         }
 
-        private nhaphang getData()
+        private nhaphangsql getData()
         {
-            nhaphang nht = new nhaphang();
+            nhaphangsql nht = new nhaphangsql();
             nht.MaNH = maNH.Text;
             nht.MaPN = text_phieunhap.Text;
             nht.NhaCC = Text_NCC.Text;
@@ -83,11 +82,10 @@ namespace QuanLiGara
             return nht;
         }
 
-        public DuLieusql getDataVatTu()
+        public dulieusql getDataVatTu()
         {
-            dulieu dl = new dulieu();
-            DuLieusql dlsql = new DuLieusql();
-            dlsql.MaVT = dl.SearchDaTaGrid();
+            dulieusql dlsql = new dulieusql();
+            dlsql.MaVT = dlsql.SearchDaTaGrid();
             dlsql.TenVT = cbBox_VatTu.Text;
             dlsql.DonGia = txt_Dongia.Text;
             dlsql.Soluong = txt_Soluong.Text;

@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using QuanLiGara.BLL;
 
 namespace QuanLiGara
 {
     public partial class Form_Login : Office2007Form
     {
-        Connection db = new Connection();
+        login l = new login();
         public Form_Login()
         {
             InitializeComponent();
@@ -21,7 +22,7 @@ namespace QuanLiGara
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DataTable a = db.getDS("Select * from Account where UserName = '" + txtUser.Text + "'" + " and PassWord = '" + txtPass.Text + "'");
+            DataTable a = l.getInfo(txtUser.Text, txtPass.Text);
             if (a.Rows.Count == 1)
             {
                 Form_Main.username = a.Rows[0]["Username"].ToString();

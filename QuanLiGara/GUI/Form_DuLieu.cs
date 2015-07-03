@@ -24,8 +24,7 @@ namespace QuanLiGara
        
 
         int Choose = 0;
-        DuLieusql dlsql = new DuLieusql();
-        dulieu DL = new dulieu();
+        dulieusql DL = new dulieusql();
 
 
         public void loadvattu()
@@ -64,9 +63,9 @@ namespace QuanLiGara
             loadmaxxe();
         }
 
-        public DuLieusql Getdata()
+        public dulieusql Getdata()
         {
-            DuLieusql dl = new DuLieusql();
+            dulieusql dl = new dulieusql();
             dl.MaVT = Text_maVT.Text;
             dl.TenVT = Text_tenVT.Text;
             dl.DonGia = Text_dongia.Text;

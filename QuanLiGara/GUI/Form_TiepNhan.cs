@@ -23,9 +23,9 @@ namespace QuanLiGara
         {
             InitializeComponent();
         }
-        public tiepnhan getData()
+        public tiepnhansql getData()
         {
-            tiepnhan tn = new tiepnhan();
+            tiepnhansql tn = new tiepnhansql();
             tn.Email = Text_email.Text;
             tn.MaHSSC = maHSSC.Text;
             tn.TenChuXe = Text_chuxe.Text;

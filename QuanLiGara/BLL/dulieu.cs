@@ -11,13 +11,24 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.DAL;
+
 namespace QuanLiGara.sql
 {
 
-    public class dulieu
+    public class dulieusql
     {
+        public string MaVT = "";
+        public string TenVT = "";
+        public string DonGia = "";
+        public string MaTC = "";
+        public string TenCV = "";
+        public string TienCong = "";
+        public string MaHX = "";
+        public string TenHX = "";
+        public string Soluong = "";
         Connection db = new Connection();
-        public bool ThemVT(DuLieusql dl)
+        public bool ThemVT(dulieusql dl)
         {
 
             string[] param = { "@MaVatTu", "@TenVatTu", "@DonGia", "@SoLuong"};
@@ -36,7 +47,7 @@ namespace QuanLiGara.sql
             db.getDS("UPDATE THAMSO SET SuaChuaToiDa='" + max + "', ChenhLech='" + chenhlech + "'");
         }
 
-        public bool SuaVT(DuLieusql dl)
+        public bool SuaVT(dulieusql dl)
         {
             string[] param = { "@MaVatTu", "@TenVatTu", "@DonGia", "@SoLuong"};
             object[] value = { dl.MaVT, dl.TenVT, dl.DonGia, dl.Soluong};
@@ -63,7 +74,7 @@ namespace QuanLiGara.sql
 
         /// <summary>
         /// /Tiền Công
-        public bool ThemTC(DuLieusql dl)
+        public bool ThemTC(dulieusql dl)
         {
 
             string[] param = { "@MaTienCong", "@TenCongViec", "@TienCong"};
@@ -72,7 +83,7 @@ namespace QuanLiGara.sql
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
-        public bool SuaTC(DuLieusql dl)
+        public bool SuaTC(dulieusql dl)
         {
             string[] param = { "@MaTienCong", "@TenCongViec", "@TienCong" };
             object[] value = { dl.MaTC, dl.TenCV, dl.TienCong };
@@ -91,7 +102,7 @@ namespace QuanLiGara.sql
         /* phần xử lý thêm xóa sửa cho hiệu xe 
          *
          * */
-        public bool ThemHX(DuLieusql dl)
+        public bool ThemHX(dulieusql dl)
         {
 
             string[] param = { "@MaHX","@TenHieuXe"};
@@ -101,7 +112,7 @@ namespace QuanLiGara.sql
         }
 
 
-        public bool SuaHX(DuLieusql dl)
+        public bool SuaHX(dulieusql dl)
         {
             string[] param = { "@MaHX", "@TenHieuXe" };
             object[] value = { dl.MaHX, dl.TenHX };
@@ -223,19 +234,6 @@ namespace QuanLiGara.sql
             }
             return MaTC;
         }
-    }
-
-    public class DuLieusql
-    {
-        public string MaVT = "";
-        public string TenVT = "";
-        public string DonGia = "";
-        public string MaTC = "";
-        public string TenCV = "";
-        public string TienCong = "";
-        public string MaHX = "";
-        public string TenHX = "";
-        public string Soluong = "";
     }
 
 }

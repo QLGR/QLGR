@@ -11,13 +11,22 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.DAL;
 namespace QuanLiGara.sql
 {
 
     public class tiepnhansql
     {
+        public string MaHSSC = "";
+        public string TenChuXe = "";
+        public string Email = "";
+        public string BienSo = "";
+        public string MaHieuXe = "";
+        public string DiaChi = "";
+        public string DienThoai = "";
+        public DateTime NgayTiepNhan = new DateTime(2015, 6, 6);
         Connection db = new Connection();
-        public bool ThemTN(tiepnhan mtt)
+        public bool ThemTN(tiepnhansql mtt)
         {
 
             string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan","@TongCong","@Email" };
@@ -39,7 +48,7 @@ namespace QuanLiGara.sql
             return "0";
         }
 
-        public bool SuaTN(tiepnhan mtt)
+        public bool SuaTN(tiepnhansql mtt)
         {
             string[] param = { "@MaHSSC", "@TenChuXe", "@BienSo", "@MaHX", "@DiaChi", "@DienThoai", "@NgayTiepNhan","@Email" };
             object[] value = { mtt.MaHSSC, mtt.TenChuXe, mtt.BienSo, mtt.MaHieuXe, mtt.DiaChi, mtt.DienThoai, mtt.NgayTiepNhan,mtt.Email };
@@ -56,7 +65,7 @@ namespace QuanLiGara.sql
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
-        public bool ThemDSX(tiepnhan mtt)
+        public bool ThemDSX(tiepnhansql mtt)
         {
 
             string[] param = { "@MaXe", "@MaHSSC", "@TienNo" };
@@ -159,16 +168,4 @@ namespace QuanLiGara.sql
             return MaTN;
         }
     }
-}
-
-public class tiepnhan
-{
-    public string MaHSSC = "";
-    public string TenChuXe = "";
-    public string Email = "";
-    public string BienSo = "";
-    public string MaHieuXe = "";
-    public string DiaChi = "";
-    public string DienThoai = "";
-    public DateTime NgayTiepNhan = new DateTime(2015, 6, 6);
 }

@@ -11,12 +11,18 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.DAL;
+
 namespace QuanLiGara.sql
 {
 
     public class phieuthusql
     {
         Connection db = new Connection();
+        public string MaThuTien = "";
+        public string SoTienThu = "";
+        public string MaHSSC = "";
+        public DateTime NgayThuTien;
 
         public DataTable GetAll(string table)
         {
@@ -34,7 +40,7 @@ namespace QuanLiGara.sql
                             ",HOSOSUACHUA.MaHSSC FROM HOSOSUACHUA JOIN PHIEUTHUTIEN on HOSOSUACHUA.MaHSSC=PHIEUTHUTIEN.MaHSSC");
         }
 
-        public bool ThemMaTT(phieuthu mtt)
+        public bool ThemMaTT(phieuthusql mtt)
         {
 
             string[] param = { "@MaThuTien", "@SoTienThu", "@MaHSSC","@NgayThuTien" };
@@ -55,7 +61,7 @@ namespace QuanLiGara.sql
             return "0";
         }
 
-        public bool SuaMaTT(phieuthu mtt)
+        public bool SuaMaTT(phieuthusql mtt)
         {
             string[] param = { "@MaThuTien", "@SoTienThu", "@MaHSSC", "@NgayThuTien" };
             object[] value = { mtt.MaThuTien, mtt.SoTienThu,mtt.MaHSSC, mtt.NgayThuTien };
@@ -115,11 +121,4 @@ namespace QuanLiGara.sql
         }
     }
 
-}
-public class phieuthu
-{
-    public string MaThuTien = "";
-    public string SoTienThu = "";
-    public string MaHSSC = "";
-    public DateTime NgayThuTien = new DateTime(2015, 6, 6);
 }

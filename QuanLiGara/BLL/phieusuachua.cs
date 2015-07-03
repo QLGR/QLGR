@@ -11,11 +11,21 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.DAL;
+
 namespace QuanLiGara.sql
 {
 
-    public class phieusuachua
+    public class phieusuachuasql
     {
+        public string MaPSC = "";
+        public string NoiDung = "";
+        public string MaVatTu = "";
+        public string SoLuong = "";
+        public string MaTienCong = "";
+        public string ThanhTien = "";
+        public string MaHSSC = "";
+        public DateTime NgaySuaChua = new DateTime(2015, 6, 6);
         Connection db = new Connection();
 
         public int ChenhLech()
@@ -49,7 +59,7 @@ namespace QuanLiGara.sql
                 return "";
         }
 
-        public bool Them(PhieuSuaChuasql psc)
+        public bool Them(phieusuachuasql psc)
         {
             
             string[] param = {"@MaPhieuSC", "@NoiDung", "@MaVatTu", "@SoLuong", "@MaTienCong", "@ThanhTien", "@MaHSSC", "@NgaySuaChua"};
@@ -71,7 +81,7 @@ namespace QuanLiGara.sql
             return "0";
         }
 
-        public bool Sua(PhieuSuaChuasql psc)
+        public bool Sua(phieusuachuasql psc)
         {
             string[] param = { "@MaPhieuSC", "@NoiDung", "@MaVatTu", "@SoLuong", "@MaTienCong", "@ThanhTien", "@MaHSSC", "@NgaySuaChua" };
             object[] value = { psc.MaPSC, psc.NoiDung, psc.MaVatTu, psc.SoLuong, psc.MaTienCong, psc.ThanhTien, psc.MaHSSC, psc.NgaySuaChua };
@@ -88,7 +98,7 @@ namespace QuanLiGara.sql
             string query = "Delete from PHIEUSUACHUA where MaPhieuSC=@MaPhieuSC";
             return db.ExecuteNonQueryPara(query, param, value);
         }
-        public string MaVatTu(string tenvattu)
+        public string GetMaVatTu(string tenvattu)
         {
             DataTable dt = new DataTable();
             dt = db.getDS("Select * from VATTU");
@@ -152,15 +162,4 @@ namespace QuanLiGara.sql
         }
     }
 
-}
-public class PhieuSuaChuasql
-{
-    public string MaPSC = "";
-    public string NoiDung = "";
-    public string MaVatTu = "";
-    public string SoLuong = "";
-    public string MaTienCong = "";
-    public string ThanhTien = "";
-    public string MaHSSC = "";
-    public DateTime NgaySuaChua = new DateTime(2015,6,6);
 }

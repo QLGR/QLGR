@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuanLiGara.DAL;
+using QuanLiGara.BLL;
 
 namespace QuanLiGara
 {
     public partial class Form_Account : DevComponents.DotNetBar.Office2007Form
     {
-        Connection db = new Connection();
+        account a = new account();
         string use;
         public Form_Account()
         {
@@ -21,7 +23,7 @@ namespace QuanLiGara
 
         private void frmAccount_Load(object sender, EventArgs e)
         {
-            grdt.DataSource = db.getDS("select UserName, Loai from Account");
+            grdt.DataSource = a.getInfo();
         }
 
         private void grdt_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -87,12 +89,12 @@ namespace QuanLiGara
                     try
                     {
                         for (int i = 0; i < grdt.SelectedRows.Count; i++)
-                            db.getDS("delete Account where Username ='" + grdt.SelectedRows[i].Cells[0].Value.ToString() + "'");
+                            a.deleteAcount(grdt.SelectedRows[i].Cells[0].Value.ToString());
                         MessageBox.Show("Xóa Thành Công!");
                     }
-                    catch (Exception a)
+                    catch (Exception b)
                     {
-                        MessageBox.Show(a.Message, "Không xóa được!");
+                        MessageBox.Show(b.Message, "Không xóa được!");
                     }
                 }
             }
@@ -101,15 +103,15 @@ namespace QuanLiGara
                 {
                     try
                     {
-                        db.getDS("delete Account where Username ='" + txtUser.Text + "'");
+                        a.deleteAcount(txtUser.Text);
                         MessageBox.Show("Xóa Thành Công!");
                     }
-                    catch (Exception a)
+                    catch (Exception b)
                     {
-                        MessageBox.Show(a.Message, "Không xóa được!");
+                        MessageBox.Show(b.Message, "Không xóa được!");
                     }
                 }
-            grdt.DataSource = db.getDS("select Username, Loai from Account");
+            grdt.DataSource = a.getInfo();
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
@@ -119,14 +121,14 @@ namespace QuanLiGara
                 if (use != null)
                 {
                     if ( txtPass.Text == "")
-                        db.getDS("Update Account set Username='" + txtUser.Text + "', Loai = '" + cboQuyen.SelectedItem.ToString() + "' where Username='" + use + "'");
+                        a.setLoai(txtUser.Text, cboQuyen.SelectedItem.ToString(), use);
                     else
-                        db.getDS("Update Account set Username='" + txtUser.Text + "', Password ='" + txtPass.Text + "', Loai = '" + cboQuyen.SelectedItem.ToString() + "' where Username='" + use + "'");
+                        a.setAll(txtUser.Text, txtPass.Text, cboQuyen.SelectedItem.ToString(), use);
                     MessageBox.Show("Cập nhật thành công");
                 }
                 else
                 {
-                    db.getDS("Insert Account values ('" + txtUser.Text + "','" + txtPass.Text + "','" + cboQuyen.SelectedItem.ToString() + "')");
+                    a.Insert(txtUser.Text, txtPass.Text, cboQuyen.SelectedItem.ToString());
                     MessageBox.Show("Thêm thành công !");
                 }
             }
@@ -134,7 +136,7 @@ namespace QuanLiGara
             {
                 MessageBox.Show("Xem Lai Du Lieu Da Nhap");
             }
-            grdt.DataSource = db.getDS("select Username, Loai from Account");
+            grdt.DataSource = a.getInfo();
             enable(false);
         }
 

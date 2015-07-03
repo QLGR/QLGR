@@ -14,13 +14,25 @@ using System.Data.SqlClient;
 using DevComponents.DotNetBar;
 using System.Runtime.InteropServices;
 using System.IO;
+using QuanLiGara.DAL;
+
 namespace QuanLiGara.sql
 {
     class nhaphangsql
     {
-
+        public string MaNH = "";
+        public string NhaCC = "";
+        public string DiaChi = "";
+        public string DienThoai = "";
+        public string Email = "";
+        public string TongTien = "";
+        public DateTime NgayThuTien = new DateTime(2015, 6, 6);
+        public string MaPN = "";
+        public string MaVT = "";
+        public string SoLuong = "";
+        public string ThanhTien = "";
         Connection db = new Connection();
-        public bool ThemMaTT(nhaphang mtt)
+        public bool ThemMaTT(nhaphangsql mtt)
         {
 
             string[] param = { "@MaNH", "@TenNCC", "@DiaChi", "@DienThoai", "@NgayNhapHang", "@TongCong", "@Email" };
@@ -64,7 +76,7 @@ namespace QuanLiGara.sql
             return db.getDS("Select * From VATTU where MaVatTu ='" + maVT + "'");
         }
         
-        public bool SuaNH(nhaphang mtt)
+        public bool SuaNH(nhaphangsql mtt)
         {
             string[] param = { "@MaNH", "@TenNCC", "@DiaChi", "@DienThoai", "@NgayNhapHang", "@TongCong", "@Email" };
             object[] value = { mtt.MaNH, mtt.NhaCC, mtt.DiaChi, mtt.DienThoai, mtt.NgayThuTien, mtt.TongTien, mtt.Email };
@@ -82,7 +94,7 @@ namespace QuanLiGara.sql
             return db.ExecuteNonQueryPara(query, param, value);
         }
 
-        public bool ThemPhieuNH(nhaphang mtt)
+        public bool ThemPhieuNH(nhaphangsql mtt)
         {
 
             string[] param = { "@MaPhieuNhap", "@MaVatTu", "@SoLuong", "@ThanhTien", "@MaNH" };
@@ -115,7 +127,7 @@ namespace QuanLiGara.sql
             return null;
         }
 
-        public bool SuaPN(nhaphang mtt)
+        public bool SuaPN(nhaphangsql mtt)
         {
             string[] param = { "@MaPhieuNhap", "@MaVatTu", "@SoLuong", "@ThanhTien", "@MaNH" };
             object[] value = { mtt.MaPN, mtt.MaVT, mtt.SoLuong, mtt.ThanhTien, mtt.MaNH };
@@ -195,28 +207,6 @@ namespace QuanLiGara.sql
         }
 
     }
-
-
-}
-
-class nhaphang
-{
-    public string MaNH = "";
-    public string NhaCC = "";
-    public string DiaChi = "";
-    public string DienThoai = "";
-    public string Email = "";
-    public string TongTien = "";
-    public DateTime NgayThuTien = new DateTime(2015, 6, 6);
-
-
-    public string MaPN = "";
-    public string MaVT = "";
-    public string SoLuong = "";
-    public string ThanhTien = "";
-
-
-
 
 
 }

@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.IO;
 
-namespace QuanLiGara
+namespace QuanLiGara.DAL
 {
     class Connection
     {

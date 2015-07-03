@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.BaoCaoDoanhThuBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.DataSet1 = new QuanLiGara.DataSet1();
+            this.DataSet1 = new QuanLiGara.Report.DataSet1();
             this.label1 = new System.Windows.Forms.Label();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.comboBoxEx1 = new DevComponents.DotNetBar.Controls.ComboBoxEx();
@@ -226,7 +226,7 @@
             reportDataSource1.Name = "DataSet1";
             reportDataSource1.Value = this.BaoCaoDoanhThuBindingSource;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "QuanLiGara.Report1.rdlc";
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "QuanLiGara.Report.DoanhThuReport.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(32, 151);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.Size = new System.Drawing.Size(743, 386);
@@ -264,7 +264,7 @@
         private System.Windows.Forms.Label label2;
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
         private System.Windows.Forms.BindingSource BaoCaoDoanhThuBindingSource;
-        private DataSet1 DataSet1;
+        private Report.DataSet1 DataSet1;
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxEx1;
         private DevComponents.Editors.ComboItem comboItem13;
         private DevComponents.Editors.ComboItem comboItem14;

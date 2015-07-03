@@ -21,12 +21,11 @@ namespace QuanLiGara
             InitializeComponent();
         }
         phieuthusql ptsql = new phieuthusql();
-        phieuthu pt = new phieuthu();
         public string hssc;
 
-        public phieuthu getData()
+        public phieuthusql getData()
         {
-            phieuthu pt = new phieuthu();
+            phieuthusql pt = new phieuthusql();
             pt.MaHSSC = ptsql.mahssc(cbB_bienso.Text);
             pt.SoTienThu = txt_Tongtien.Text;
             pt.NgayThuTien = DateTime.Parse(Date_ngaythutien.Text);

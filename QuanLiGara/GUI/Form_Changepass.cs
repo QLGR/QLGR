@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuanLiGara.DAL;
+using QuanLiGara.BLL;
 
 namespace QuanLiGara
 {
     public partial class Form_Changepass : DevComponents.DotNetBar.Office2007Form
     {
-        Connection db = new Connection();
+        changepass cp = new changepass();
         public Form_Changepass()
         {
             InitializeComponent();
@@ -21,7 +23,7 @@ namespace QuanLiGara
         private void button1_Click(object sender, EventArgs e)
         {
             DataTable nv = new DataTable();
-            nv = db.getDS("select PassWord from Account where UserName ='" + Form_Main.username + "'");
+            nv = cp.getPass();
             string mk = nv.Rows[0]["PassWord"].ToString();
             string mkc = txtold.Text;
             string mkm = txtnew.Text;
@@ -30,7 +32,7 @@ namespace QuanLiGara
             {
                 if (mkm.Equals(xn))
                 {
-                    db.getDS("update Account set PassWord = '" + mkm + "' where UserName = '" + Form_Main.username + "'");
+                    cp.setPass(mkm);
                     MessageBox.Show("Mật khẩu của bạn đã được thay đổi thành công !");
                     Hide();
                 }
